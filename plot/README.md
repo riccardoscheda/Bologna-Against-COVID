@@ -15,4 +15,4 @@ To view the app directly from a Bokeh server, navigate to the parent directory
 [`plot/`](https://github.com/riccardoscheda/py-utils),
 and execute the command:
 
-    bokeh serve --show covid-plot
+    bokeh serve --show plot
