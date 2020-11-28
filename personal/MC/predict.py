@@ -9,8 +9,8 @@ import pandas as pd
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
-DATA_FILE = os.path.join(ROOT_DIR, 'data', "OxCGRT_latest.csv")
+MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")       # model DATA
+DATA_FILE = os.path.join(ROOT_DIR, 'data', "OxCGRT_latest.csv")  # Training DATA
 ID_COLS = ['CountryName',
            'RegionName',
            'GeoID',
@@ -71,7 +71,7 @@ def predict_df(start_date_str: str, end_date_str: str, path_to_ips_file: str, ve
     end_date = pd.to_datetime(end_date_str, format='%Y-%m-%d')
 
     # Load historical intervention plans, since inception
-    hist_ips_df = pd.read_csv(path_to_ips_file,
+    hist_ips_df = pd.read_csv(path_to_ips_file,  # Qui ci sono SOLO GLI IPS
                               parse_dates=['Date'],
                               encoding="ISO-8859-1",
                               dtype={"RegionName": str},
@@ -79,31 +79,37 @@ def predict_df(start_date_str: str, end_date_str: str, path_to_ips_file: str, ve
 
     # Add GeoID column that combines CountryName and RegionName for easier manipulation of data",
     hist_ips_df['GeoID'] = hist_ips_df['CountryName'] + '__' + hist_ips_df['RegionName'].astype(str)
+
     # Fill any missing NPIs by assuming they are the same as previous day
     for npi_col in NPI_COLS:
         hist_ips_df.update(hist_ips_df.groupby(['CountryName', 'RegionName'])[npi_col].ffill().fillna(0))
 
     # Intervention plans to forecast for: those between start_date and end_date
+    # Seleziona solo i IP tra le date che ha selezionato
     ips_df = hist_ips_df[(hist_ips_df.Date >= start_date) & (hist_ips_df.Date <= end_date)]
 
     # Load historical data to use in making predictions in the same way
     # This is the data we trained on
     # We stored it locally as for predictions there will be no access to the internet
-    hist_cases_df = pd.read_csv(DATA_FILE,
+    hist_cases_df = pd.read_csv(DATA_FILE,  # QUI CI SONO NPIS E NEW CASES
                                 parse_dates=['Date'],
                                 encoding="ISO-8859-1",
                                 dtype={"RegionName": str,
                                        "RegionCode": str},
                                 error_bad_lines=False)
+
     # Add RegionID column that combines CountryName and RegionName for easier manipulation of data
     hist_cases_df['GeoID'] = hist_cases_df['CountryName'] + '__' + hist_cases_df['RegionName'].astype(str)
+
     # Add new cases column
     hist_cases_df['NewCases'] = hist_cases_df.groupby('GeoID').ConfirmedCases.diff().fillna(0)
+
     # Fill any missing case values by interpolation and setting NaNs to 0
     hist_cases_df.update(hist_cases_df.groupby('GeoID').NewCases.apply(
         lambda group: group.interpolate()).fillna(0))
+
     # Keep only the id and cases columns
-    hist_cases_df = hist_cases_df[ID_COLS + CASES_COL]
+    hist_cases_df = hist_cases_df[ID_COLS + CASES_COL]  # RIMUOVE ANCHE IP?
 
     # Load model
     with open(MODEL_FILE, 'rb') as model_file:
@@ -113,14 +119,16 @@ def predict_df(start_date_str: str, end_date_str: str, path_to_ips_file: str, ve
     geo_pred_dfs = []
     for g in ips_df.GeoID.unique():
         if g not in hist_cases_df.GeoID.unique():
+            print(g, ' is missing')
             continue
         if verbose:
             print('\nPredicting for', g)
 
-        # Pull out all relevant data for country c
-        hist_cases_gdf = hist_cases_df[hist_cases_df.GeoID == g]  # select only cases in g
-        last_known_date = hist_cases_gdf.Date.max()               # select last known date
-        ips_gdf = ips_df[ips_df.GeoID == g]                       # select ip for g
+        # Pull out all relevant data for country g
+        # VOGLIO PREDIRRE DA START A END DATE. In questo caso sono consecutive al 31 luglio.
+        hist_cases_gdf = hist_cases_df[hist_cases_df.GeoID == g]  # select only and IP in g
+        last_known_date = hist_cases_gdf.Date.max()               # select the max Date for g
+        ips_gdf = ips_df[ips_df.GeoID == g]                       # select ips for g
         past_cases = np.array(hist_cases_gdf[CASES_COL])          # select past NewCases col
         past_npis = np.array(hist_ips_df[NPI_COLS])               # select past npis
         future_npis = np.array(ips_gdf[NPI_COLS])                 # select future npis
