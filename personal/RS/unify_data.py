@@ -4,19 +4,33 @@
 import pandas as pd
 import numpy as np
 import os
-#
-# now we want to add Bologna data to the challenge file, so we make a Dataframe equal to the one of the challenge
-def to_final(region, district,total_cases,date):
-	final = pd.DataFrame(columns=challenge_df.columns)
-	final["ConfirmedCases"] = total_cases
-	final["Date"] = date
-	final["CountryName"] ="Italy"
-	final["CountryCode"] = "ITA"
-	final["RegionName"] = region
-	final["DistrictName"] = district
-	return final
 
-# Challenge file
+
+#We want to format italian data to the challenge format, so we make a Dataframe equal to the one of the challenge.
+
+
+def to_final(challenge_df,region, district,total_cases,date):
+	 """
+	 Returns a dataframe in the format of challenge data, including interventions
+	 --------------------------------------------
+	 Parameters:
+	 
+	 challenge_df: pandas dataframe from which we copy column names
+	 region: string or list of strings of regions
+	 district: string or list of strings of districts,
+	 total cases: list of daily total cases
+	 date: list of dates
+	 """
+	 final = pd.DataFrame(columns=challenge_df.columns)
+	 final["ConfirmedCases"] = total_cases
+	 final["Date"] = date
+	 final["CountryName"] ="Italy"
+	 final["CountryCode"] = "ITA"
+	 final["RegionName"] = region
+	 final["DistrictName"] = district
+	 return final
+
+# Challenge dataframe
 print("Downloading challenge data...")
 DATA_URL = 'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv'
 challenge_df = pd.read_csv(DATA_URL,
@@ -35,7 +49,7 @@ regions = list(df["denominazione_regione"].unique())
 regions_df = pd.DataFrame()
 
 for region in regions:
-    print(region + "...")
+    print(region + "...                                  ", end="\r")
     total_cases = df[df["denominazione_regione"] == region]
     em_df = total_cases["totale_casi"].values
     date = total_cases["data"].values
@@ -44,10 +58,10 @@ for region in regions:
         date[i] = date[i][:10] + " " + date[i][11:]
 
     #appending this to the challenge dataframe and save it
-    challenge_df = challenge_df.append(to_final(region,"--",list(em_df),list(date)))
-    regions_df = regions_df.append(to_final(region,"--",list(em_df),list(date)))
+    challenge_df = challenge_df.append(to_final(challenge_df,region,"--",list(em_df),list(date)))
+    regions_df = regions_df.append(to_final(challenge_df,region,"--",list(em_df),list(date)))
 
-	####### PRESCRIPTIONS #####################
+    ####### PRESCRIPTIONS #####################
     # challenge_df.to_csv('data.csv',header=challenge_df.columns,index=False)
     # challenge_df=pd.read_csv("data.csv",
     #                  parse_dates=['Date'],
@@ -69,8 +83,8 @@ for region in regions:
 
 regions_df["Date"] = pd.to_datetime(regions_df['Date']).dt.date
 print("Saving...")
-regions_df.to_csv('regions.csv',header=regions_df.columns,index=False)
-print("Saved data to regions.csv")
+regions_df.to_csv('data/regions.csv',header=regions_df.columns,index=False)
+print("Saved data to data/regions.csv")
 
 
 # CITIES #########################
@@ -84,7 +98,7 @@ regions = list(df["denominazione_regione"].unique())
 districts = list(df["denominazione_provincia"].unique())
 districts_df = pd.DataFrame()
 for district in districts:
-    print(district + "...")
+    print(district + "...                                          ", end="\r")
     total_cases = df[df["denominazione_provincia"] == district]
     em_df = total_cases["totale_casi"].values
     date = total_cases["data"].values
@@ -93,10 +107,10 @@ for district in districts:
       date[i] = date[i][:10] + " " + date[i][11:]
 
     #appending this to the challenge dataframe and save it
-    challenge_df = challenge_df.append(to_final(list(region),district,list(em_df),list(date)))
-    districts_df = districts_df.append(to_final(list(region),district,list(em_df),list(date)))
+    challenge_df = challenge_df.append(to_final(challenge_df,list(region),district,list(em_df),list(date)))
+    districts_df = districts_df.append(to_final(challenge_df,list(region),district,list(em_df),list(date)))
 
-	####### PRESCRIPTIONS #####################
+    ####### PRESCRIPTIONS #####################
     # challenge_df.to_csv('data.csv',header=challenge_df.columns,index=False)
     # challenge_df=pd.read_csv("data.csv",
     #                  parse_dates=['Date'],
@@ -118,9 +132,10 @@ for district in districts:
 districts_df["Date"] = pd.to_datetime(districts_df['Date']).dt.date
 cols = list(districts_df.columns[:-1])
 districts_df = districts_df[cols[:3] + ["DistrictName"] + cols[4:]]
-print("Saving...")
-districts_df.to_csv('districts.csv',header=districts_df.columns,index=False)
-print("Saved data to districts.csv")
+#print(" ")
+#print("Saving...")
+districts_df.to_csv('data/districts.csv',header=districts_df.columns,index=False)
+print("Saved data to data/districts.csv")
 
 
 
