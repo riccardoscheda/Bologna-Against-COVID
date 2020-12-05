@@ -9,6 +9,9 @@ __pycache__
 predictions/
 prescriptions/
 
+#Data to ignore
+data/*.csv
+
 # Run the respective notebooks to download the data, train and persist the models and generate the predictions
 covid_xprize/examples/predictors/linear/data/
 covid_xprize/examples/predictors/linear/models/
