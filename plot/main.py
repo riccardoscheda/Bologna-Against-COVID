@@ -34,13 +34,13 @@ interventions = ['C1_School closing',
                'H6_Facial Coverings']
 
 DATA_URL = 'https://raw.githubusercontent.com/OxCGRT/covid-policy-tracker/master/data/OxCGRT_latest.csv'
-df = pd.read_csv(DATA_URL,
-		  parse_dates=['Date'],
-		 encoding="ISO-8859-1",
-		 dtype={"RegionName": str,
-		        "RegionCode": str},
-		 error_bad_lines=False)
-df.to_csv("plot/data/data.csv")
+#df = pd.read_csv(DATA_URL,
+#		  parse_dates=['Date'],
+#		 encoding="ISO-8859-1",
+#		 dtype={"RegionName": str,
+#		        "RegionCode": str},
+#		 error_bad_lines=False)
+#df.to_csv("plot/data/data.csv")
 
 
 def get_dataset(src, name):
@@ -52,7 +52,7 @@ def get_dataset(src, name):
 			 error_bad_lines=False)
 	df["DailyChangeConfirmedCases"] = df.groupby(["CountryName"]).ConfirmedCases.diff().fillna(0)
 
-	pred = pd.read_csv("plot/data/lstmpredictions.csv", parse_dates=['Date'],
+	pred = pd.read_csv("plot/data/predictions.csv", parse_dates=['Date'],
 			 encoding="ISO-8859-1",
 			 dtype={"RegionName": str,
 			        "RegionCode": str},
@@ -71,7 +71,7 @@ def make_plot(source,df, title, title2):
     #plot.line("Date","ConfirmedCases",source=source)
     plot.line("Date","PredictedDailyNewCases",source=source,line_width=3,color="orange")
     plot.line("Date","DailyChangeConfirmedCases",source=source,line_width=3)
-    plot.line(x=[current_time,current_time], y=[-10,50000], color="#FB8072", line_width=4, line_alpha =0.6, line_dash="dashed")
+    #plot.line(x=[current_time,current_time], y=[-10,50000], color="#FB8072", line_width=4, line_alpha =0.6, line_dash="dashed")
 
     ################### INTERVENTIONS #########################
 
@@ -100,7 +100,7 @@ def make_plot(source,df, title, title2):
     #graph.xaxis.major_label_orientation = 1.2
     graph.outline_line_color = None
     graph.xgrid.grid_line_color = None
-    graph.line(x=[df["Date2"].iloc[-2],df["Date2"].iloc[-2]], y=["C1_School closing", "H6_Facial Coverings"], color="#FB8072", line_width=4, line_alpha =0.9, line_dash="dashed")
+    #graph.line(x=[df["Date2"].iloc[-2],df["Date2"].iloc[-2]], y=["C1_School closing", "H6_Facial Coverings"], color="#FB8072", line_width=4, line_alpha =0.9, line_dash="dashed")
     graph.title.text = title2
 
     return plot,graph

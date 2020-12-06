@@ -1,0 +1,8 @@
+{
+  "input_file" : "../data/data.csv",
+  "output_file" : "../data/predictions.csv",
+  "countries" : ["Italy",
+                  "France"],
+  "start_date" : "2020-10-01",
+  "end_date" : "2020-11-20"
+}

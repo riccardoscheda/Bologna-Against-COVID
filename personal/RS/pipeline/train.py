@@ -9,6 +9,11 @@ from sklearn.linear_model import LinearRegression
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import Lasso
+import pickle
+import pylab as plt
+import predict
+from predict import predict_df
+
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -72,7 +77,7 @@ def skl_format(df, lookback_days=30):
         all_npi_data = np.array(gdf[npi_cols])
 
         # Create one sample for each day where we have enough data
-        # Each sample consists of cases and npis for previous nb_lookback_days
+        # Each sample consists of cases and npis for previous lookback_days
         nb_total_days = len(gdf)
         for d in range(lookback_days, nb_total_days - 1):
             X_cases = all_case_data[d-lookback_days:d]
@@ -91,8 +96,6 @@ def skl_format(df, lookback_days=30):
     X_samples = np.array(X_samples)
     y_samples = np.array(y_samples).flatten()
 
-
-
     return X_samples, y_samples
 
 
@@ -106,7 +109,7 @@ if __name__ == '__main__':
                         dest="JSONfilename",
                         help="JSON configuration file",
                         metavar="FILE",
-                        required=True)
+                        default="train_config.json")
     args = parser.parse_args()
 
     print('Loading', args.JSONfilename, '...')
@@ -125,7 +128,7 @@ if __name__ == '__main__':
 
     model = eval(config_data["model"])
 
-    cols = config_data["CountryName"]
+    cols = config_data["countries"]
     new_df = pd.DataFrame()
     for col in cols:
         new_df = new_df.append(df[df["CountryName"] == col])
@@ -136,14 +139,31 @@ if __name__ == '__main__':
                                                         test_size=0.2,
                                                         random_state=301)
 
+    #Fit the model
     model.fit(X_train, y_train)
-    print(new_df)
+
+    # Evaluate model
+    train_preds = model.predict(X_train)
+    train_preds = np.maximum(train_preds, 0) # Don't predict negative cases
+
+    test_preds = model.predict(X_test)
+    test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
+
+
+
+    # Save model to file
+    if not os.path.exists('models'):
+        os.mkdir('models')
+    with open('models/model.pkl', 'wb') as model_file:
+        pickle.dump(model, model_file)
+
+
     print("Elapsed time:", time() - start)
     logging.info("Elapsed time:" + str(time() - start))
 
     # mode
-    mode = 0o666
+#    mode = 0o666
     #path = os.path.join(parent_dir, directory)
-    output_path="data/"
-    if not os.path.exists(output_path):
-        os.mkdir(output_path, mode)
+    # output_path="data/"
+    # if not os.path.exists(output_path):
+    #     os.mkdir(output_pathd)
