@@ -103,6 +103,7 @@ def skl_format(df, lookback_days=30):
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
+    logging.info("################### TRAINING ##################")
 
     parser = ArgumentParser()
     parser.add_argument("-j", "--jsonfile",
@@ -150,6 +151,8 @@ if __name__ == '__main__':
     test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
 
 
+    print("Saving model in models/model.pkl")
+    logging.info("Saving model in models/model.pkl")
 
     # Save model to file
     if not os.path.exists('models'):

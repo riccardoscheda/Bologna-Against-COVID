@@ -74,13 +74,15 @@ def predict_df(countries:list,start_date_str: str, end_date_str: str, path_to_ip
     df = pd.read_csv(path_to_ips_file,
                               parse_dates=['Date'],
                               encoding="ISO-8859-1",
-                              dtype={"RegionName": str},
+                              dtype={"RegionName": str,"RegionCode": str},
+
                               error_bad_lines=True)
+
 
     hist_ips_df = pd.DataFrame()
     for country in countries:
         hist_ips_df = hist_ips_df.append(df[df["CountryName"] == country])
-        
+
     # Add GeoID column that combines CountryName and RegionName for easier manipulation of data",
     hist_ips_df['GeoID'] = hist_ips_df['CountryName'] + '__' + hist_ips_df['RegionName'].astype(str)
     # Fill any missing NPIs by assuming they are the same as previous day
