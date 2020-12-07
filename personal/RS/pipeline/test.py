@@ -59,6 +59,8 @@ if __name__ == '__main__':
     preds_df.to_csv(config_data["output_file"])
     print("Saved to " + config_data["output_file"])
 
-
+    print("Plotting in plot.html")
+    os.chdir("../")
+    os.system("python3 plot.py")
     print("Elapsed time:", time() - start)
     logging.info("Elapsed time:" + str(time() - start))
