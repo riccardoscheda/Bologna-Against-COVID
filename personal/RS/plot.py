@@ -55,17 +55,6 @@ callback = CustomJS(args=dict(source=source,source2=source2,select=select,filter
 
                     '''
                 )
-# callback2 = CustomJS(args=dict(source=source2,select=select,filter=filter2), code='''
-#      const indices = []
-#       for (var i = 0; i < source2.get_length(); i++) {
-#         if (source2.data['CountryName'][i] == select.value) {
-#           indices.push(i)
-#         }
-#       }
-#       filter2.indices = indices;
-# 	  source2.change.emit()
-#                     '''
-#                 )
 
 select.js_on_change('value', callback)
 

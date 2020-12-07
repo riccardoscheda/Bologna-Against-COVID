@@ -37,7 +37,8 @@ npi_cols = ['C1_School closing',
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
-
+    logging.info("################ TESTING ###################")
+    logging.captureWarnings(True)
     parser = ArgumentParser()
     parser.add_argument("-j", "--jsonfile",
                         dest="JSONfilename",
@@ -53,13 +54,11 @@ if __name__ == '__main__':
     start = time()
     countries = config_data["countries"]
     preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"], path_to_ips_file=config_data["input_file"], verbose=False)
-    # for country in countries:
-    #     plt.plot(preds_df[preds_df["CountryName"]==country]["Date"],preds_df[preds_df["CountryName"]==country]["PredictedDailyNewCases"])
-    # plt.show()
     preds_df.to_csv(config_data["output_file"])
     print("Saved to " + config_data["output_file"])
-
+    logging.info("Saved to " + config_data["output_file"])
     print("Plotting in plot.html")
+    logging.info("Plotting in plot.html")
     os.chdir("../")
     os.system("python3 plot.py")
     print("Elapsed time:", time() - start)
