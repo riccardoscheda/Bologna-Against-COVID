@@ -56,7 +56,7 @@ def predict(start_date: str,
     preds_df.to_csv(output_file_path, index=False)
     print(f"Saved predictions to {output_file_path}")
 
-def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str, verbose=False):
+def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str, verbose=True):
     """
     Generates a file with daily new cases predictions for the given countries, regions and npis, between
     start_date and end_date, included.
@@ -75,6 +75,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
                               encoding="ISO-8859-1",
                               dtype={"RegionName": str},
                               error_bad_lines=True)
+
 
     hist_ips_df = pd.DataFrame()
     for col in countries:
@@ -126,6 +127,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
 
         # Pull out all relevant data for country c
         hist_cases_gdf = hist_cases_df[hist_cases_df.GeoID == g]
+
         last_known_date = hist_cases_gdf.Date.max()
         ips_gdf = ips_df[ips_df.GeoID == g]
         past_cases = np.array(hist_cases_gdf[CASES_COL])
@@ -148,6 +150,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
             pred = model.predict(X.reshape(1, -1))[0]
             pred = max(0, pred)  # Do not allow predicting negative cases
             # Add if it's a requested date
+
             if current_date >= start_date:
                 geo_preds.append(pred)
                 if verbose:
@@ -167,6 +170,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
 
         # Create geo_pred_df with pred column
         geo_pred_df = ips_gdf[ID_COLS].copy()
+
         geo_pred_df['PredictedDailyNewCases'] = geo_preds
         geo_pred_dfs.append(geo_pred_df)
 

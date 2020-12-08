@@ -2,6 +2,6 @@
   "input_file" : "data/regions.csv",
   "output_file" : "data/predictions.csv",
   "countries" : ["Italy"],
-  "start_date" : "2020-02-10",
+  "start_date" : "2020-03-10",
   "end_date" : "2020-04-20"
 }
