@@ -22,6 +22,7 @@ df["DailyChangedConfirmedCases"] = df.groupby(["CountryName"]).ConfirmedCases.di
 source = ColumnDataSource(df)
 source2 = ColumnDataSource(pred_df)
 countries = sorted(list(set(source2.data['CountryName'])))
+regions = sorted(list(set(source2.data['RegionName'])))
 ita_indeces = list(df[df["CountryName"]=="Italy"].index)
 ita_indeces2 = list(pred_df[pred_df["CountryName"]=="Italy"].index)
 filter = IndexFilter(ita_indeces)
@@ -33,6 +34,7 @@ plot = figure(x_axis_type="datetime",plot_width=1500, tools="", toolbar_location
 plot.vbar('Date', top='DailyChangedConfirmedCases', source=source, fill_color="#b3de69",view=view)
 plot.vbar('Date', top='PredictedDailyNewCases', source=source2,view=view2,color="orange",alpha=0.5)
 select = Select(title='Country Selection', value="Italy", options=countries)
+region_select = Select(title='Region Selection', value="Abruzzo", options=regions)
 
 callback = CustomJS(args=dict(source=source,source2=source2,select=select,filter=filter,filter2=filter2), code='''
      const indices = []
@@ -58,4 +60,4 @@ callback = CustomJS(args=dict(source=source,source2=source2,select=select,filter
 
 select.js_on_change('value', callback)
 
-save(column(select, plot))
+save(column(select,column(region_select, plot)))
