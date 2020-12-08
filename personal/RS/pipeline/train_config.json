@@ -1,5 +1,5 @@
 {
-  "input_file" : "data/regions.csv",
+  "input_file" : "data/data.csv",
   "output_file" : "data/",
   "countries" : ["Italy"],
   "start_date" : "2020-01-10",

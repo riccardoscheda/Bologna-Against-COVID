@@ -3,61 +3,70 @@ from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, CustomJS, CustomJSFilter, CDSView, Select, IndexFilter
 from bokeh.io import show, output_notebook, save
 from bokeh.layouts import column
-output_notebook()
+import numpy as np
 
-df = pd.read_csv("data/data.csv",
-		  parse_dates=['Date'],
-		 encoding="ISO-8859-1",
-		 dtype={"RegionName": str,
-		        "RegionCode": str},
-		 error_bad_lines=False)
-pred_df =  pd.read_csv("data/predictions.csv",
-		  parse_dates=['Date'],
-		 encoding="ISO-8859-1",
-		 dtype={"RegionName": str,
-		        "RegionCode": str},
-		 error_bad_lines=False)
+def covid_plot(cases_file, preds_file):
+	df = pd.read_csv(cases_file,
+			  parse_dates=['Date'],
+			 encoding="ISO-8859-1",
+			 dtype={"RegionName": str,
+			        "RegionCode": str},
+			 error_bad_lines=False)
+	pred_df =  pd.read_csv(preds_file,
+			  parse_dates=['Date'],
+			 encoding="ISO-8859-1",
+			 dtype={"RegionName": str,
+			        "RegionCode": str},
+			 error_bad_lines=False)
 
-df["DailyChangedConfirmedCases"] = df.groupby(["CountryName"]).ConfirmedCases.diff().fillna(0)
-source = ColumnDataSource(df)
-source2 = ColumnDataSource(pred_df)
-countries = sorted(list(set(source2.data['CountryName'])))
-regions = sorted(list(set(source2.data['RegionName'])))
-ita_indeces = list(df[df["CountryName"]=="Italy"].index)
-ita_indeces2 = list(pred_df[pred_df["CountryName"]=="Italy"].index)
-filter = IndexFilter(ita_indeces)
-filter2 = IndexFilter(ita_indeces2)
-view = CDSView(source=source, filters=[filter])
-view2=CDSView(source=source2,filters=[filter2])
-plot = figure(x_axis_type="datetime",plot_width=1500, tools="", toolbar_location="above")
 
-plot.vbar('Date', top='DailyChangedConfirmedCases', source=source, fill_color="#b3de69",view=view)
-plot.vbar('Date', top='PredictedDailyNewCases', source=source2,view=view2,color="orange",alpha=0.5)
-select = Select(title='Country Selection', value="Italy", options=countries)
-region_select = Select(title='Region Selection', value="Abruzzo", options=regions)
+	default = "--"
+	df["RegionName"] = df["RegionName"].fillna(default)
+	df["DailyChangedConfirmedCases"] = df.groupby(["CountryName","RegionName"]).ConfirmedCases.diff().fillna(0)
+	pred_df["RegionName"] = pred_df["RegionName"].fillna(default)
 
-callback = CustomJS(args=dict(source=source,source2=source2,select=select,filter=filter,filter2=filter2), code='''
-     const indices = []
-	 const indices2 = []
-      for (var i = 0; i < source.get_length(); i++) {
-        if (source.data['CountryName'][i] == select.value) {
-          indices.push(i)
-        }
-      }
-      filter.indices = indices;
-	  source.change.emit();
+	source = ColumnDataSource(df)
+	source2 = ColumnDataSource(pred_df)
+	countries = sorted(list(set(source2.data['CountryName'])))
+	regions = sorted(list(set(source2.data['RegionName'])))
+	ita_indeces = list(df[(df["CountryName"]=="Italy") & (df["RegionName"]== regions[0])].index)
+	ita_indeces2 = list(pred_df[(pred_df["CountryName"]=="Italy") & (pred_df["RegionName"]== regions[0])].index)
 
-	   for (var i = 0; i < source2.get_length(); i++) {
-         if (source2.data['CountryName'][i] == select.value) {
-           indices2.push(i)
-         }
-       }
-       filter2.indices = indices2;
- 	  source2.change.emit()
+	filter = IndexFilter(ita_indeces)
+	filter2 = IndexFilter(ita_indeces2)
+	view = CDSView(source=source, filters=[filter])
+	view2=CDSView(source=source2,filters=[filter2])
+	plot = figure(x_axis_type="datetime",plot_width=1500, tools="",toolbar_location="above")
 
-                    '''
-                )
+	plot.vbar('Date', top='DailyChangedConfirmedCases', source=source,view=view,fill_color="#b3de69")
+	plot.vbar('Date', top='PredictedDailyNewCases', source=source2,view=view2,color="orange",alpha=0.5)
+	country_select = Select(title='Country Selection', value="Italy", options=countries)
+	region_select = Select(title='Region Selection', value= regions[0], options=regions)
 
-select.js_on_change('value', callback)
+	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,filter=filter,filter2=filter2), code='''
+	     const indices = []
+		 const indices2 = []
 
-save(column(select,column(region_select, plot)))
+	      for (var i = 0; i < source.get_length(); i++) {
+	        if (source.data['CountryName'][i] == country_select.value && source.data['RegionName'][i] == region_select.value) {
+	          indices.push(i)
+	        }
+	      }
+	      filter.indices = indices
+		  source.change.emit()
+
+
+		   for (var i = 0; i < source2.get_length(); i++) {
+	         if (source2.data['CountryName'][i] == country_select.value && source2.data['RegionName'][i] == region_select.value) {
+	           indices2.push(i)
+	         }
+	       }
+	       filter2.indices = indices2
+	 	  source2.change.emit();
+
+	                    '''
+	                )
+
+	country_select.js_on_change('value', callback)
+	region_select.js_on_change('value',callback)
+	save(column(country_select,column(region_select, plot)),filename="plot.html")
