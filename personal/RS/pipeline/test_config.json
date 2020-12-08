@@ -1,7 +1,7 @@
 {
-  "input_file" : "data/regions.csv",
+  "input_file" : "data/data.csv",
   "output_file" : "data/predictions.csv",
-  "countries" : ["Italy"],
-  "start_date" : "2020-03-10",
-  "end_date" : "2020-04-20"
+  "countries" : ["Italy","France","Germany","United States"],
+  "start_date" : "2020-05-10",
+  "end_date" : "2020-05-30"
 }
