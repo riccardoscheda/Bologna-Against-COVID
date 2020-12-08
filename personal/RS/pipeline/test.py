@@ -13,7 +13,7 @@ import pickle
 import pylab as plt
 import predict
 from predict import predict_df
-
+import train
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -53,13 +53,12 @@ if __name__ == '__main__':
 
     start = time()
     countries = config_data["countries"]
-    preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"], path_to_ips_file=config_data["input_file"], verbose=False)
+    preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"], path_to_ips_file=config_data["input_file"], verbose=True)
     preds_df.to_csv(config_data["output_file"])
     print("Saved to " + config_data["output_file"])
     logging.info("Saved to " + config_data["output_file"])
     print("Plotting in plot.html")
     logging.info("Plotting in plot.html")
-    os.chdir("../")
     os.system("python3 plot.py")
     print("Elapsed time:", time() - start)
     logging.info("Elapsed time:" + str(time() - start))

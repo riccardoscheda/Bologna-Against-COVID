@@ -1,9 +1,8 @@
 {
-  "input_file" : "../data/data.csv",
-  "output_file" : "../data/",
-  "countries" : ["Italy",
-                  "Germany"],
-  "start_date" : "2020-12-01",
+  "input_file" : "data/regions.csv",
+  "output_file" : "data/",
+  "countries" : ["Italy"],
+  "start_date" : "2020-01-10",
   "end_date" : "2020-11-20",
   "model" : "Lasso(alpha=0.1,precompute=True,max_iter=10000,positive=True,selection='random')"
 }

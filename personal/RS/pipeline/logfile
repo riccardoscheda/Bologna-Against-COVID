@@ -44,3 +44,371 @@
 2020-12-07 12:12:35,027 INFO     Saved to ../data/predictions.csv
 2020-12-07 12:12:35,027 INFO     Plotting in plot.html
 2020-12-07 12:12:39,060 INFO     Elapsed time:4.83674430847168
+2020-12-07 14:06:54,508 INFO     ################ TESTING ###################
+2020-12-07 14:06:54,513 INFO     Loading test_config.json...
+2020-12-07 14:09:21,497 INFO     ################### TRAINING ##################
+2020-12-07 14:09:21,498 INFO     Loading train_config.json...
+2020-12-07 14:09:21,810 INFO     Saving model in models/model.pkl
+2020-12-07 14:09:21,810 INFO     Elapsed time:0.3123202323913574
+2020-12-07 14:09:25,565 INFO     ################ TESTING ###################
+2020-12-07 14:09:25,566 INFO     Loading test_config.json...
+2020-12-07 14:14:46,152 INFO     ################### TRAINING ##################
+2020-12-07 14:14:46,153 INFO     Loading train_config.json...
+2020-12-07 14:14:46,626 INFO     Saving model in models/model.pkl
+2020-12-07 14:14:46,627 INFO     Elapsed time:0.4731788635253906
+2020-12-07 14:14:50,750 INFO     ################ TESTING ###################
+2020-12-07 14:14:50,751 INFO     Loading test_config.json...
+2020-12-07 14:17:55,754 INFO     ################ TESTING ###################
+2020-12-07 14:17:55,755 INFO     Loading test_config.json...
+2020-12-07 14:25:14,661 INFO     ################ TESTING ###################
+2020-12-07 14:25:14,662 INFO     Loading test_config.json...
+2020-12-07 14:26:38,854 INFO     ################ TESTING ###################
+2020-12-07 14:26:38,855 INFO     Loading test_config.json...
+2020-12-07 14:26:39,878 INFO     Saved to ../data/predictions.csv
+2020-12-07 14:26:39,879 INFO     Plotting in plot.html
+2020-12-07 14:26:45,276 INFO     Elapsed time:6.42030143737793
+2020-12-07 14:29:00,316 INFO     ################### TRAINING ##################
+2020-12-07 14:29:00,317 INFO     Loading train_config.json...
+2020-12-07 14:29:00,797 INFO     Saving model in models/model.pkl
+2020-12-07 14:29:00,798 INFO     Elapsed time:0.48073577880859375
+2020-12-07 14:29:06,665 INFO     ################ TESTING ###################
+2020-12-07 14:29:06,665 INFO     Loading test_config.json...
+2020-12-07 14:29:07,680 INFO     Saved to ../data/predictions.csv
+2020-12-07 14:29:07,680 INFO     Plotting in plot.html
+2020-12-07 14:29:12,951 INFO     Elapsed time:6.2854228019714355
+2020-12-07 14:29:30,062 INFO     ################ TESTING ###################
+2020-12-07 14:29:30,063 INFO     Loading test_config.json...
+2020-12-07 14:29:59,109 INFO     ################### TRAINING ##################
+2020-12-07 14:29:59,110 INFO     Loading train_config.json...
+2020-12-07 14:29:59,402 INFO     Saving model in models/model.pkl
+2020-12-07 14:29:59,403 INFO     Elapsed time:0.29247331619262695
+2020-12-07 14:30:03,205 INFO     ################ TESTING ###################
+2020-12-07 14:30:03,206 INFO     Loading test_config.json...
+2020-12-07 14:40:05,479 INFO     ################ TESTING ###################
+2020-12-07 14:40:05,480 INFO     Loading test_config.json...
+2020-12-07 14:40:09,715 INFO     ################### TRAINING ##################
+2020-12-07 14:40:09,716 INFO     Loading train_config.json...
+2020-12-07 14:40:10,006 INFO     Saving model in models/model.pkl
+2020-12-07 14:40:10,007 INFO     Elapsed time:0.29050183296203613
+2020-12-07 14:40:15,085 INFO     ################ TESTING ###################
+2020-12-07 14:40:15,086 INFO     Loading test_config.json...
+2020-12-07 14:58:21,573 INFO     ################### TRAINING ##################
+2020-12-07 14:58:21,574 INFO     Loading train_config.json...
+2020-12-07 14:58:21,870 INFO     Saving model in models/model.pkl
+2020-12-07 14:58:21,871 INFO     Elapsed time:0.2967386245727539
+2020-12-07 14:58:27,165 INFO     ################ TESTING ###################
+2020-12-07 14:58:27,166 INFO     Loading test_config.json...
+2020-12-07 15:04:48,456 INFO     ################### TRAINING ##################
+2020-12-07 15:04:48,458 INFO     Loading train_config.json...
+2020-12-07 15:04:48,941 INFO     Saving model in models/model.pkl
+2020-12-07 15:04:48,941 INFO     Elapsed time:0.4830625057220459
+2020-12-07 15:04:51,501 INFO     ################ TESTING ###################
+2020-12-07 15:04:51,502 INFO     Loading test_config.json...
+2020-12-07 15:04:52,514 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:04:52,514 INFO     Plotting in plot.html
+2020-12-07 15:04:57,769 INFO     Elapsed time:6.267384767532349
+2020-12-07 15:05:59,517 INFO     ################### TRAINING ##################
+2020-12-07 15:05:59,518 INFO     Loading train_config.json...
+2020-12-07 15:06:00,006 INFO     Saving model in models/model.pkl
+2020-12-07 15:06:00,006 INFO     Elapsed time:0.48778319358825684
+2020-12-07 15:06:02,582 INFO     ################ TESTING ###################
+2020-12-07 15:06:02,583 INFO     Loading test_config.json...
+2020-12-07 15:06:03,597 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:06:03,597 INFO     Plotting in plot.html
+2020-12-07 15:06:08,869 INFO     Elapsed time:6.286080360412598
+2020-12-07 15:06:40,826 INFO     ################### TRAINING ##################
+2020-12-07 15:06:40,827 INFO     Loading train_config.json...
+2020-12-07 15:06:41,308 INFO     Saving model in models/model.pkl
+2020-12-07 15:06:41,309 INFO     Elapsed time:0.4815201759338379
+2020-12-07 15:06:43,694 INFO     ################ TESTING ###################
+2020-12-07 15:06:43,695 INFO     Loading test_config.json...
+2020-12-07 15:06:44,707 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:06:44,707 INFO     Plotting in plot.html
+2020-12-07 15:06:50,046 INFO     Elapsed time:6.350985050201416
+2020-12-07 15:07:20,833 INFO     ################ TESTING ###################
+2020-12-07 15:07:20,833 INFO     Loading test_config.json...
+2020-12-07 15:07:21,863 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:07:21,864 INFO     Plotting in plot.html
+2020-12-07 15:07:27,127 INFO     Elapsed time:6.293250322341919
+2020-12-07 15:10:29,642 INFO     ################### TRAINING ##################
+2020-12-07 15:10:29,643 INFO     Loading train_config.json...
+2020-12-07 15:10:29,942 INFO     Saving model in models/model.pkl
+2020-12-07 15:10:29,943 INFO     Elapsed time:0.2997703552246094
+2020-12-07 15:10:32,407 INFO     ################ TESTING ###################
+2020-12-07 15:10:32,408 INFO     Loading test_config.json...
+2020-12-07 15:10:33,420 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:10:33,420 INFO     Plotting in plot.html
+2020-12-07 15:10:38,883 INFO     Elapsed time:6.474174499511719
+2020-12-07 15:11:16,770 INFO     ################ TESTING ###################
+2020-12-07 15:11:16,771 INFO     Loading test_config.json...
+2020-12-07 15:11:17,864 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:11:17,864 INFO     Plotting in plot.html
+2020-12-07 15:11:23,219 INFO     Elapsed time:6.447543382644653
+2020-12-07 15:13:56,615 INFO     ################ TESTING ###################
+2020-12-07 15:13:56,616 INFO     Loading test_config.json...
+2020-12-07 15:14:12,792 INFO     ################### TRAINING ##################
+2020-12-07 15:14:12,793 INFO     Loading train_config.json...
+2020-12-07 15:14:13,086 INFO     Saving model in models/model.pkl
+2020-12-07 15:14:13,087 INFO     Elapsed time:0.2936561107635498
+2020-12-07 15:14:15,369 INFO     ################ TESTING ###################
+2020-12-07 15:14:15,370 INFO     Loading test_config.json...
+2020-12-07 15:14:35,595 INFO     ################ TESTING ###################
+2020-12-07 15:14:35,596 INFO     Loading test_config.json...
+2020-12-07 15:14:36,676 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:14:36,676 INFO     Plotting in plot.html
+2020-12-07 15:14:41,975 INFO     Elapsed time:6.378906965255737
+2020-12-07 15:15:53,877 INFO     ################ TESTING ###################
+2020-12-07 15:15:53,877 INFO     Loading test_config.json...
+2020-12-07 15:16:48,800 INFO     ################ TESTING ###################
+2020-12-07 15:16:48,802 INFO     Loading test_config.json...
+2020-12-07 15:16:49,722 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:16:49,722 INFO     Plotting in plot.html
+2020-12-07 15:16:55,040 INFO     Elapsed time:6.237841367721558
+2020-12-07 15:25:40,431 INFO     ################ TESTING ###################
+2020-12-07 15:25:40,433 INFO     Loading test_config.json...
+2020-12-07 15:26:32,020 INFO     ################ TESTING ###################
+2020-12-07 15:26:32,021 INFO     Loading test_config.json...
+2020-12-07 15:26:36,101 INFO     ################### TRAINING ##################
+2020-12-07 15:26:36,102 INFO     Loading train_config.json...
+2020-12-07 15:26:36,398 INFO     Saving model in models/model.pkl
+2020-12-07 15:26:36,399 INFO     Elapsed time:0.2964351177215576
+2020-12-07 15:27:04,223 INFO     ################ TESTING ###################
+2020-12-07 15:27:04,224 INFO     Loading test_config.json...
+2020-12-07 15:35:01,486 INFO     ################ TESTING ###################
+2020-12-07 15:35:01,487 INFO     Loading test_config.json...
+2020-12-07 15:36:25,109 INFO     ################### TRAINING ##################
+2020-12-07 15:36:25,110 INFO     Loading train_config.json...
+2020-12-07 15:36:25,402 INFO     Saving model in models/model.pkl
+2020-12-07 15:36:25,403 INFO     Elapsed time:0.2920529842376709
+2020-12-07 15:36:27,816 INFO     ################ TESTING ###################
+2020-12-07 15:36:27,817 INFO     Loading test_config.json...
+2020-12-07 15:36:57,209 INFO     ################### TRAINING ##################
+2020-12-07 15:36:57,210 INFO     Loading train_config.json...
+2020-12-07 15:37:03,165 INFO     ################### TRAINING ##################
+2020-12-07 15:37:03,166 INFO     Loading train_config.json...
+2020-12-07 15:37:03,472 INFO     Saving model in models/model.pkl
+2020-12-07 15:37:03,473 INFO     Elapsed time:0.30719780921936035
+2020-12-07 15:37:05,733 INFO     ################ TESTING ###################
+2020-12-07 15:37:05,734 INFO     Loading test_config.json...
+2020-12-07 15:40:56,945 INFO     ################ TESTING ###################
+2020-12-07 15:40:56,946 INFO     Loading test_config.json...
+2020-12-07 15:41:19,967 INFO     ################ TESTING ###################
+2020-12-07 15:41:19,968 INFO     Loading test_config.json...
+2020-12-07 15:41:39,369 INFO     ################ TESTING ###################
+2020-12-07 15:41:39,370 INFO     Loading test_config.json...
+2020-12-07 15:41:57,605 INFO     ################ TESTING ###################
+2020-12-07 15:41:57,606 INFO     Loading test_config.json...
+2020-12-07 15:41:58,602 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:41:58,602 INFO     Plotting in plot.html
+2020-12-07 15:42:03,882 INFO     Elapsed time:6.27630352973938
+2020-12-07 15:42:33,240 INFO     ################ TESTING ###################
+2020-12-07 15:42:33,241 INFO     Loading test_config.json...
+2020-12-07 15:43:35,758 INFO     ################ TESTING ###################
+2020-12-07 15:43:35,759 INFO     Loading test_config.json...
+2020-12-07 15:45:24,514 INFO     ################### TRAINING ##################
+2020-12-07 15:45:24,515 INFO     Loading train_config.json...
+2020-12-07 15:45:24,819 INFO     Saving model in models/model.pkl
+2020-12-07 15:45:24,820 INFO     Elapsed time:0.3041369915008545
+2020-12-07 15:45:50,663 INFO     ################### TRAINING ##################
+2020-12-07 15:45:50,664 INFO     Loading train_config.json...
+2020-12-07 15:45:50,965 INFO     Saving model in models/model.pkl
+2020-12-07 15:45:50,965 INFO     Elapsed time:0.3012981414794922
+2020-12-07 15:45:53,297 INFO     ################ TESTING ###################
+2020-12-07 15:45:53,298 INFO     Loading test_config.json...
+2020-12-07 15:47:35,432 INFO     ################### TRAINING ##################
+2020-12-07 15:47:35,433 INFO     Loading train_config.json...
+2020-12-07 15:47:35,730 INFO     Saving model in models/model.pkl
+2020-12-07 15:47:35,731 INFO     Elapsed time:0.29729437828063965
+2020-12-07 15:47:38,002 INFO     ################ TESTING ###################
+2020-12-07 15:47:38,003 INFO     Loading test_config.json...
+2020-12-07 15:47:39,011 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:47:39,011 INFO     Plotting in plot.html
+2020-12-07 15:47:44,364 INFO     Elapsed time:6.361154317855835
+2020-12-07 15:53:00,366 INFO     ################ TESTING ###################
+2020-12-07 15:53:00,368 INFO     Loading test_config.json...
+2020-12-07 15:53:01,383 INFO     Saved to ../data/predictions.csv
+2020-12-07 15:53:01,383 INFO     Plotting in plot.html
+2020-12-07 15:53:06,752 INFO     Elapsed time:6.384170055389404
+2020-12-07 15:53:19,266 INFO     ################ TESTING ###################
+2020-12-07 15:53:19,267 INFO     Loading test_config.json...
+2020-12-07 15:54:12,986 INFO     ################ TESTING ###################
+2020-12-07 15:54:12,987 INFO     Loading test_config.json...
+2020-12-07 15:55:09,747 INFO     ################ TESTING ###################
+2020-12-07 15:55:09,748 INFO     Loading test_config.json...
+2020-12-07 15:55:24,837 INFO     ################ TESTING ###################
+2020-12-07 15:55:24,838 INFO     Loading test_config.json...
+2020-12-07 15:56:40,659 INFO     ################### TRAINING ##################
+2020-12-07 15:56:40,660 INFO     Loading train_config.json...
+2020-12-07 15:56:40,955 INFO     Saving model in models/model.pkl
+2020-12-07 15:56:40,955 INFO     Elapsed time:0.294907808303833
+2020-12-07 15:56:43,837 INFO     ################ TESTING ###################
+2020-12-07 15:56:43,838 INFO     Loading test_config.json...
+2020-12-07 15:57:04,147 INFO     ################ TESTING ###################
+2020-12-07 15:57:04,148 INFO     Loading test_config.json...
+2020-12-07 15:59:28,215 INFO     ################ TESTING ###################
+2020-12-07 15:59:28,217 INFO     Loading test_config.json...
+2020-12-07 16:00:47,517 INFO     ################ TESTING ###################
+2020-12-07 16:00:47,518 INFO     Loading test_config.json...
+2020-12-07 16:00:50,258 INFO     ################### TRAINING ##################
+2020-12-07 16:00:50,259 INFO     Loading train_config.json...
+2020-12-07 16:00:50,748 INFO     Saving model in models/model.pkl
+2020-12-07 16:00:50,749 INFO     Elapsed time:0.4897646903991699
+2020-12-07 16:00:52,628 INFO     ################ TESTING ###################
+2020-12-07 16:00:52,629 INFO     Loading test_config.json...
+2020-12-07 16:01:09,451 INFO     ################ TESTING ###################
+2020-12-07 16:01:09,452 INFO     Loading test_config.json...
+2020-12-07 16:01:10,487 INFO     Saved to ../data/predictions.csv
+2020-12-07 16:01:10,487 INFO     Plotting in plot.html
+2020-12-07 16:01:16,026 INFO     Elapsed time:6.573503255844116
+2020-12-07 16:11:27,199 INFO     ################ TESTING ###################
+2020-12-07 16:11:27,200 INFO     Loading test_config.json...
+2020-12-07 16:11:44,861 INFO     ################ TESTING ###################
+2020-12-07 16:11:44,862 INFO     Loading test_config.json...
+2020-12-07 16:13:01,081 INFO     ################ TESTING ###################
+2020-12-07 16:13:01,082 INFO     Loading test_config.json...
+2020-12-08 16:51:07,566 INFO     ################### TRAINING ##################
+2020-12-08 16:51:07,569 INFO     Loading train_config.json...
+2020-12-08 16:51:08,139 INFO     Saving model in models/model.pkl
+2020-12-08 16:51:08,139 INFO     Elapsed time:0.5693376064300537
+2020-12-08 16:51:13,207 INFO     ################ TESTING ###################
+2020-12-08 16:51:13,208 INFO     Loading test_config.json...
+2020-12-08 16:52:09,162 INFO     ################ TESTING ###################
+2020-12-08 16:52:09,163 INFO     Loading test_config.json...
+2020-12-08 16:52:27,231 INFO     ################ TESTING ###################
+2020-12-08 16:52:27,232 INFO     Loading test_config.json...
+2020-12-08 16:52:31,931 INFO     ################### TRAINING ##################
+2020-12-08 16:52:31,932 INFO     Loading train_config.json...
+2020-12-08 16:52:32,352 INFO     Saving model in models/model.pkl
+2020-12-08 16:52:32,353 INFO     Elapsed time:0.42090773582458496
+2020-12-08 16:52:34,818 INFO     ################ TESTING ###################
+2020-12-08 16:52:34,819 INFO     Loading test_config.json...
+2020-12-08 16:55:35,889 INFO     ################### TRAINING ##################
+2020-12-08 16:55:35,890 INFO     Loading train_config.json...
+2020-12-08 16:55:36,312 INFO     Saving model in models/model.pkl
+2020-12-08 16:55:36,312 INFO     Elapsed time:0.42263102531433105
+2020-12-08 16:55:40,855 INFO     ################ TESTING ###################
+2020-12-08 16:55:40,856 INFO     Loading test_config.json...
+2020-12-08 16:59:35,735 INFO     ################ TESTING ###################
+2020-12-08 16:59:35,736 INFO     Loading test_config.json...
+2020-12-08 17:02:12,600 INFO     ################### TRAINING ##################
+2020-12-08 17:02:12,601 INFO     Loading train_config.json...
+2020-12-08 17:02:13,031 INFO     Saving model in models/model.pkl
+2020-12-08 17:02:13,031 INFO     Elapsed time:0.4302704334259033
+2020-12-08 17:02:16,049 INFO     ################ TESTING ###################
+2020-12-08 17:02:16,050 INFO     Loading test_config.json...
+2020-12-08 17:06:03,150 INFO     ################ TESTING ###################
+2020-12-08 17:06:03,151 INFO     Loading test_config.json...
+2020-12-08 17:06:30,279 INFO     ################### TRAINING ##################
+2020-12-08 17:06:30,280 INFO     Loading train_config.json...
+2020-12-08 17:06:30,701 INFO     Saving model in models/model.pkl
+2020-12-08 17:06:30,702 INFO     Elapsed time:0.42212891578674316
+2020-12-08 17:06:32,763 INFO     ################ TESTING ###################
+2020-12-08 17:06:32,764 INFO     Loading test_config.json...
+2020-12-08 17:10:32,407 INFO     ################ TESTING ###################
+2020-12-08 17:10:32,408 INFO     Loading test_config.json...
+2020-12-08 17:10:32,711 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:10:51,001 INFO     ################### TRAINING ##################
+2020-12-08 17:10:51,002 INFO     Loading train_config.json...
+2020-12-08 17:10:51,426 INFO     Saving model in models/model.pkl
+2020-12-08 17:10:51,427 INFO     Elapsed time:0.42522573471069336
+2020-12-08 17:10:53,389 INFO     ################ TESTING ###################
+2020-12-08 17:10:53,389 INFO     Loading test_config.json...
+2020-12-08 17:10:53,691 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:12:07,869 INFO     ################ TESTING ###################
+2020-12-08 17:12:07,870 INFO     Loading test_config.json...
+2020-12-08 17:12:08,184 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:12:31,833 INFO     ################ TESTING ###################
+2020-12-08 17:12:31,834 INFO     Loading test_config.json...
+2020-12-08 17:12:32,133 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:12:32,589 INFO     Saved to data/predictions.csv
+2020-12-08 17:12:32,589 INFO     Plotting in plot.html
+2020-12-08 17:12:38,159 INFO     Elapsed time:6.3241870403289795
+2020-12-08 17:12:51,010 INFO     ################### TRAINING ##################
+2020-12-08 17:12:51,010 INFO     Loading train_config.json...
+2020-12-08 17:12:51,442 INFO     Saving model in models/model.pkl
+2020-12-08 17:12:51,443 INFO     Elapsed time:0.4321935176849365
+2020-12-08 17:12:53,696 INFO     ################ TESTING ###################
+2020-12-08 17:12:53,697 INFO     Loading test_config.json...
+2020-12-08 17:12:53,995 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:12:54,469 INFO     Saved to data/predictions.csv
+2020-12-08 17:12:54,470 INFO     Plotting in plot.html
+2020-12-08 17:12:59,386 INFO     Elapsed time:5.689350128173828
+2020-12-08 17:14:22,808 INFO     ################ TESTING ###################
+2020-12-08 17:14:22,809 INFO     Loading test_config.json...
+2020-12-08 17:14:23,105 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:14:23,550 INFO     Saved to data/predictions.csv
+2020-12-08 17:14:23,551 INFO     Plotting in plot.html
+2020-12-08 17:14:28,461 INFO     Elapsed time:5.651986360549927
+2020-12-08 17:15:33,345 INFO     ################ TESTING ###################
+2020-12-08 17:15:33,345 INFO     Loading test_config.json...
+2020-12-08 17:15:33,642 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:15:34,089 INFO     Saved to data/predictions.csv
+2020-12-08 17:15:34,089 INFO     Plotting in plot.html
+2020-12-08 17:15:38,875 INFO     Elapsed time:5.529425859451294
+2020-12-08 17:16:38,333 INFO     ################### TRAINING ##################
+2020-12-08 17:16:38,334 INFO     Loading train_config.json...
+2020-12-08 17:16:38,772 INFO     Saving model in models/model.pkl
+2020-12-08 17:16:38,773 INFO     Elapsed time:0.4385557174682617
+2020-12-08 17:16:41,096 INFO     ################ TESTING ###################
+2020-12-08 17:16:41,097 INFO     Loading test_config.json...
+2020-12-08 17:16:41,405 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:16:41,918 INFO     Saved to data/predictions.csv
+2020-12-08 17:16:41,918 INFO     Plotting in plot.html
+2020-12-08 17:16:46,936 INFO     Elapsed time:5.832947731018066
+2020-12-08 17:17:32,374 INFO     ################### TRAINING ##################
+2020-12-08 17:17:32,375 INFO     Loading train_config.json...
+2020-12-08 17:17:32,799 INFO     Saving model in models/model.pkl
+2020-12-08 17:17:32,800 INFO     Elapsed time:0.42465972900390625
+2020-12-08 17:17:34,615 INFO     ################ TESTING ###################
+2020-12-08 17:17:34,616 INFO     Loading test_config.json...
+2020-12-08 17:17:34,910 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:17:35,423 INFO     Saved to data/predictions.csv
+2020-12-08 17:17:35,423 INFO     Plotting in plot.html
+2020-12-08 17:17:40,196 INFO     Elapsed time:5.579615116119385
+2020-12-08 17:21:40,759 INFO     ################### TRAINING ##################
+2020-12-08 17:21:40,760 INFO     Loading train_config.json...
+2020-12-08 17:21:41,214 INFO     Saving model in models/model.pkl
+2020-12-08 17:21:41,214 INFO     Elapsed time:0.45371317863464355
+2020-12-08 17:21:44,005 INFO     ################ TESTING ###################
+2020-12-08 17:21:44,006 INFO     Loading test_config.json...
+2020-12-08 17:21:44,313 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:21:44,829 INFO     Saved to data/predictions.csv
+2020-12-08 17:21:44,829 INFO     Plotting in plot.html
+2020-12-08 17:21:49,696 INFO     Elapsed time:5.684723377227783
+2020-12-08 17:25:17,630 INFO     ################ TESTING ###################
+2020-12-08 17:25:17,631 INFO     Loading test_config.json...
+2020-12-08 17:25:17,928 WARNING  sys:1: DtypeWarning: Columns (4) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-08 17:25:18,448 INFO     Saved to data/predictions.csv
+2020-12-08 17:25:18,448 INFO     Plotting in plot.html
+2020-12-08 17:25:23,282 INFO     Elapsed time:5.6515607833862305
+2020-12-08 17:26:47,982 INFO     ################### TRAINING ##################
+2020-12-08 17:26:47,983 INFO     Loading train_config.json...
+2020-12-08 17:26:48,249 INFO     Saving model in models/model.pkl
+2020-12-08 17:26:48,250 INFO     Elapsed time:0.2663609981536865
+2020-12-08 17:26:51,405 INFO     ################ TESTING ###################
+2020-12-08 17:26:51,406 INFO     Loading test_config.json...
+2020-12-08 17:27:20,382 INFO     ################ TESTING ###################
+2020-12-08 17:27:20,383 INFO     Loading test_config.json...
+2020-12-08 17:27:23,788 INFO     ################### TRAINING ##################
+2020-12-08 17:27:23,789 INFO     Loading train_config.json...
+2020-12-08 17:27:24,046 INFO     Saving model in models/model.pkl
+2020-12-08 17:27:24,047 INFO     Elapsed time:0.25835180282592773
+2020-12-08 17:27:25,907 INFO     ################ TESTING ###################
+2020-12-08 17:27:25,909 INFO     Loading test_config.json...
+2020-12-08 17:29:19,461 INFO     ################ TESTING ###################
+2020-12-08 17:29:19,462 INFO     Loading test_config.json...
+2020-12-08 17:30:04,521 INFO     ################ TESTING ###################
+2020-12-08 17:30:04,522 INFO     Loading test_config.json...
+2020-12-08 17:32:05,894 INFO     ################ TESTING ###################
+2020-12-08 17:32:05,895 INFO     Loading test_config.json...

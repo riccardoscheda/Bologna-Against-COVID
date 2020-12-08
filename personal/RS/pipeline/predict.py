@@ -10,7 +10,7 @@ import pandas as pd
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
-DATA_FILE = os.path.join(ROOT_DIR, '../data', "data.csv")
+#DATA_FILE = os.path.join(ROOT_DIR, 'data', "data.csv")
 ID_COLS = ['CountryName',
            'RegionName',
            'GeoID',
@@ -56,8 +56,7 @@ def predict(start_date: str,
     preds_df.to_csv(output_file_path, index=False)
     print(f"Saved predictions to {output_file_path}")
 
-
-def predict_df(countries:list,start_date_str: str, end_date_str: str, path_to_ips_file: str, verbose=False):
+def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str, verbose=False):
     """
     Generates a file with daily new cases predictions for the given countries, regions and npis, between
     start_date and end_date, included.
@@ -74,14 +73,12 @@ def predict_df(countries:list,start_date_str: str, end_date_str: str, path_to_ip
     df = pd.read_csv(path_to_ips_file,
                               parse_dates=['Date'],
                               encoding="ISO-8859-1",
-                              dtype={"RegionName": str,"RegionCode": str},
-
+                              dtype={"RegionName": str},
                               error_bad_lines=True)
 
-
     hist_ips_df = pd.DataFrame()
-    for country in countries:
-        hist_ips_df = hist_ips_df.append(df[df["CountryName"] == country])
+    for col in countries:
+        hist_ips_df = hist_ips_df.append(df[df["CountryName"] == col])
 
     # Add GeoID column that combines CountryName and RegionName for easier manipulation of data",
     hist_ips_df['GeoID'] = hist_ips_df['CountryName'] + '__' + hist_ips_df['RegionName'].astype(str)
@@ -95,12 +92,18 @@ def predict_df(countries:list,start_date_str: str, end_date_str: str, path_to_ip
     # Load historical data to use in making predictions in the same way
     # This is the data we trained on
     # We stored it locally as for predictions there will be no access to the internet
-    hist_cases_df = pd.read_csv(DATA_FILE,
+    df = pd.read_csv(path_to_ips_file,
                                 parse_dates=['Date'],
                                 encoding="ISO-8859-1",
                                 dtype={"RegionName": str,
                                        "RegionCode": str},
                                 error_bad_lines=False)
+
+
+    hist_cases_df = pd.DataFrame()
+    for col in countries:
+        hist_cases_df = hist_cases_df.append(df[df["CountryName"] == col])
+
     # Add RegionID column that combines CountryName and RegionName for easier manipulation of data
     hist_cases_df['GeoID'] = hist_cases_df['CountryName'] + '__' + hist_cases_df['RegionName'].astype(str)
     # Add new cases column

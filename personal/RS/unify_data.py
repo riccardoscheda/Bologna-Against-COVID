@@ -14,7 +14,7 @@ def to_final(challenge_df,region, district,total_cases,date):
 	 Returns a dataframe in the format of challenge data, including interventions
 	 --------------------------------------------
 	 Parameters:
-	 
+
 	 challenge_df: pandas dataframe from which we copy column names
 	 region: string or list of strings of regions
 	 district: string or list of strings of districts,
@@ -80,7 +80,10 @@ for region in regions:
     #             for i in range(1,len(index)):
     #                 challenge_df.loc[index[i],column] =  challenge_df.loc[index[0],column]
 
+# Fill any missing NPIs by assuming they are the same as previous day
 
+regions_df.update(regions_df.ffill().fillna(0))
+del regions_df["DistrictName"]
 regions_df["Date"] = pd.to_datetime(regions_df['Date']).dt.date
 print("Saving...")
 regions_df.to_csv('data/regions.csv',header=regions_df.columns,index=False)
