@@ -151,81 +151,29 @@ class SI():
         return self.optimizer.max['params']
 
 
-# if __name__ == '__main__':
-#     import datetime
-#
-#     import pandas as pd
-#     import numpy as np
-#
-#
-#     import matplotlib.pyplot as plt
-#
-#     df_hosp = pd.read_csv('data/hosp.csv', delimiter=',')
-#
-#
-#     def to_date(x):
-#         if x != '':
-#             xs = str(x).split('-')
-#             xs = list(map(int, xs))
-#             return datetime.datetime(xs[0], xs[1], xs[2])
-#         return np.nan
-#
-#
-#     # cast to datetime
-#     df_hosp = df_hosp.fillna('')
-#     df_hosp['DATA'] = df_hosp['DATA'].apply(to_date)
-#
-#     # sort
-#     df_hosp = df_hosp.sort_values(by=['DATA'])
-#
-#     # start date
-#     start_date = datetime.datetime(2020, 10, 1)
-#     df_hosp = df_hosp[df_hosp['DATA'] >= start_date]
-#
-#     # bologna population (2017)
-#     N = 388367
-#
-#     # timespan
-#     days = 20
-#     t = np.linspace(0, days, days)
-#
-#     # get initial state values
-#     I_0 = df_hosp['TERAPIA INTENSIVA COVID'].values[0]
-#     S_0 = N - I_0
-#
-#     # create model
-#     print('==============> Creating SI model',
-#           '\nS_0: ' + str(S_0),
-#           '\nI_0: ' + str(I_0),
-#           '\ntimespan: ' + str(days) + ' days',
-#           '\n==============')
-#
-#     si = SI(S_0, I_0, N, t)
-#
-#     end_date = start_date + datetime.timedelta(days=days)
-#     I_g = df_hosp[(df_hosp['DATA'] >= start_date) & (df_hosp['DATA'] < end_date)]['TERAPIA INTENSIVA COVID'].to_list()
-#     S_g = np.repeat(N, len(I_g)) - I_g
-#
-#     params = si.optimize(S_g, I_g)['params']
-#     S, I = si.run(params['beta'])
-#
-#     # # S
-#     # plt.plot(t, S_g, alpha=0.5, lw=2, label='Susceptible TARGET')
-#     # plt.plot(t, S, alpha=0.5, lw=2, label='Susceptible')
-#     # plt.title("beta: " + str(params['beta']))
-#     # plt.xlabel('days')
-#     # plt.ylabel('people')
-#     # plt.legend()
-#     # plt.show()
-#     plt.close()
-#     # I
-#     plt.plot(t, I_g, alpha=0.5, lw=2, label='Infected TARGET')
-#     plt.plot(t, I, alpha=0.5, lw=2, label='Infected')
-#     plt.title("beta: " + str(params['beta']))
-#     plt.xlabel('days')
-#     plt.ylabel('people')
-#     plt.legend()
-#     plt.show()
-#     plt.close()
-#
+if __name__ == '__main__':
+
+    import numpy as np
+    import matplotlib.pyplot as plt
+
+    N = 10000
+    R = 0
+    I = 1
+    S = N - I - R
+    days = 100
+    t = np.linspace(0, days, days)
+    model = SIR(S, I, R, N, t)
+
+    beta = 0.2
+    S_target, I_target, R_target = model(beta)
+
+    model = SIR(S, I, R, N, t)
+    params = model.optimize(S_target, I_target, R_target)
+    S, I, R = model(params['beta'])
+
+    plt.plot(range(len(I_target)), I_target, alpha=0.5, label='Target')
+    plt.plot(range(len(I)), I, alpha=0.5, label='Optimized')
+    plt.title('Infected')
+    plt.legend()
+    plt.show()
 
