@@ -33,9 +33,9 @@ npi_cols = ['C1_School closing',
             'H3_Contact tracing',
             'H6_Facial Coverings']
 
-# Helpful function to compute mae
-def mae(pred, true):
-    return np.mean(np.abs(pred - true))
+# # Helpful function to compute mae
+# def mae(pred, true):
+#     return np.mean(np.abs(pred - true))
 
 #This Function need to be outside the training process
 def create_dataset(df):
@@ -105,6 +105,7 @@ if __name__ == '__main__':
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
     logging.info("################### TRAINING ##################")
 
+    #reads info from configuration file
     parser = ArgumentParser()
     parser.add_argument("-j", "--jsonfile",
                         dest="JSONfilename",
@@ -119,7 +120,7 @@ if __name__ == '__main__':
         config_data = json.load(f)
 
     start = time()
-
+    #reading file with historical interventions
     df = pd.read_csv(config_data["input_file"],
                  parse_dates=['Date'],
                  encoding="ISO-8859-1",
@@ -127,14 +128,16 @@ if __name__ == '__main__':
                         "RegionCode": str},
                  error_bad_lines=True)
 
+    #reading the choosen model
     model = eval(config_data["model"])
 
+    # selecting countries of interest from config file
     cols = config_data["countries"]
     new_df = pd.DataFrame()
     for col in cols:
         new_df = new_df.append(df[df["CountryName"] == col])
 
-
+    #formatting data for scikitlearn
     X_samples, y_samples = skl_format(create_dataset(new_df))
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
@@ -145,16 +148,9 @@ if __name__ == '__main__':
     #Fit the model
     model.fit(X_train, y_train)
 
-    # Evaluate model
-    train_preds = model.predict(X_train)
-    train_preds = np.maximum(train_preds, 0) # Don't predict negative cases
 
-    test_preds = model.predict(X_test)
-    test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
-
-
-    print("Saving model in models/model.pkl")
-    logging.info("Saving model in models/model.pkl")
+    print("Saving model in models/"+config_data["model_output_file"])
+    logging.info("Saving model in models/"+config_data["model_output_file"])
 
     # Save model to file
     if not os.path.exists('models'):

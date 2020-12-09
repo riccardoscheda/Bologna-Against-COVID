@@ -4,7 +4,7 @@ from bokeh.models import ColumnDataSource, CustomJS, CustomJSFilter, CDSView, Se
 from bokeh.io import show, output_notebook, save
 from bokeh.layouts import column
 import numpy as np
-
+from datetime import timedelta
 def covid_plot(cases_file, preds_file):
 	df = pd.read_csv(cases_file,
 			  parse_dates=['Date'],
@@ -36,13 +36,13 @@ def covid_plot(cases_file, preds_file):
 	filter2 = IndexFilter(ita_indeces2)
 	view = CDSView(source=source, filters=[filter])
 	view2=CDSView(source=source2,filters=[filter2])
-	plot = figure(x_axis_type="datetime",plot_width=1500, tools="",toolbar_location="above")
 
-	plot.vbar('Date', top='DailyChangedConfirmedCases', source=source,view=view,fill_color="#b3de69")
-	plot.vbar('Date', top='PredictedDailyNewCases', source=source2,view=view2,color="orange",alpha=0.5)
 	country_select = Select(title='Country Selection', value="Italy", options=countries)
 	region_select = Select(title='Region Selection', value= regions[0], options=regions)
+	plot = figure(x_axis_type="datetime",title="Daily Cases",plot_width=1500,toolbar_location="above")
 
+	plot.vbar('Date', top='DailyChangedConfirmedCases', width=timedelta(days=1),source=source,view=view,fill_color="#b3de69",color="green")
+	plot.vbar('Date', top='PredictedDailyNewCases', width=timedelta(days=1),source=source2,view=view2,fill_color="orange",color="orange",alpha=0.5)
 	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,filter=filter,filter2=filter2), code='''
 	     const indices = []
 		 const indices2 = []
