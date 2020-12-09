@@ -12,8 +12,6 @@ from sklearn.linear_model import Lasso
 import pickle
 
 
-
-
 import predict
 from predict import predict_df
 import train
@@ -43,6 +41,8 @@ if __name__ == '__main__':
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
     logging.info("################ TESTING ###################")
     logging.captureWarnings(True)
+
+    #reads info from configuration file
     parser = ArgumentParser()
     parser.add_argument("-j", "--jsonfile",
                         dest="JSONfilename",
@@ -56,11 +56,16 @@ if __name__ == '__main__':
         config_data = json.load(f)
 
     start = time()
+
+    #making predictions of choosen countries and saving
     countries = config_data["countries"]
     preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"], path_to_ips_file=config_data["input_file"],model_input_file=config_data["model_input_file"], verbose=False)
     preds_df.to_csv(config_data["output_file"])
+
     print("Saved to " + config_data["output_file"])
     logging.info("Saved to " + config_data["output_file"])
+
+    #plotting cases
     print("Plotting in plot.html")
     logging.info("Plotting in plot.html")
     plot.covid_plot(config_data["input_file"],config_data["output_file"])

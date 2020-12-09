@@ -1,5 +1,5 @@
 {
-  "input_file" : "data/data.csv",
+  "input_file" : "data/regions.csv",
   "model_output_file" : "prova.pkl",
   "countries" : ["Italy"],
   "start_date" : "2020-01-10",
