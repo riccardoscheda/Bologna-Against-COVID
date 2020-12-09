@@ -1,8 +1,8 @@
 {
-  "input_file" : "data/regions.csv",
+  "input_file" : "data/data.csv",
   "output_file" : "data/predictions.csv",
-  "model_input_file": "models/prova.pkl",
-  "countries" : ["Italy","France","Germany","United States"],
-  "start_date" : "2020-10-10",
-  "end_date" : "2020-11-30"
+  "model_input_file": "models/model.pkl",
+  "countries" : ["Italy","Germany","France"],
+  "start_date" : "2020-01-15",
+  "end_date" : "2020-11-15"
 }

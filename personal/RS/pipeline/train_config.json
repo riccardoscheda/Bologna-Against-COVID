@@ -1,8 +1,8 @@
 {
-  "input_file" : "data/regions.csv",
-  "model_output_file" : "prova.pkl",
-  "countries" : ["Italy"],
+  "input_file" : "data/data.csv",
+  "model_output_file" : "model.pkl",
+  "countries" : "--",
   "start_date" : "2020-01-10",
-  "end_date" : "2020-11-20",
+  "end_date" : "2020-09-20",
   "model" : "Lasso(alpha=0.1,precompute=True,max_iter=10000,positive=True,selection='random')"
 }

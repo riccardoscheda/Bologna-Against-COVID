@@ -33,9 +33,9 @@ npi_cols = ['C1_School closing',
             'H3_Contact tracing',
             'H6_Facial Coverings']
 
-# # Helpful function to compute mae
-# def mae(pred, true):
-#     return np.mean(np.abs(pred - true))
+# Helpful function to compute mae
+def mae(pred, true):
+    return np.mean(np.abs(pred - true))
 
 #This Function need to be outside the training process
 def create_dataset(df):
@@ -132,7 +132,11 @@ if __name__ == '__main__':
     model = eval(config_data["model"])
 
     # selecting countries of interest from config file
-    cols = config_data["countries"]
+    if config_data["countries"] != "--":
+        cols = config_data["countries"]
+    else:
+        cols = list(df["CountryName"].unique())
+
     new_df = pd.DataFrame()
     for col in cols:
         new_df = new_df.append(df[df["CountryName"] == col])
@@ -147,7 +151,14 @@ if __name__ == '__main__':
 
     #Fit the model
     model.fit(X_train, y_train)
+# Evaluate model
+    train_preds = model.predict(X_train)
+    train_preds = np.maximum(train_preds, 0) # Don't predict negative cases
+    print('Train MAE:', mae(train_preds, y_train))
 
+    test_preds = model.predict(X_test)
+    test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
+    print('Test MAE:', mae(test_preds, y_test))
 
     print("Saving model in models/"+config_data["model_output_file"])
     logging.info("Saving model in models/"+config_data["model_output_file"])
@@ -158,7 +169,18 @@ if __name__ == '__main__':
     with open('models/'+config_data["model_output_file"], 'wb') as model_file:
         pickle.dump(model, model_file)
 
+    # Give names to the features
+    x_col_names = []
+    for d in range(-10, 0):
+        x_col_names.append('Day ' + str(d) + ' ' + cases_col[0])
+    for d in range(-10, 1):
+        for col_name in npi_cols:
+            x_col_names.append('Day ' + str(d) + ' ' + col_name)
 
+    # View non-zero coefficients
+    for (col, coeff) in zip(x_col_names, list(model.coef_)):
+        if coeff != 0.:
+            print(col, coeff)
     print("Elapsed time:", time() - start)
     logging.info("Elapsed time:" + str(time() - start))
 
