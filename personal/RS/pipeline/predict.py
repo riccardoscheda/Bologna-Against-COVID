@@ -9,7 +9,7 @@ import pandas as pd
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
+#MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
 #DATA_FILE = os.path.join(ROOT_DIR, 'data', "data.csv")
 ID_COLS = ['CountryName',
            'RegionName',
@@ -56,7 +56,7 @@ def predict(start_date: str,
     preds_df.to_csv(output_file_path, index=False)
     print(f"Saved predictions to {output_file_path}")
 
-def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str, verbose=True):
+def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str,model_input_file : str, verbose=True):
     """
     Generates a file with daily new cases predictions for the given countries, regions and npis, between
     start_date and end_date, included.
@@ -116,7 +116,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
     hist_cases_df = hist_cases_df[ID_COLS + CASES_COL]
 
     # Load model
-    with open(MODEL_FILE, 'rb') as model_file:
+    with open(model_input_file, 'rb') as model_file:
         model = pickle.load(model_file)
 
     # Make predictions for each country,region pair

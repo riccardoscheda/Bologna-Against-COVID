@@ -134,7 +134,7 @@ if __name__ == '__main__':
     for col in cols:
         new_df = new_df.append(df[df["CountryName"] == col])
 
-        
+
     X_samples, y_samples = skl_format(create_dataset(new_df))
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
@@ -159,7 +159,7 @@ if __name__ == '__main__':
     # Save model to file
     if not os.path.exists('models'):
         os.mkdir('models')
-    with open('models/model.pkl', 'wb') as model_file:
+    with open('models/'+config_data["model_output_file"], 'wb') as model_file:
         pickle.dump(model, model_file)
 
 
