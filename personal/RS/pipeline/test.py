@@ -14,7 +14,7 @@ import pickle
 
 import predict
 from predict import predict_df
-import train
+#import train
 import plot
 # Keep only columns of interest
 id_cols = ['CountryName',
