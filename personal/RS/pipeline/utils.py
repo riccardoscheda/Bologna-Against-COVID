@@ -26,7 +26,7 @@ def add_population_data(df):
     But now it removes rows with at least 1 Nan
     """
     more_df = pd.read_csv("data/Additional_Context_Data_Global.csv")
-    more_df.dropna()
+    more_df.dropna(inplace=True)
     new_df=more_df.merge(df,how='left',left_on=['CountryName',"CountryCode"],right_on=['CountryName',"CountryCode"])
     return new_df
 
@@ -66,7 +66,7 @@ def create_dataset(df):
 
     return df
 
-def skl_format(df, lookback_days=30):
+def skl_format(df, lookback_days=1):
     """
     Takes data and makes a formatting for sklearn
     """
@@ -89,12 +89,12 @@ def skl_format(df, lookback_days=30):
 
             # Take negative of npis to support positive
             # weight constraint in Lasso.
-            X_npis = -all_npi_data[d - lookback_days:d]
+            X_npis = all_npi_data[d - lookback_days:d]
 
             # Flatten all input data so it fits Lasso input format.
             X_sample = np.concatenate([X_cases.flatten(),
                                        X_npis.flatten()])
-            y_sample = all_case_data[d + 1]
+            y_sample = all_case_data[d]
             X_samples.append(X_sample)
             y_samples.append(y_sample)
 

@@ -28,7 +28,7 @@ NPI_COLS = ['C1_School closing',
             'H2_Testing policy',
             'H3_Contact tracing',
             'H6_Facial Coverings']
-NB_LOOKBACK_DAYS = 30
+NB_LOOKBACK_DAYS = 1 
 # For testing, restrict training data to that before a hypothetical predictor submission date
 #HYPOTHETICAL_SUBMISSION_DATE = np.datetime64("2020-07-31")
 
@@ -138,11 +138,14 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
         geo_preds = []
         # Start predicting from start_date, unless there's a gap since last known date
         current_date = min(last_known_date + np.timedelta64(1, 'D'), start_date)
+        d = NB_LOOKBACK_DAYS
         days_ahead = 0
+
         while current_date <= end_date:
             # Prepare data
-            X_cases = past_cases[-NB_LOOKBACK_DAYS:]
-            X_npis = past_npis[-NB_LOOKBACK_DAYS:]
+
+            X_cases = past_cases[d - NB_LOOKBACK_DAYS:d]
+            X_npis = past_npis[d - NB_LOOKBACK_DAYS:d]
             X = np.concatenate([X_cases.flatten(),
                                 X_npis.flatten()])
 
@@ -167,6 +170,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to
             # Move to next day
             current_date = current_date + np.timedelta64(1, 'D')
             days_ahead += 1
+            d +=1
 
         # Create geo_pred_df with pred column
         geo_pred_df = ips_gdf[ID_COLS].copy()

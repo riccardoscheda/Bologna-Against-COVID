@@ -3,6 +3,6 @@
   "output_file" : "data/predictions.csv",
   "model_input_file": "models/model.pkl",
   "countries" : ["Italy"],
-  "start_date" : "2020-04-15",
-  "end_date" : "2020-11-15"
+  "start_date" : "2020-01-01",
+  "end_date" : "2020-12-30"
 }

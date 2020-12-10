@@ -67,7 +67,6 @@ if __name__ == '__main__':
 
     #adding temperatures
     df = add_temp(df)
-    print(df.head())
 
     #reading the choosen model
     model = eval(config_data["model"])
@@ -82,6 +81,8 @@ if __name__ == '__main__':
     for col in cols:
         new_df = new_df.append(df[df["CountryName"] == col])
 
+    print(new_df.head())
+
     #formatting data for scikitlearn
     X_samples, y_samples = skl_format(create_dataset(new_df))
     # Split data into train and test sets
@@ -91,11 +92,9 @@ if __name__ == '__main__':
                                                         random_state=301)
 
     # #Fit the model
-    # X_train = new_df[npi_cols]
-    # y_train = new_df["NewCases"]
-    # model.fit(new_df[npi_cols],new_df["NewCases"])
+
     model.fit(X_train, y_train)
-# Evaluate model
+    # Evaluate model
     train_preds = model.predict(X_train)
     train_preds = np.maximum(train_preds, 0) # Don't predict negative cases
     print('Train MAE:', mae(train_preds, y_train))
