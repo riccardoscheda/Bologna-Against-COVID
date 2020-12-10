@@ -2,7 +2,7 @@
   "input_file" : "data/data.csv",
   "output_file" : "data/predictions.csv",
   "model_input_file": "models/model.pkl",
-  "countries" : ["Italy","Germany","France"],
-  "start_date" : "2020-01-15",
+  "countries" : ["Italy"],
+  "start_date" : "2020-04-15",
   "end_date" : "2020-11-15"
 }

@@ -68,7 +68,7 @@ if __name__ == '__main__':
     #adding temperatures
     df = add_temp(df)
     print(df.head())
-    
+
     #reading the choosen model
     model = eval(config_data["model"])
 
@@ -90,16 +90,20 @@ if __name__ == '__main__':
                                                         test_size=0.2,
                                                         random_state=301)
 
-    #Fit the model
+    # #Fit the model
+    # X_train = new_df[npi_cols]
+    # y_train = new_df["NewCases"]
+    # model.fit(new_df[npi_cols],new_df["NewCases"])
     model.fit(X_train, y_train)
 # Evaluate model
     train_preds = model.predict(X_train)
     train_preds = np.maximum(train_preds, 0) # Don't predict negative cases
     print('Train MAE:', mae(train_preds, y_train))
 
-    test_preds = model.predict(X_test)
-    test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
-    print('Test MAE:', mae(test_preds, y_test))
+    # test_preds = model.predict(X_test)
+    # test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
+    # print('Test MAE:', mae(test_preds, y_test))
+
 
     print("Saving model in models/"+config_data["model_output_file"])
     logging.info("Saving model in models/"+config_data["model_output_file"])
