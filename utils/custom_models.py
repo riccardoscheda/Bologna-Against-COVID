@@ -1,13 +1,19 @@
 from sklearn.base import BaseEstimator, RegressorMixin
+from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
+from scipy.integrate import solve_ivp
+import numpy as np
+from tqdm import tqdm
+
 class SIRRegressor(BaseEstimator, RegressorMixin):
     ''' Model that use the features to extract SIR parameters and compute predictions. 
     single_pred_days: number of next days to predict. Predictions could be of more than one day, so to have a multi-variate regression (NOT TESTED YET)'''
-    def __init__(self, single_pred_days=1):
-        from sklearn.utils.validation import check_X_y, check_array, check_is_fitted
-        from scipy.integrate import solve_ivp
+    def __init__(self, single_pred_days=1,lookback_days=30,infection_days=15):
+        
         #self.demo_param = demo_param
         self.params=None
         self.single_pred_days=single_pred_days
+        self.lookback_days=lookback_days
+        self.infection_days=infection_days
         
     def __SIR_ode(self,t,x0, N, beta, gamma):
         S, I, Ic, R = x0
@@ -52,13 +58,23 @@ class SIRRegressor(BaseEstimator, RegressorMixin):
         time_integ=np.linspace(0,self.single_pred_days,self.single_pred_days+1)
         for i in tqdm(range(X.shape[0]),total=X.shape[0]):
             # Apply ML model parameters to get SIR parameters
-            # Division is to ensure values lower than 1, but should be removed when there will be a real training
+            # Division for X.shape[1]  should ensure values lower than 1, but should be removed when there will be a real training
             beta=self.params[0].dot(X_normed[i])/X.shape[1]
             gamma=self.params[1].dot(X_normed[i])/X.shape[1]
-            N=X[i,lookback_days+1]
-            I0=X[i,lookback_days-infection_days:lookback_days-1].sum()
-            R0=X[i,lookback_days]
+            
+            # Total population
+            N=X[i,self.lookback_days+1]
+            
+            # Currently infected individuals
+            I0=X[i,self.lookback_days-self.infection_days:self.lookback_days-1].sum()
+            
+            # Recovered individuals (taken as current total confirmed cases)
+            R0=X[i,self.lookback_days]
+            
+            # Susceptible individuals
             S0=N-I0-R0
+            
+            # Initial condition of integration
             x0=(S0,I0,R0,R0)
             Ipred=self.__SIR_integrate(time_integ,x0,N,beta,gamma)[-1]
             y_pred.append(Ipred)

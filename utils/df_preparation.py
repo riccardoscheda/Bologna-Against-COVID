@@ -1,6 +1,24 @@
 import pandas as pd
 import numpy as np
 
+id_cols = ['CountryName',
+           'RegionName',
+           'GeoID',
+           'Date']
+cases_col = ['NewCases']
+npi_cols = ['C1_School closing',
+            'C2_Workplace closing',
+            'C3_Cancel public events',
+            'C4_Restrictions on gatherings',
+            'C5_Close public transport',
+            'C6_Stay at home requirements',
+            'C7_Restrictions on internal movement',
+            'C8_International travel controls',
+            'H1_Public information campaigns',
+            'H2_Testing policy',
+            'H3_Contact tracing',
+            'H6_Facial Coverings']
+
 def add_population_data(df):
     """
     Add additional data like population, Cancer rate, etc..  in Oxford data.
@@ -47,12 +65,12 @@ def create_dataset(df):
 
     return df
 
-def skl_format(df, lookback_days=1):
+def skl_format(df, cases_col,adj_cols_fixed,adj_cols_time,npi_cols,lookback_days=30):
     """
     Takes data and makes a formatting for sklearn
     """
     # Create training data across all countries for predicting one day ahead
-    X_cols = cases_col + npi_cols
+    X_cols = cases_col + adj_cols_fixed + adj_cols_time + npi_cols
     y_col = cases_col
     X_samples = []
     y_samples = []
@@ -60,7 +78,10 @@ def skl_format(df, lookback_days=1):
     for g in geo_ids:
         gdf = df[df.GeoID == g]
         all_case_data = np.array(gdf[cases_col])
+        all_adj_fixed_data=np.array(gdf[adj_cols_fixed])
+        all_adj_time_data=np.array(gdf[adj_cols_time])
         all_npi_data = np.array(gdf[npi_cols])
+        
 
         # Create one sample for each day where we have enough data
         # Each sample consists of cases and npis for previous lookback_days
@@ -68,12 +89,17 @@ def skl_format(df, lookback_days=1):
         for d in range(lookback_days, nb_total_days - 1):
             X_cases = all_case_data[d-lookback_days:d]
 
+                       
+            # 
+            X_adj_fixed=all_adj_fixed_data[d-1]
+            X_adj_time=all_adj_time_data[d-lookback_days:d]
+            
             # Take negative of npis to support positive
             # weight constraint in Lasso.
-            X_npis = all_npi_data[d - lookback_days:d]
+            X_npis = -all_npi_data[d - lookback_days:d]
 
             # Flatten all input data so it fits Lasso input format.
-            X_sample = np.concatenate([X_cases.flatten(),
+            X_sample = np.concatenate([X_cases.flatten(),X_adj_fixed.flatten(),X_adj_time.flatten(),
                                        X_npis.flatten()])
             y_sample = all_case_data[d]
             X_samples.append(X_sample)
