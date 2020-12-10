@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 import numpy as np
 
@@ -36,6 +37,18 @@ def add_temp(df):
     df_T=pd.read_csv('data/country_temperatures.csv',parse_dates=['Date'])
     df_T=df.merge(df_T,how='left',left_on=['CountryName','Date'],right_on=['CountryName','Date'])
     return df_T
+
+def add_HDI(df):
+    '''Use this only on the Oxford dataframe.
+    Return the same dataframe with a column HDI taken from data/country_HDI.csv
+    Dataset from https://ourworldindata.org/coronavirus-testing
+    '''
+
+    path_to_HDI = os.path.join('data', 'country_HDI.csv')
+    df_HDI = pd.read_csv(path_to_HDI)
+    df_HDI = df.merge(df_HDI, how='left', left_on=['CountryName', 'Date'], right_on=['CountryName', 'Date'])
+    # df_HDI.dropna(inplace=True)  # Droppiamo?
+    return df_HDI
 
 # Helpful function to compute mae
 def mae(pred, true):
@@ -81,7 +94,7 @@ def skl_format(df, cases_col,adj_cols_fixed,adj_cols_time,npi_cols,lookback_days
         all_adj_fixed_data=np.array(gdf[adj_cols_fixed])
         all_adj_time_data=np.array(gdf[adj_cols_time])
         all_npi_data = np.array(gdf[npi_cols])
-        
+
 
         # Create one sample for each day where we have enough data
         # Each sample consists of cases and npis for previous lookback_days
@@ -89,11 +102,11 @@ def skl_format(df, cases_col,adj_cols_fixed,adj_cols_time,npi_cols,lookback_days
         for d in range(lookback_days, nb_total_days - 1):
             X_cases = all_case_data[d-lookback_days:d]
 
-                       
-            # 
+
+            #
             X_adj_fixed=all_adj_fixed_data[d-1]
             X_adj_time=all_adj_time_data[d-lookback_days:d]
-            
+
             # Take negative of npis to support positive
             # weight constraint in Lasso.
             X_npis = -all_npi_data[d - lookback_days:d]
