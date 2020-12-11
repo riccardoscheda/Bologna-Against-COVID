@@ -4,5 +4,6 @@
   "model_input_file": "models/model.pkl",
   "countries" : ["Italy", "France", "Germany", "Spain", "China", "India"],
   "start_date" : "2020-03-01",
-  "end_date" : "2020-12-09"
+  "end_date" : "2020-12-09",
+  "lookback_days" : 30
 }

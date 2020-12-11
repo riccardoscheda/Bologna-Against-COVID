@@ -28,7 +28,6 @@ NPI_COLS = ['C1_School closing',
             'H2_Testing policy',
             'H3_Contact tracing',
             'H6_Facial Coverings']
-NB_LOOKBACK_DAYS = 60
 # For testing, restrict training data to that before a hypothetical predictor submission date
 # HYPOTHETICAL_SUBMISSION_DATE = np.datetime64("2020-07-31")
 
@@ -56,7 +55,7 @@ def predict(start_date: str,
     preds_df.to_csv(output_file_path, index=False)
     print(f"Saved predictions to {output_file_path}")
 
-def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str,model_input_file : str, verbose=True):
+def predict_df(countries : list, start_date_str: str, end_date_str: str, path_to_ips_file: str,model_input_file : str, NB_LOOKBACK_DAYS, verbose=True):
     """
     Generates a file with daily new cases predictions for the given countries, regions and npis, between
     start_date and end_date, included.

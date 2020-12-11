@@ -1,8 +1,12 @@
 {
   "input_file" : "data/data.csv",
-  "model_output_file" : "model.pkl",
-  "countries" : ["Italy"],
+  "model_output_file" : ".pkl",
+  "countries" : ["Italy", "France", "Spain", "China", "India"],
   "start_date" : "2020-01-01",
   "end_date" : "2020-12-09",
-  "model" : "Lasso(alpha=0.5,precompute=True,max_iter=10000,positive=True,selection='random')"
+  "lookback_days" : 30,
+  "models" : {"Lasso()" :  {"alpha" : "np.linspace(0.3, 1, 5)",
+                            "max_iter" : "[10000]"},
+              "LinearRegression()" : {}
+              }
 }
