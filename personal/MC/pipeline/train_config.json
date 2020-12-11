@@ -1,0 +1,8 @@
+{
+  "input_file" : "data/data.csv",
+  "model_output_file" : "model.pkl",
+  "countries" : ["Italy"],
+  "start_date" : "2020-01-01",
+  "end_date" : "2020-12-09",
+  "model" : "Lasso(alpha=0.5,precompute=True,max_iter=10000,positive=True,selection='random')"
+}

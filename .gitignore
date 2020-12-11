@@ -31,7 +31,10 @@ covid_xprize/validation/tests/fixtures/OxCGRT_latest.csv
 covid_xprize.egg-info/
 personal/MC/data/
 personal/MC/models/
+personal/MC/pipeline/data/
+personal/MC/pipeline/plot.html
 
 personal/FD/data/
 
 personal/RS/pipeline/data/
+
