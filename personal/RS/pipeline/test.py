@@ -13,7 +13,7 @@ import pickle
 
 
 import predict
-from predict import predict_df
+from predict import predict_df, my_predict_df
 #import train
 import plot
 # Keep only columns of interest
@@ -59,8 +59,9 @@ if __name__ == '__main__':
 
     #making predictions of choosen countries and saving
     countries = config_data["countries"]
-    preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"], path_to_ips_file=config_data["input_file"],model_input_file=config_data["model_input_file"], verbose=False)
-    #preds_df['NewCases'] = preds_df.groupby(["CountryName"]).PredictedDailyNewCases.diff().fillna(0)
+    #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=config_data["model_input_file"], verbose=False)
+    preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=config_data["model_input_file"], verbose=False)
+
     preds_df.to_csv(config_data["output_file"])
 
     print("Saved to " + config_data["output_file"])

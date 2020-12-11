@@ -66,13 +66,13 @@ if __name__ == '__main__':
                  error_bad_lines=True)
 
     #adding temperatures
-    df = add_temp(df)
+    #df = add_temp(df)
 
     #reading the choosen model
     model = eval(config_data["model"])
 
     # selecting countries of interest from config file
-    if config_data["countries"] != "":
+    if config_data["countries"]:
         cols = config_data["countries"]
     else:
         cols = list(df["CountryName"].unique())
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     print(new_df.head())
 
     #formatting data for scikitlearn
-    X_samples, y_samples = skl_format(create_dataset(new_df))
+    X_samples, y_samples = skl_format(create_dataset(new_df),config_data["lookback_days"])
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
@@ -93,7 +93,8 @@ if __name__ == '__main__':
 
     # #Fit the model
 
-    model.fit(X_train, y_train)
+    #model.fit(X_train, y_train)
+    model.fit(X_samples,y_samples)
     # Evaluate model
     train_preds = model.predict(X_train)
     train_preds = np.maximum(train_preds, 0) # Don't predict negative cases

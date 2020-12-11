@@ -89,7 +89,10 @@ def skl_format(df, lookback_days=1):
 
             # Take negative of npis to support positive
             # weight constraint in Lasso.
+
+            ####### NOTICE THIS WAS NEGATIVE AND IN TEST WAS POSITIVE ##########
             X_npis = all_npi_data[d - lookback_days:d]
+            ####################################################################
 
             # Flatten all input data so it fits Lasso input format.
             X_sample = np.concatenate([X_cases.flatten(),
