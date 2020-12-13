@@ -7,6 +7,7 @@ id_cols = ['CountryName',
            'GeoID',
            'Date']
 cases_col = ['NewCases']
+
 npi_cols = ['C1_School closing',
             'C2_Workplace closing',
             'C3_Cancel public events',
@@ -79,13 +80,14 @@ def create_dataset(df):
 
     return df
 
-def skl_format(df, lookback_days=1):
+def skl_format(df, moving_average=False, lookback_days=30):
     """
     Takes data and makes a formatting for sklearn
     """
     # Create training data across all countries for predicting one day ahead
-    X_cols = cases_col + npi_cols
-    y_col = cases_col
+    X_cols = cases_col + npi_cols if not moving_average else ["MA"] + npi_cols
+    y_col = cases_col if not moving_average else ["MA"]
+    print(y_col)
     X_samples = []
     y_samples = []
     geo_ids = df.GeoID.unique()

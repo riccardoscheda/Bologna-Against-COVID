@@ -9656,3 +9656,135 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
 
 2020-12-13 17:29:51,615 INFO     Elapsed time:6.604218244552612
+2020-12-13 17:41:37,108 INFO     ################### TRAINING ##################
+2020-12-13 17:41:37,109 INFO     Loading train_config.json...
+2020-12-13 17:41:57,475 INFO     Saving model in models/Lasso.pkl
+2020-12-13 17:41:57,476 INFO     Elapsed time:20.367217779159546
+2020-12-13 17:41:57,650 INFO     Saving model in models/LinearRegression.pkl
+2020-12-13 17:41:57,651 INFO     Elapsed time:20.542125701904297
+2020-12-13 17:42:13,260 INFO     ################ TESTING ###################
+2020-12-13 17:42:13,261 INFO     Loading test_config.json...
+2020-12-13 17:42:13,570 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:42:14,266 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:42:14,666 INFO     Saved to data/predictions.csv
+2020-12-13 17:42:14,666 INFO     Plotting in plot.html
+2020-12-13 17:42:18,581 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 17:42:18,582 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 17:42:19,983 INFO     Elapsed time:6.7209625244140625
+2020-12-13 17:44:49,592 INFO     ################ TESTING ###################
+2020-12-13 17:44:49,593 INFO     Loading test_config.json...
+2020-12-13 17:44:49,888 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:44:50,939 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:44:51,698 INFO     Saved to data/predictions.csv
+2020-12-13 17:44:51,698 INFO     Plotting in plot.html
+2020-12-13 17:44:55,566 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 17:44:55,566 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 17:44:56,968 INFO     Elapsed time:7.375110864639282
+2020-12-13 17:47:42,420 INFO     ################### TRAINING ##################
+2020-12-13 17:47:42,422 INFO     Loading train_config.json...
+2020-12-13 17:48:49,590 INFO     Saving model in models/Lasso.pkl
+2020-12-13 17:48:49,592 INFO     Elapsed time:67.16963839530945
+2020-12-13 17:48:50,046 INFO     Saving model in models/LinearRegression.pkl
+2020-12-13 17:48:50,047 INFO     Elapsed time:67.62516975402832
+2020-12-13 17:49:09,206 INFO     ################ TESTING ###################
+2020-12-13 17:49:09,207 INFO     Loading test_config.json...
+2020-12-13 17:49:09,511 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:49:10,619 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:49:11,383 INFO     Saved to data/predictions.csv
+2020-12-13 17:49:11,383 INFO     Plotting in plot.html
+2020-12-13 17:49:15,310 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 17:49:15,310 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 17:49:16,713 INFO     Elapsed time:7.505886554718018
+2020-12-13 17:50:18,105 INFO     ################### TRAINING ##################
+2020-12-13 17:50:18,106 INFO     Loading train_config.json...
+2020-12-13 17:51:07,584 INFO     Saving model in models/Lasso.pkl
+2020-12-13 17:51:07,585 INFO     Elapsed time:49.478981018066406
+2020-12-13 17:51:08,032 INFO     Saving model in models/LinearRegression.pkl
+2020-12-13 17:51:08,035 INFO     Elapsed time:49.92844581604004
+2020-12-13 17:51:13,986 INFO     ################ TESTING ###################
+2020-12-13 17:51:13,987 INFO     Loading test_config.json...
+2020-12-13 17:51:14,295 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:51:15,337 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 17:51:16,074 INFO     Saved to data/predictions.csv
+2020-12-13 17:51:16,074 INFO     Plotting in plot.html
+2020-12-13 17:51:19,982 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 17:51:19,983 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 17:51:21,373 INFO     Elapsed time:7.385499954223633
+2020-12-13 17:52:20,033 INFO     ################### TRAINING ##################
+2020-12-13 17:52:20,034 INFO     Loading train_config.json...
+2020-12-13 17:53:03,984 INFO     Saving model in models/Lasso.pkl
+2020-12-13 17:53:03,991 INFO     Elapsed time:43.956952810287476
+2020-12-13 17:53:04,452 INFO     Saving model in models/LinearRegression.pkl
+2020-12-13 17:53:04,453 INFO     Elapsed time:44.41848087310791
+2020-12-13 18:03:04,265 INFO     ################ TESTING ###################
+2020-12-13 18:03:04,266 INFO     Loading test_config.json...
+2020-12-13 18:03:04,560 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:03:26,083 INFO     ################ TESTING ###################
+2020-12-13 18:03:26,084 INFO     Loading test_config.json...
+2020-12-13 18:03:26,386 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:03:28,917 INFO     ################ TESTING ###################
+2020-12-13 18:03:28,917 INFO     Loading test_config.json...
+2020-12-13 18:03:29,225 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:06:56,790 INFO     ################ TESTING ###################
+2020-12-13 18:06:56,792 INFO     Loading test_config.json...
+2020-12-13 18:06:57,093 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:06:58,160 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:06:58,929 INFO     Saved to data/predictions.csv
+2020-12-13 18:06:58,929 INFO     Plotting in plot.html
+2020-12-13 18:07:02,824 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 18:07:02,824 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 18:07:04,206 INFO     Elapsed time:7.408043384552002
+2020-12-13 18:07:56,880 INFO     ################### TRAINING ##################
+2020-12-13 18:07:56,881 INFO     Loading train_config.json...
+2020-12-13 18:08:18,173 INFO     Saving model in models/Lasso.pkl
+2020-12-13 18:08:18,174 INFO     Elapsed time:21.293154001235962
+2020-12-13 18:08:18,371 INFO     Saving model in models/LinearRegression.pkl
+2020-12-13 18:08:18,371 INFO     Elapsed time:21.490463256835938
+2020-12-13 18:08:20,943 INFO     ################ TESTING ###################
+2020-12-13 18:08:20,944 INFO     Loading test_config.json...
+2020-12-13 18:08:21,242 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:08:21,938 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 18:08:22,344 INFO     Saved to data/predictions.csv
+2020-12-13 18:08:22,344 INFO     Plotting in plot.html
+2020-12-13 18:08:26,231 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 18:08:26,231 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 18:08:27,636 INFO     Elapsed time:6.691550970077515

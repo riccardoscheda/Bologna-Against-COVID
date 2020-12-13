@@ -42,6 +42,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
                     format="%(asctime)-15s %(levelname)-8s %(message)s")
     logging.info("################### TRAINING ##################")
+    #logging.captureWarnings(True)
 
     #reads info from configuration file
     parser = ArgumentParser()
@@ -108,7 +109,7 @@ if __name__ == '__main__':
         lookback_days = config_data['lookback_days']
 
         #formatting data for scikitlearn
-        X_samples, y_samples = skl_format(new_df,config_data["lookback_days"])
+        X_samples, y_samples = skl_format(new_df,eval(config_data["moving_average"]),config_data["lookback_days"])
         # Split data into train and test sets
         X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                             y_samples,

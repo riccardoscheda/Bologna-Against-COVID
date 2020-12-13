@@ -7,6 +7,8 @@ import pickle
 import numpy as np
 import pandas as pd
 
+from utils import mov_avg
+
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 #MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
@@ -69,6 +71,8 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOK
     start_date = pd.to_datetime(start_date_str, format='%Y-%m-%d')
     end_date = pd.to_datetime(end_date_str, format='%Y-%m-%d')
 
+    if moving_average:
+        CASES_COL = ["MA"]
     # Load historical intervention plans, since inception
     df = pd.read_csv(path_to_ips_file,
                               parse_dates=['Date'],
@@ -207,7 +211,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOK
     return pred_df
 
 
-def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOKBACK_DAYS: int,path_to_ips_file: str,model_input_file : str, verbose=True):
+def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOKBACK_DAYS: int,path_to_ips_file: str,moving_average : bool,model_input_file : str, verbose=True):
 
     with open(model_input_file, 'rb') as model_file:
         model = pickle.load(model_file)
@@ -232,10 +236,15 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
     cases["GeoID"] = cases['CountryName'] + '__' + cases['RegionName'].astype(str)
 
     # Add new cases column
+
     cases['NewCases'] = cases.groupby('GeoID').ConfirmedCases.diff().fillna(0)
+
     # Fill any missing case values by interpolation and setting NaNs to 0
     cases.update(cases.groupby('GeoID').NewCases.apply(
         lambda group: group.interpolate()).fillna(0))
+
+    # Adding moving average column
+    cases = mov_avg(cases, col = "NewCases")
 
     ips = ips[ID_COLS + NPI_COLS]
     cases = cases[ID_COLS + CASES_COL]
@@ -253,8 +262,9 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         preds = []
         dates = []
         #print(geo_ips)
+
         X_cases = list(geo_cases[(geo_ips.Date<start_date) &
-                                       (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
+                                   (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
 
         while current_date <= end_date:
             X_npis = np.array(geo_ips[(geo_ips.Date < current_date) &
@@ -280,7 +290,7 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         geo_pred_df["RegionName"] = region
         geo_pred_df["Date"] = dates
         geo_pred_df["GeoID"] = geo
-    
+
         tot = tot.append(geo_pred_df)
 
 

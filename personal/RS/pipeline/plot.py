@@ -49,7 +49,7 @@ def covid_plot(cases_file, preds_file):
 
 	plot.vbar('Date', top='NewCases', width=timedelta(days=1),source=source,view=view,fill_color="#b3de69",color="green")
 	plot.vbar('Date', top='PredictedDailyNewCases', width=timedelta(days=1),source=source2,view=view2,fill_color="orange",color="orange",alpha=0.5)
-	plot.vbar('Date', top='MA', width=timedelta(days=1),source=source2,view=view2,fill_color="red",color="red",alpha=0.5)
+	#plot.vbar('Date', top='MA', width=timedelta(days=1),source=source2,view=view2,fill_color="red",color="red",alpha=0.5)
 	plot.vbar('Date', top='MA', width=timedelta(days=1),source=source,view=view,fill_color="blue",color="blue",alpha=0.5)
 
 	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,model_select=model_select,filter=filter,filter2=filter2), code='''

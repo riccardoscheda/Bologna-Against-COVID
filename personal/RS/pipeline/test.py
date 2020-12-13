@@ -63,7 +63,7 @@ if __name__ == '__main__':
     for model in config_data["model_input_files"]:
 
         #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
-        preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
+        preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"],moving_average=eval(config_data["moving_average"]), path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df["Model"] = model[7:-4]
         preds_df = mov_avg(preds_df, col = "PredictedDailyNewCases")
         tot = tot.append(preds_df)
