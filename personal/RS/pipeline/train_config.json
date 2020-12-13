@@ -5,5 +5,7 @@
   "start_date" : "2020-01-01",
   "end_date" : "2020-02-09",
   "lookback_days" : 30,
-  "model" : "Lasso(alpha=0.5,precompute=True,max_iter=10000,positive=True,selection='random')"
+  "models" : {
+             "LinearRegression()" : {}
+             }
 }

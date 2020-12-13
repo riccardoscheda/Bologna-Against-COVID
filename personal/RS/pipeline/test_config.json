@@ -1,9 +1,9 @@
 {
   "input_file" : "data/data.csv",
   "output_file" : "data/predictions.csv",
-  "model_input_file": "models/model.pkl",
+  "model_input_file": "models/LinearRegression.pkl",
   "countries" : ["Italy"],
   "start_date" : "2020-02-15",
-  "end_date" : "2020-11-08",
+  "end_date" : "2020-12-08",
   "lookback_days" : 30
 }
