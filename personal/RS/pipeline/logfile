@@ -8794,3 +8794,199 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
 
 2020-12-13 12:06:11,417 INFO     Elapsed time:4.650200128555298
+2020-12-13 12:09:54,674 INFO     ################ TESTING ###################
+2020-12-13 12:09:54,675 INFO     Loading test_config.json...
+2020-12-13 12:09:54,943 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:09:55,616 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:09:56,020 INFO     Saved to data/predictions.csv
+2020-12-13 12:09:56,020 INFO     Plotting in plot.html
+2020-12-13 12:09:58,174 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:09:58,175 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:09:59,392 INFO     Elapsed time:4.717483758926392
+2020-12-13 12:16:58,562 INFO     ################ TESTING ###################
+2020-12-13 12:16:58,562 INFO     Loading test_config.json...
+2020-12-13 12:16:58,903 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:17:07,254 INFO     ################ TESTING ###################
+2020-12-13 12:17:07,255 INFO     Loading test_config.json...
+2020-12-13 12:17:07,525 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:17:21,457 INFO     ################ TESTING ###################
+2020-12-13 12:17:21,458 INFO     Loading test_config.json...
+2020-12-13 12:17:21,714 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:17:22,382 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:17:22,784 INFO     Saved to data/predictions.csv
+2020-12-13 12:17:22,784 INFO     Plotting in plot.html
+2020-12-13 12:17:24,878 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:17:24,879 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:17:26,121 INFO     Elapsed time:4.662536144256592
+2020-12-13 12:17:45,889 INFO     ################ TESTING ###################
+2020-12-13 12:17:45,890 INFO     Loading test_config.json...
+2020-12-13 12:17:46,173 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:17:46,244 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:19:30,785 INFO     ################ TESTING ###################
+2020-12-13 12:19:30,786 INFO     Loading test_config.json...
+2020-12-13 12:19:31,038 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:19:31,108 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:19:51,934 INFO     ################ TESTING ###################
+2020-12-13 12:19:51,935 INFO     Loading test_config.json...
+2020-12-13 12:19:52,193 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:19:52,263 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:20:57,554 INFO     ################ TESTING ###################
+2020-12-13 12:20:57,555 INFO     Loading test_config.json...
+2020-12-13 12:20:57,807 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:20:57,883 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips[geo_ips["GeoID"]==geo]["Date"]<start_date) &
+
+2020-12-13 12:21:21,189 INFO     ################ TESTING ###################
+2020-12-13 12:21:21,190 INFO     Loading test_config.json...
+2020-12-13 12:21:21,444 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:21:21,514 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:21:41,715 INFO     ################ TESTING ###################
+2020-12-13 12:21:41,716 INFO     Loading test_config.json...
+2020-12-13 12:21:41,977 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:21:42,637 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:21:43,039 INFO     Saved to data/predictions.csv
+2020-12-13 12:21:43,039 INFO     Plotting in plot.html
+2020-12-13 12:21:45,152 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:21:45,153 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:21:46,370 INFO     Elapsed time:4.653733253479004
+2020-12-13 12:21:53,596 INFO     ################ TESTING ###################
+2020-12-13 12:21:53,597 INFO     Loading test_config.json...
+2020-12-13 12:21:53,851 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:21:54,516 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:21:54,923 INFO     Saved to data/predictions.csv
+2020-12-13 12:21:54,923 INFO     Plotting in plot.html
+2020-12-13 12:21:57,044 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:21:57,044 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:21:58,254 INFO     Elapsed time:4.656956911087036
+2020-12-13 12:22:08,556 INFO     ################ TESTING ###################
+2020-12-13 12:22:08,557 INFO     Loading test_config.json...
+2020-12-13 12:22:08,810 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:22:08,870 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:252: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:22:26,125 INFO     ################ TESTING ###################
+2020-12-13 12:22:26,126 INFO     Loading test_config.json...
+2020-12-13 12:22:26,378 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:22:26,439 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:253: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:23:05,334 INFO     ################ TESTING ###################
+2020-12-13 12:23:05,334 INFO     Loading test_config.json...
+2020-12-13 12:23:05,607 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:23:05,667 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:253: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:23:12,569 INFO     ################ TESTING ###################
+2020-12-13 12:23:12,570 INFO     Loading test_config.json...
+2020-12-13 12:23:12,825 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:23:12,885 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:253: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:23:25,623 INFO     ################ TESTING ###################
+2020-12-13 12:23:25,624 INFO     Loading test_config.json...
+2020-12-13 12:23:25,878 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:23:25,956 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:253: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:24:06,927 INFO     ################ TESTING ###################
+2020-12-13 12:24:06,928 INFO     Loading test_config.json...
+2020-12-13 12:24:07,184 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:24:07,262 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:253: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:24:27,268 INFO     ################ TESTING ###################
+2020-12-13 12:24:27,269 INFO     Loading test_config.json...
+2020-12-13 12:24:27,525 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:24:27,604 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:254: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips["Date"]<start_date) &
+
+2020-12-13 12:26:16,551 INFO     ################ TESTING ###################
+2020-12-13 12:26:16,552 INFO     Loading test_config.json...
+2020-12-13 12:26:16,816 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:26:16,893 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:254: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips.Date<start_date) &
+
+2020-12-13 12:26:56,838 INFO     ################ TESTING ###################
+2020-12-13 12:26:56,839 INFO     Loading test_config.json...
+2020-12-13 12:26:57,094 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:26:57,173 WARNING  /home/riccardo/git/Bologna-Against-COVID/personal/RS/pipeline/predict.py:254: UserWarning: Boolean Series key will be reindexed to match DataFrame index.
+  X_cases = list(cases[(geo_ips.Date<start_date) &
+
+2020-12-13 12:27:57,519 INFO     ################ TESTING ###################
+2020-12-13 12:27:57,520 INFO     Loading test_config.json...
+2020-12-13 12:27:57,777 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:27:58,775 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:27:59,507 INFO     Saved to data/predictions.csv
+2020-12-13 12:27:59,507 INFO     Plotting in plot.html
+2020-12-13 12:28:01,581 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:28:01,581 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:28:02,783 INFO     Elapsed time:5.263579845428467
+2020-12-13 12:28:14,410 INFO     ################ TESTING ###################
+2020-12-13 12:28:14,411 INFO     Loading test_config.json...
+2020-12-13 12:28:14,679 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:28:15,628 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-13 12:28:16,312 INFO     Saved to data/predictions.csv
+2020-12-13 12:28:16,312 INFO     Plotting in plot.html
+2020-12-13 12:28:18,337 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-13 12:28:18,338 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-13 12:28:19,551 INFO     Elapsed time:5.1333231925964355

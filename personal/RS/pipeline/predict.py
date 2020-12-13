@@ -239,18 +239,21 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
     ips = ips[ID_COLS + NPI_COLS]
     cases = cases[ID_COLS + CASES_COL]
 
-    #tot_df = pd.DataFrame(columns = ID_COLS + CASES_COL)
+    tot = pd.DataFrame()
+    #print(ips.GeoID.unique())
     for geo in ips.GeoID.unique():
 
         geo_pred_df = pd.DataFrame()
         country = geo.split("__")[0]
         region = geo.split("__")[1]
         geo_ips = ips[ips["GeoID"] == geo]
+        geo_cases = cases[cases["GeoID"] == geo]
         current_date =  start_date
         preds = []
         dates = []
-        X_cases = list(cases[(geo_ips["Date"]<start_date) &
-                                       (geo_ips["Date"]>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
+        #print(geo_ips)
+        X_cases = list(geo_cases[(geo_ips.Date<start_date) &
+                                       (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
 
         while current_date < end_date:
             X_npis = np.array(geo_ips[(geo_ips.Date <= current_date) &
@@ -277,12 +280,12 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         geo_pred_df["Date"] = dates
 
             #pred_df = pd.concat(geo_pred_df)
-        #tot_df.append(geo_pred_df)
+        tot = tot.append(geo_pred_df)
 
 
     # Drop GeoID column to match expected output format
     #pred_df = pred_df.drop(columns=['GeoID'])
-    return geo_pred_df
+    return tot
 
             # Add if it's a requested date
 

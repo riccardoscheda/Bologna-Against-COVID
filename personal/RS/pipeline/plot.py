@@ -31,7 +31,7 @@ def covid_plot(cases_file, preds_file):
 	regions = sorted(list(set(source2.data['RegionName'])))
 	models = sorted(list(set(source2.data['Model'])))
 	ita_indeces = list(df[(df["CountryName"]=="Italy") & (df["RegionName"]== regions[0])].index)
-	ita_indeces2 = list(pred_df[(pred_df["CountryName"]=="Italy") & (pred_df["RegionName"]== regions[0])].index)
+	ita_indeces2 = list(pred_df[(pred_df["CountryName"]=="Italy") & (pred_df["RegionName"]== regions[0]) & (pred_df["Model"] == models[0])].index)
 
 	filter = IndexFilter(ita_indeces)
 	filter2 = IndexFilter(ita_indeces2)
