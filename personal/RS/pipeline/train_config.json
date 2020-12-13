@@ -5,7 +5,8 @@
   "start_date" : "2020-01-01",
   "end_date" : "2020-02-09",
   "lookback_days" : 30,
-  "models" : {
+  "models" : {"Lasso()" :  {"alpha" : "np.linspace(0.3, 1, 3)",
+                           "max_iter" : "[10000]"},
              "LinearRegression()" : {}
              }
 }
