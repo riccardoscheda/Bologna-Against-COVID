@@ -20,6 +20,17 @@ npi_cols = ['C1_School closing',
             'H3_Contact tracing',
             'H6_Facial Coverings']
 
+
+def mov_avg(df, window=7, col="NewCases"):
+    """ Returns a new column with the moving average for new cases
+    """
+    MA = pd.Series(dtype=np.float64)
+    for geo in df.GeoID.unique():
+        MA = MA.append(df[df["GeoID"] == geo][col].rolling(window=window).mean())
+    df["MA"] = MA
+    return df
+
+
 def add_population_data(df):
     """
     Add additional data like population, Cancer rate, etc..  in Oxford data.
@@ -57,7 +68,6 @@ def create_dataset(df):
     # Add new cases column
     df['NewCases'] = df.groupby('GeoID').ConfirmedCases.diff().fillna(0)
 
-
     # Fill any missing case values by interpolation and setting NaNs to 0
     df.update(df.groupby('GeoID').NewCases.apply(
         lambda group: group.interpolate()).fillna(0))
@@ -81,6 +91,7 @@ def skl_format(df, lookback_days=1):
     geo_ids = df.GeoID.unique()
     for g in geo_ids:
         gdf = df[df.GeoID == g]
+
         all_case_data = np.array(gdf[cases_col])
         all_npi_data = np.array(gdf[npi_cols])
 

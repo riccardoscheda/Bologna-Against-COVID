@@ -196,6 +196,7 @@ def predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOK
 
         #######################################################################
         geo_pred_df['PredictedDailyNewCases'] = geo_preds
+
         geo_pred_dfs.append(geo_pred_df)
 
     # Combine all predictions into a single dataframe
@@ -278,8 +279,8 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         geo_pred_df["CountryName"] = country
         geo_pred_df["RegionName"] = region
         geo_pred_df["Date"] = dates
-
-            #pred_df = pd.concat(geo_pred_df)
+        geo_pred_df["GeoID"] = geo
+    
         tot = tot.append(geo_pred_df)
 
 

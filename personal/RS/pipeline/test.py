@@ -14,7 +14,7 @@ import pickle
 
 import predict
 from predict import predict_df, my_predict_df
-#import train
+from utils import mov_avg
 import plot
 # Keep only columns of interest
 id_cols = ['CountryName',
@@ -65,8 +65,10 @@ if __name__ == '__main__':
         #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df["Model"] = model[7:-4]
+        preds_df = mov_avg(preds_df, col = "PredictedDailyNewCases")
         tot = tot.append(preds_df)
-        print(tot.head())
+        #print(tot.head())
+
     tot.to_csv(config_data["output_file"], index=False)
     print("Saved to " + config_data["output_file"])
     logging.info("Saved to " + config_data["output_file"])

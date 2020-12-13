@@ -16,7 +16,7 @@ from sklearn.model_selection import GridSearchCV
 
 import predict
 from predict import predict_df
-from  utils import mae, create_dataset, skl_format, add_temp
+from  utils import mae, create_dataset, skl_format, add_temp, mov_avg
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     # selecting choosen time period from config file
     df = df[(df.Date > config_data["start_date"]) & (df.Date < config_data["end_date"])]
-    
+    df = create_dataset(df)
     #adding temperatures
     #df = add_temp(df)
 
@@ -88,7 +88,7 @@ if __name__ == '__main__':
         gcv = GridSearchCV(estimator=model,
                      param_grid=param_grid,
                      scoring=None,  # TODO
-                     n_jobs=2,      # -1 is ALL PROCESSOR AVAILABLE
+                     n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
                      cv=None,       # None is K=5 fold CV
                      refit=True,
                      )
@@ -99,12 +99,16 @@ if __name__ == '__main__':
             cols = list(df["CountryName"].unique())
 
         new_df = pd.DataFrame()
+
         for col in cols:
             new_df = new_df.append(df[df["CountryName"] == col])
 
+        new_df = mov_avg(new_df)
+
         lookback_days = config_data['lookback_days']
+
         #formatting data for scikitlearn
-        X_samples, y_samples = skl_format(create_dataset(new_df),config_data["lookback_days"])
+        X_samples, y_samples = skl_format(new_df,config_data["lookback_days"])
         # Split data into train and test sets
         X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                             y_samples,
