@@ -12,8 +12,7 @@ from sklearn.linear_model import Lasso
 import pickle
 
 
-import predict
-from predict import predict_df, my_predict_df
+from predict import my_predict_df#, predict_df
 from utils import mov_avg
 import plot
 # Keep only columns of interest
@@ -38,11 +37,11 @@ npi_cols = ['C1_School closing',
 
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
-                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+                        format="%(asctime)-15s %(levelname)-8s %(message)s")
     logging.info("################ TESTING ###################")
     logging.captureWarnings(True)
 
-    #reads info from configuration file
+    # reads info from configuration file
     parser = ArgumentParser()
     parser.add_argument("-j", "--jsonfile",
                         dest="JSONfilename",
@@ -65,7 +64,7 @@ if __name__ == '__main__':
         #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"],moving_average=eval(config_data["moving_average"]), path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df["Model"] = model[7:-4]
-        preds_df = mov_avg(preds_df, col = "PredictedDailyNewCases")
+
         tot = tot.append(preds_df)
         #print(tot.head())
 

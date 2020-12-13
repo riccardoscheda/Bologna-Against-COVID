@@ -1,22 +1,17 @@
 import json
 import pandas as pd
-from pprint import pprint
 from time import time
 from argparse import ArgumentParser
 import os
 import logging
-from sklearn.linear_model import LinearRegression
+from sklearn.linear_model import LinearRegression, Lasso
 import numpy as np
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import Lasso
 import pickle
-import pylab as plt
 from sklearn.model_selection import GridSearchCV
 
 
-import predict
-from predict import predict_df
-from  utils import mae, create_dataset, skl_format, add_temp, mov_avg
+from utils import mae, create_dataset, skl_format, add_temp
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -37,10 +32,9 @@ npi_cols = ['C1_School closing',
             'H6_Facial Coverings']
 
 
-
 if __name__ == '__main__':
     logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
-                    format="%(asctime)-15s %(levelname)-8s %(message)s")
+                        format="%(asctime)-15s %(levelname)-8s %(message)s")
     logging.info("################### TRAINING ##################")
     #logging.captureWarnings(True)
 
@@ -71,10 +65,9 @@ if __name__ == '__main__':
     # selecting choosen time period from config file
     df = df[(df.Date > config_data["start_date"]) & (df.Date < config_data["end_date"])]
     df = create_dataset(df)
-    #adding temperatures
-    #df = add_temp(df)
 
-    #reading the choosen model
+
+    #reading the choosen models
     models = config_data["models"]
 
     # Start looping on models keys, every model cointains: name and param_grid
@@ -104,8 +97,7 @@ if __name__ == '__main__':
         for col in cols:
             new_df = new_df.append(df[df["CountryName"] == col])
 
-        new_df = mov_avg(new_df)
-
+        #print(new_df)
         lookback_days = config_data['lookback_days']
 
         #formatting data for scikitlearn

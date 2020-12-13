@@ -3,7 +3,7 @@
   "output_file" : "data/predictions.csv",
   "model_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
   "moving_average" : "True",
-  "countries" : ["Italy"],
+  "countries" : ["France"],
   "start_date" : "2020-03-15",
   "end_date" : "2020-12-08",
   "lookback_days" : 30

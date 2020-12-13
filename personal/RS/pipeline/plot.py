@@ -1,25 +1,24 @@
 import pandas as pd
 from bokeh.plotting import figure
 from bokeh.models import ColumnDataSource, CustomJS, CDSView, Select, IndexFilter
-from bokeh.io import show, output_notebook, save
+from bokeh.io import save
 from bokeh.layouts import column
-import numpy as np
 from datetime import timedelta
-from utils import mov_avg, create_dataset
+from utils import create_dataset
+
 
 def covid_plot(cases_file, preds_file):
 	df = pd.read_csv(cases_file,
-			  parse_dates=['Date'],
-			 encoding="ISO-8859-1",
-			 dtype={"RegionName": str,
-			        "RegionCode": str},
-			 error_bad_lines=False)
+					parse_dates=['Date'],
+					encoding="ISO-8859-1",
+					dtype={"RegionName": str,"RegionCode": str},
+			 		error_bad_lines=False)
+
 	pred_df =  pd.read_csv(preds_file,
-			  parse_dates=['Date'],
-			 encoding="ISO-8859-1",
-			 dtype={"RegionName": str,
-			        "RegionCode": str},
-			 error_bad_lines=False)
+							parse_dates=['Date'],
+							encoding="ISO-8859-1",
+							dtype={"RegionName": str,"RegionCode": str},
+							error_bad_lines=False)
 
 
 	default = "--"
@@ -27,7 +26,7 @@ def covid_plot(cases_file, preds_file):
 	#df["DailyChangedConfirmedCases"] = df.groupby(["CountryName","RegionName"]).ConfirmedCases.diff().fillna(0)
 	pred_df["RegionName"] = pred_df["RegionName"].fillna(default)
 
-	df = mov_avg(create_dataset(df),col="NewCases")
+	df = create_dataset(df)
 	source = ColumnDataSource(df)
 	source2 = ColumnDataSource(pred_df)
 	countries = sorted(list(set(source2.data['CountryName'])))
@@ -48,10 +47,11 @@ def covid_plot(cases_file, preds_file):
 	plot = figure(x_axis_type="datetime",title="Daily Cases",plot_width=1500,toolbar_location="above")
 
 	plot.vbar('Date', top='NewCases', width=timedelta(days=1),source=source,view=view,fill_color="#b3de69",color="green")
-	plot.vbar('Date', top='PredictedDailyNewCases', width=timedelta(days=1),source=source2,view=view2,fill_color="orange",color="orange",alpha=0.5)
+
 	#plot.vbar('Date', top='MA', width=timedelta(days=1),source=source2,view=view2,fill_color="red",color="red",alpha=0.5)
 	plot.vbar('Date', top='MA', width=timedelta(days=1),source=source,view=view,fill_color="blue",color="blue",alpha=0.5)
 
+	plot.vbar('Date', top='PredictedDailyNewCases', width=timedelta(days=1),source=source2,view=view2,fill_color="orange",color="orange",alpha=0.8)
 	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,model_select=model_select,filter=filter,filter2=filter2), code='''
 	     const indices = []
 		 const indices2 = []

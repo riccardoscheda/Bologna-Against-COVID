@@ -1,7 +1,7 @@
 {
   "input_file" : "data/data.csv",
   "model_output_file" : "model.pkl",
-  "countries" : ["Italy"],
+  "countries" : ["France"],
   "moving_average" : "True",
   "start_date" : "2020-01-01",
   "end_date" : "2020-12-08",

@@ -27,8 +27,9 @@ def mov_avg(df, window=7, col="NewCases"):
     """
     MA = pd.Series(dtype=np.float64)
     for geo in df.GeoID.unique():
-        MA = MA.append(df[df["GeoID"] == geo][col].rolling(window=window).mean())
+        MA = MA.append(df[df["GeoID"] == geo][col].rolling(window=window).mean()).fillna(0)
     df["MA"] = MA
+
     return df
 
 
@@ -58,15 +59,14 @@ def mae(pred, true):
 #  This Function need to be outside the training process
 
 
-def create_dataset(df):
+def create_dataset(df, npis = True):
     """
     From XPRIZE jupyter, this function merges country and region, fills any missing cases
     and fills any missing pis
     """
-    # Add RegionID column that combines CountryName and RegionName for easier manipulation of data
+    # Adding RegionID column that combines CountryName and RegionName for easier manipulation of data
     df['GeoID'] = df['CountryName'] + '__' + df['RegionName'].astype(str)
-    # Add new cases column
-    # Add new cases column
+    # Adding new cases column
     df['NewCases'] = df.groupby('GeoID').ConfirmedCases.diff().fillna(0)
 
     # Fill any missing case values by interpolation and setting NaNs to 0
@@ -74,9 +74,14 @@ def create_dataset(df):
         lambda group: group.interpolate()).fillna(0))
 
     # Fill any missing NPIs by assuming they are the same as previous day
-    for npi_col in npi_cols:
-        df.update(df.groupby('GeoID')[npi_col].ffill().fillna(0))
+    if npis:
+        for npi_col in npi_cols:
+            df.update(df.groupby('GeoID')[npi_col].ffill().fillna(0))
 
+    # adding temperatures
+    df = add_temp(df)
+    # adding moving average column
+    df = mov_avg(df)
 
     return df
 
@@ -85,8 +90,9 @@ def skl_format(df, moving_average=False, lookback_days=30):
     Takes data and makes a formatting for sklearn
     """
     # Create training data across all countries for predicting one day ahead
-    X_cols = cases_col + npi_cols if not moving_average else ["MA"] + npi_cols
-    y_col = cases_col if not moving_average else ["MA"]
+    COL = cases_col if not moving_average else ["MA"]
+    X_cols = COL + npi_cols
+    y_col = COL
     print(y_col)
     X_samples = []
     y_samples = []
@@ -94,7 +100,7 @@ def skl_format(df, moving_average=False, lookback_days=30):
     for g in geo_ids:
         gdf = df[df.GeoID == g]
 
-        all_case_data = np.array(gdf[cases_col])
+        all_case_data = np.array(gdf[COL])
         all_npi_data = np.array(gdf[npi_cols])
 
         # Create one sample for each day where we have enough data
