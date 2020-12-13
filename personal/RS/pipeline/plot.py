@@ -29,6 +29,7 @@ def covid_plot(cases_file, preds_file):
 	source2 = ColumnDataSource(pred_df)
 	countries = sorted(list(set(source2.data['CountryName'])))
 	regions = sorted(list(set(source2.data['RegionName'])))
+	models = sorted(list(set(source2.data['Model'])))
 	ita_indeces = list(df[(df["CountryName"]=="Italy") & (df["RegionName"]== regions[0])].index)
 	ita_indeces2 = list(pred_df[(pred_df["CountryName"]=="Italy") & (pred_df["RegionName"]== regions[0])].index)
 
@@ -39,11 +40,13 @@ def covid_plot(cases_file, preds_file):
 
 	country_select = Select(title='Country Selection', value="Italy", options=countries)
 	region_select = Select(title='Region Selection', value= regions[0], options=regions)
+	model_select = Select(title='Model', value= models[0], options=models)
+
 	plot = figure(x_axis_type="datetime",title="Daily Cases",plot_width=1500,toolbar_location="above")
 
 	plot.vbar('Date', top='DailyChangedConfirmedCases', width=timedelta(days=1),source=source,view=view,fill_color="#b3de69",color="green")
 	plot.vbar('Date', top='PredictedDailyNewCases', width=timedelta(days=1),source=source2,view=view2,fill_color="orange",color="orange",alpha=0.5)
-	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,filter=filter,filter2=filter2), code='''
+	callback = CustomJS(args=dict(source=source,source2=source2,country_select=country_select,region_select=region_select,model_select=model_select,filter=filter,filter2=filter2), code='''
 	     const indices = []
 		 const indices2 = []
 
@@ -57,16 +60,18 @@ def covid_plot(cases_file, preds_file):
 
 
 		   for (var i = 0; i < source2.get_length(); i++) {
-	         if (source2.data['CountryName'][i] == country_select.value && source2.data['RegionName'][i] == region_select.value) {
+	         if (source2.data['CountryName'][i] == country_select.value && source2.data['RegionName'][i] == region_select.value && source2.data["Model"][i] == model_select.value) {
 	           indices2.push(i)
 	         }
 	       }
 	       filter2.indices = indices2
 	 	  source2.change.emit();
 
+
 	                    '''
 	                )
 
 	country_select.js_on_change('value', callback)
 	region_select.js_on_change('value',callback)
-	save(column(country_select,column(region_select, plot)),filename="plot.html")
+	model_select.js_on_change('value',callback)
+	save(column(model_select,column(country_select,column(region_select, plot))),"plot.html")

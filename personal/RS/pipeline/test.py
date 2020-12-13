@@ -59,20 +59,21 @@ if __name__ == '__main__':
 
     #making predictions of choosen countries and saving
     countries = config_data["countries"]
+    tot = pd.DataFrame()
     for model in config_data["model_input_files"]:
 
         #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
         preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
-
-        print(model[7:])
-        preds_df.to_csv("data/" + model[7:-4] + '-' + config_data["output_file"])
-
-        print("Saved to data/" + model[7:-4] + '-' + config_data["output_file"])
-        logging.info("Saved to data/" + model[7:-4] + '-' + config_data["output_file"])
+        preds_df["Model"] = model[7:-4]
+        tot = tot.append(preds_df)
+        print(tot.head())
+    tot.to_csv(config_data["output_file"], index=False)
+    print("Saved to " + config_data["output_file"])
+    logging.info("Saved to " + config_data["output_file"])
 
     #plotting cases
     print("Plotting in plot.html")
     logging.info("Plotting in plot.html")
-    plot.covid_plot(config_data["input_file"],"data/" + model[7:-4] + '-' + config_data["output_file"])
+    plot.covid_plot(config_data["input_file"],config_data["output_file"])
     print("Elapsed time:", time() - start)
     logging.info("Elapsed time:" + str(time() - start))

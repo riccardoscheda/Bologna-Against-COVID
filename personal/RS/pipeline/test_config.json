@@ -1,7 +1,7 @@
 {
   "input_file" : "data/data.csv",
-  "output_file" : "predictions.csv",
-  "model_input_files": ["models/LinearRegression.pkl", "models/Lasso.pkl"],
+  "output_file" : "data/predictions.csv",
+  "model_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
   "countries" : ["Italy"],
   "start_date" : "2020-02-15",
   "end_date" : "2020-12-08",
