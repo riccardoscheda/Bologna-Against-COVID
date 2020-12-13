@@ -255,11 +255,11 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         X_cases = list(geo_cases[(geo_ips.Date<start_date) &
                                        (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
 
-        while current_date < end_date:
-            X_npis = np.array(geo_ips[(geo_ips.Date <= current_date) &
-                                      (geo_ips.Date > (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][NPI_COLS].values)
-            #X_cases = np.array(cases[(cases.Date <= current_date) &
-            #                         (cases.Date > (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
+        while current_date <= end_date:
+            X_npis = np.array(geo_ips[(geo_ips.Date < current_date) &
+                                      (geo_ips.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][NPI_COLS].values)
+            # X_cases = np.array(geo_cases[(geo_cases.Date < current_date) &
+            #                         (geo_cases.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
 
 
             dates.append(current_date)

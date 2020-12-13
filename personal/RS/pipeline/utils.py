@@ -38,11 +38,14 @@ def add_temp(df):
     df_T=df.merge(df_T,how='left',left_on=['CountryName','Date'],right_on=['CountryName','Date'])
     return df_T
 
+
 # Helpful function to compute mae
 def mae(pred, true):
     return np.mean(np.abs(pred - true))
 
-#This Function need to be outside the training process
+#  This Function need to be outside the training process
+
+
 def create_dataset(df):
     """
     From XPRIZE jupyter, this function merges country and region, fills any missing cases

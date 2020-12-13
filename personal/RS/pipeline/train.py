@@ -66,6 +66,10 @@ if __name__ == '__main__':
                         "RegionCode": str},
                  error_bad_lines=True)
 
+
+    # selecting choosen time period from config file
+    df = df[(df.Date > config_data["start_date"]) & (df.Date < config_data["end_date"])]
+    
     #adding temperatures
     #df = add_temp(df)
 

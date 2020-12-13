@@ -3,9 +3,10 @@
   "model_output_file" : "model.pkl",
   "countries" : ["Italy"],
   "start_date" : "2020-01-01",
-  "end_date" : "2020-02-09",
+  "end_date" : "2020-03-14",
   "lookback_days" : 30,
   "models" : {"Lasso()" :  {"alpha" : "np.linspace(0.3, 4, 1)",
-                           "max_iter" : "[10000]"}
+                           "max_iter" : "[10000]"},
+              "LinearRegression()" : {}
              }
 }
