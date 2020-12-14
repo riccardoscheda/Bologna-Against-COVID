@@ -1,0 +1,36 @@
+{
+	"train": {
+			"input_file" : "data/data.csv",
+		  "models_output_dir" : "models",
+
+			"moving_average" : "True",
+			"countries" : ["United States"],
+		  "start_date" : "2020-01-01",
+		  "end_date" : "2020-12-08",
+
+			"models" : {
+
+					"Lasso()" : {
+							"alpha" : "np.linspace(0.3, 1, 3)",
+		          "max_iter" : "[10000]"
+					},
+
+					"LinearRegression()" : {}
+
+		}
+	},
+
+	"test" : {
+			"input_file" : "data/data.csv",
+			"output_file" : "data/predictions.csv",
+
+			"models_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
+
+			"moving_average" : "True",
+			"countries" : ["Italy"],
+			"start_date" : "2020-03-01",
+			"end_date" : "2020-12-08"
+	},
+
+	"lookback_days" : 30
+}

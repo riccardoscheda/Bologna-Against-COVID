@@ -211,8 +211,8 @@ def predict(start_date: str,
 #     return pred_df
 #
 
-def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_LOOKBACK_DAYS: int,path_to_ips_file: str,moving_average : bool,model_input_file : str, verbose=True):
 
+def my_predict_df(countries: list, start_date_str: str, end_date_str: str, NB_LOOKBACK_DAYS: int, path_to_ips_file: str, moving_average: bool, model_input_file: str, verbose=True):
 
     if moving_average:
         CASES_COL = ["MA"]
@@ -227,18 +227,18 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
 
     # Load historical intervention plans, since inception
     df = pd.read_csv(path_to_ips_file,
-                              parse_dates=['Date'],
-                              encoding='ISO-8859-1',
-                              dtype={"RegionName": str},
-                              error_bad_lines=True)
+                     parse_dates=['Date'],
+                     encoding='ISO-8859-1',
+                     dtype={'RegionName': str},
+                     error_bad_lines=True)
 
     df = create_dataset(df)
     ips = pd.DataFrame()
     cases = pd.DataFrame()
 
     for country in countries:
-        ips = ips.append(df[df["CountryName"]==country])
-        cases = cases.append(df[df["CountryName"]==country])
+        ips = ips.append(df[df['CountryName'] == country])
+        cases = cases.append(df[df['CountryName'] == country])
 
     ips = ips[ID_COLS + NPI_COLS]
     cases = cases[ID_COLS + CASES_COL]
@@ -252,10 +252,9 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
         region = geo.split("__")[1]
         geo_ips = ips[ips["GeoID"] == geo]
         geo_cases = cases[cases["GeoID"] == geo]
-        current_date =  start_date
+        current_date = start_date
         preds = []
         dates = []
-        #print(geo_ips)
 
         X_cases = list(geo_cases[(geo_ips.Date<start_date) &
                                    (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
@@ -266,12 +265,10 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
             # X_cases = np.array(geo_cases[(geo_cases.Date < current_date) &
             #                         (geo_cases.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
 
-
             dates.append(current_date)
 
             X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
                                 X_npis.flatten()])
-
 
             # Make the prediction (reshape so that sklearn is happy)
             pred = model.predict(X.reshape(1, -1))[0]
@@ -287,12 +284,10 @@ def my_predict_df(countries : list, start_date_str: str, end_date_str: str, NB_L
 
         tot = tot.append(geo_pred_df)
 
-
     # Drop GeoID column to match expected output format
-    #pred_df = pred_df.drop(columns=['GeoID'])
+    # pred_df = pred_df.drop(columns=['GeoID'])
     return tot
-
-            # Add if it's a requested date
+    # Add if it's a requested date
 
 # !!! PLEASE DO NOT EDIT. THIS IS THE OFFICIAL COMPETITION API !!!
 if __name__ == '__main__':

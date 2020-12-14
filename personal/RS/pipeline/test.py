@@ -1,20 +1,18 @@
-import json
-import pandas as pd
-from pprint import pprint
-from time import time
-from argparse import ArgumentParser
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
 import os
+import json
 import logging
-from sklearn.linear_model import LinearRegression
-import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import Lasso
-import pickle
+import argparse
+from time import time
 
+import pandas as pd
 
-from predict import my_predict_df#, predict_df
-from utils import mov_avg
 import plot
+from predict import my_predict_df
+from utils import mae, create_dataset, skl_format, add_temp
+
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -36,45 +34,67 @@ npi_cols = ['C1_School closing',
 
 
 if __name__ == '__main__':
-    logging.basicConfig(level=logging.DEBUG, filename="logfile", filemode="a+",
-                        format="%(asctime)-15s %(levelname)-8s %(message)s")
-    logging.info("################ TESTING ###################")
+
+    logging.basicConfig(level=logging.DEBUG, filename='logfile', filemode='a+',
+                        format='%(asctime)-15s %(levelname)-8s %(message)s')
+    logging.info('################ TESTING ###################')
     logging.captureWarnings(True)
 
     # reads info from configuration file
-    parser = ArgumentParser()
-    parser.add_argument("-j", "--jsonfile",
-                        dest="JSONfilename",
-                        help="JSON configuration file",
-                        metavar="FILE",
-                        default="test_config.json")
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-j', '--jsonfile',
+                        dest='JSONfilename',
+                        help='JSON configuration file',
+                        metavar='FILE',
+                        default='config.json')
     args = parser.parse_args()
+
     print('Loading', args.JSONfilename, '...')
-    logging.info('Loading '+  str(args.JSONfilename) + '...')
+    logging.info('Loading ' + str(args.JSONfilename) + '...')
     with open(args.JSONfilename) as f:
         config_data = json.load(f)
 
+    # Loading config parameters
+    lookback_days = config_data['lookback_days']
+    test_config = config_data['test']
+
+    input_dataset = test_config['input_file']
+    output_dataset = test_config['output_file']
+
+    start_date = test_config['start_date']
+    end_date = test_config['end_date']
+
+    moving_average = eval(test_config['moving_average'])  # it's a string in json, we want bool
+    models_input_files = test_config['models_input_files']
+    countries = test_config['countries']
+
     start = time()
 
-    #making predictions of choosen countries and saving
-    countries = config_data["countries"]
+    # Making predictions of choosen countries and saving
     tot = pd.DataFrame()
-    for model in config_data["model_input_files"]:
+    for model in models_input_files:
 
-        #preds_df = predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"], path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
-        preds_df = my_predict_df(countries, config_data["start_date"], config_data["end_date"],config_data["lookback_days"],moving_average=eval(config_data["moving_average"]), path_to_ips_file=config_data["input_file"],model_input_file=model, verbose=False)
-        preds_df["Model"] = model[7:-4]
+        preds_df = my_predict_df(countries,
+                                 start_date,
+                                 end_date,
+                                 lookback_days,
+                                 moving_average=moving_average,
+                                 path_to_ips_file=input_dataset,
+                                 model_input_file=model,
+                                 verbose=False
+                                 )
+
+        preds_df['Model'] = model.split(os.sep)[-1].split('.')[0]
 
         tot = tot.append(preds_df)
-        #print(tot.head())
 
-    tot.to_csv(config_data["output_file"], index=False)
-    print("Saved to " + config_data["output_file"])
-    logging.info("Saved to " + config_data["output_file"])
+    tot.to_csv(output_dataset, index=False)
+    print('Saved to ' + output_dataset)
+    logging.info('Saved to ' + output_dataset)
 
-    #plotting cases
-    print("Plotting in plot.html")
-    logging.info("Plotting in plot.html")
-    plot.covid_plot(config_data["input_file"],config_data["output_file"])
-    print("Elapsed time:", time() - start)
-    logging.info("Elapsed time:" + str(time() - start))
+    print('Plotting in plot.html')
+    logging.info('Plotting in plot.html')
+
+    plot.covid_plot(input_dataset, output_dataset)
+    print('Elapsed time: {:.5} s'.format(time() - start))
+    logging.info('Elapsed time:' + str(time() - start))
