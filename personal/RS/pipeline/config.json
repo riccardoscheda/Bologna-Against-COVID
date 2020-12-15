@@ -29,10 +29,10 @@
 			"moving_average" : "True",
 			"countries" : ["Italy", "Spain", "France", "Germany"],
 			"start_date" : "2020-10-15",
-			"end_date" : "2020-12-10"
+			"end_date" : "2020-12-08"
 	},
 
 	"lookback_days" : 30,
-	"adj_cols_fixed" : [],
+	"adj_cols_fixed" : ["Population Density (# per km2)","Population ages 65 and above (% of total population)"],
 	"adj_cols_time" : ["TemperatureC"]
 }
