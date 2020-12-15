@@ -212,12 +212,19 @@ def predict(start_date: str,
 #
 
 
-def my_predict_df(countries: list, start_date_str: str, end_date_str: str, NB_LOOKBACK_DAYS: int, path_to_ips_file: str, moving_average: bool, model_input_file: str, verbose=True):
+def my_predict_df(countries: list,
+                  start_date_str: str, end_date_str: str,
+                  NB_LOOKBACK_DAYS: int,
+                  moving_average: bool,
+                  path_to_ips_file: str, model_input_file: str,
+                  adj_cols_time=[],
+                  adj_cols_fixed=[],
+                  verbose=True):
 
     if moving_average:
-        CASES_COL = ["MA"]
+        CASES_COL = ['MA']
     else:
-        CASES_COL = ["NewCases"]
+        CASES_COL = ['NewCases']
 
     with open(model_input_file, 'rb') as model_file:
         model = pickle.load(model_file)
@@ -233,41 +240,59 @@ def my_predict_df(countries: list, start_date_str: str, end_date_str: str, NB_LO
                      error_bad_lines=True)
 
     df = create_dataset(df)
-    ips = pd.DataFrame()
-    cases = pd.DataFrame()
+
+    country_selection = pd.DataFrame()
 
     for country in countries:
-        ips = ips.append(df[df['CountryName'] == country])
-        cases = cases.append(df[df['CountryName'] == country])
+        country_mask = df.CountryName == country
+        country_selection = country_selection.append(df[country_mask])
 
-    ips = ips[ID_COLS + NPI_COLS]
-    cases = cases[ID_COLS + CASES_COL]
-    #print(cases)
+    ips = country_selection[ID_COLS + NPI_COLS]
+    cases = country_selection[ID_COLS + CASES_COL]
+    adj_time_df = country_selection[ID_COLS + adj_cols_time]
+    adj_fixed_df = country_selection[ID_COLS + adj_cols_fixed]
+
     tot = pd.DataFrame()
-    #print(ips.GeoID.unique())
+
     for geo in ips.GeoID.unique():
 
         geo_pred_df = pd.DataFrame()
-        country = geo.split("__")[0]
-        region = geo.split("__")[1]
-        geo_ips = ips[ips["GeoID"] == geo]
-        geo_cases = cases[cases["GeoID"] == geo]
+        country = geo.split('__')[0]
+        region = geo.split('__')[1]
+        geo_ips = ips[ips['GeoID'] == geo]
+        geo_cases = cases[cases['GeoID'] == geo]
+        geo_adj_time = adj_time_df[adj_fixed_df['GeoID'] == geo]
+        geo_adj_fixed = adj_fixed_df[adj_fixed_df['GeoID'] == geo]
+
         current_date = start_date
         preds = []
         dates = []
 
-        X_cases = list(geo_cases[(geo_ips.Date<start_date) &
-                                   (geo_ips.Date>=(start_date-np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
+        # Date are between start_date - lookback_days and start_date (prediction)
+        date_mask = ((geo_ips.Date < start_date) &
+                     (geo_ips.Date >= (start_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
+
+        X_cases = list(geo_cases[date_mask][CASES_COL].values)
 
         while current_date <= end_date:
-            X_npis = np.array(geo_ips[(geo_ips.Date < current_date) &
-                                      (geo_ips.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][NPI_COLS].values)
-            # X_cases = np.array(geo_cases[(geo_cases.Date < current_date) &
-            #                         (geo_cases.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D')))][CASES_COL].values)
+
+            date_mask_npi = ((geo_ips.Date < current_date) &
+                             (geo_ips.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
+
+            date_mask_time = ((geo_adj_time.Date < current_date) &
+                              (geo_adj_time.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
+
+            date_mask_fixed = geo_adj_fixed.Date == current_date
+
+            X_npis = np.array(geo_ips[date_mask_npi][NPI_COLS].values)
+            X_adj_time = np.array(geo_adj_time[date_mask_time][adj_cols_time].values)
+            X_adj_fixed = np.array(geo_adj_fixed[date_mask_fixed][adj_cols_fixed].values)
 
             dates.append(current_date)
 
             X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+                                X_adj_time.flatten(),
+                                X_adj_fixed.flatten(),
                                 X_npis.flatten()])
 
             # Make the prediction (reshape so that sklearn is happy)
@@ -276,6 +301,7 @@ def my_predict_df(countries: list, start_date_str: str, end_date_str: str, NB_LO
             preds.append(pred)
             X_cases.append(pred)
             current_date = current_date + np.timedelta64(1, 'D')
+
         geo_pred_df["PredictedDailyNewCases"] = preds
         geo_pred_df["CountryName"] = country
         geo_pred_df["RegionName"] = region

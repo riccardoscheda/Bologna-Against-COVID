@@ -4,9 +4,9 @@
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : ["United States"],
+			"countries" : ["Italy", "Spain", "France", "Germany"],
 		  "start_date" : "2020-01-01",
-		  "end_date" : "2020-12-08",
+		  "end_date" : "2020-10-15",
 
 			"models" : {
 
@@ -27,10 +27,12 @@
 			"models_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
 
 			"moving_average" : "True",
-			"countries" : ["Italy"],
-			"start_date" : "2020-03-01",
-			"end_date" : "2020-12-08"
+			"countries" : ["Italy", "Spain", "France", "Germany"],
+			"start_date" : "2020-10-15",
+			"end_date" : "2020-12-10"
 	},
 
-	"lookback_days" : 30
+	"lookback_days" : 30,
+	"adj_cols_fixed" : [],
+	"adj_cols_time" : ["TemperatureC"]
 }
