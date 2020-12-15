@@ -294,7 +294,7 @@ def my_predict_df(countries: list,
                                 X_adj_time.flatten(),
                                 X_adj_fixed.flatten(),
                                 X_npis.flatten()])
-
+            
             # Make the prediction (reshape so that sklearn is happy)
             pred = model.predict(X.reshape(1, -1))[0]
             pred = np.maximum(pred, 0)
