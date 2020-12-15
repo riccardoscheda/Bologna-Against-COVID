@@ -169,6 +169,7 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
                                        X_adj_time.flatten(),
                                        X_npis.flatten()])
 
+                                       
             y_sample = all_case_data[d]
             X_samples.append(X_sample)
             y_samples.append(y_sample)
