@@ -133,6 +133,9 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         return (i,labels)        
         
     def row_initial_conditions(self,X_i):
+        '''
+        Returs the initial condition from the the SIR integration of this row.
+        '''
         N=X_i[self.lookback_days+1]            
         # Currently infected individuals (sum of new cases on the previous infection_days before the first fit day)
         I0=X_i[self.lookback_days-self.fit_days-self.infection_days:self.lookback_days-self.fit_days+1].sum()            
@@ -145,9 +148,15 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         return N,x0
     
     def row_observed_cases(self,X_i):
+        '''
+        Return an array with length fit_days with the real observed new_cases of that row.
+        '''
         return X_i[self.lookback_days-self.fit_days:self.lookback_days]
     
     def row_fit(self,X_i):
+        '''
+        Fit SIR parameters for one observation
+        '''
         N,x0=self.row_initial_conditions(X_i)
         if x0[1]<0:
             raise ValueError('Infected was {} for popolation {}'.format(x0[1],X_i[self.lookback_days+1]))
@@ -162,6 +171,9 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         return popt
         
     def row_predict(self,X_i,pars):
+        '''
+        Given the SIR parameters, predicts the new cases. The last one is the actual prediction for the final MAE
+        '''
         N,x0=self.row_initial_conditions(X_i)
         beta=pars[0]
         gamma=pars[1]
@@ -189,6 +201,9 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         return self
     
     def predict(self, X):
+        '''
+        Fit SIR parameters for each observation
+        '''
         # Check is fit had been called
         check_is_fitted(self)
         # Input validation
