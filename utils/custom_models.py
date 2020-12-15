@@ -175,6 +175,8 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         Given the SIR parameters, predicts the new cases. The last one is the actual prediction for the final MAE
         '''
         N,x0=self.row_initial_conditions(X_i)
+        if np.isnan(pars[0]):
+            return np.repeat(X_i[self.lookback_days-1], self.fit_days)
         beta=pars[0]
         gamma=pars[1]
         Ipred=self.__SIR_integrate(self.time_integ,x0,N,self.time_integ,beta,gamma)

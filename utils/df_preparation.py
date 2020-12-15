@@ -1,3 +1,5 @@
+#DO NOT USE
+
 import os
 import pandas as pd
 import numpy as np
@@ -122,3 +124,6 @@ def skl_format(df, cases_col,adj_cols_fixed,adj_cols_time,npi_cols,lookback_days
     y_samples = np.array(y_samples).flatten()
 
     return X_samples, y_samples
+
+if __name__ == "__main__":     
+    print('Do not use this module df_preparation. Import pipeline/utils instead')
