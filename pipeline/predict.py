@@ -291,8 +291,8 @@ def my_predict_df(countries: list,
             dates.append(current_date)
 
             X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
-                                X_adj_time.flatten(),
                                 X_adj_fixed.flatten(),
+                                X_adj_time.flatten(),
                                 X_npis.flatten()])
 
             # Make the prediction (reshape so that sklearn is happy)
