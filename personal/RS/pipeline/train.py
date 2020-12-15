@@ -14,7 +14,8 @@ from sklearn.linear_model import LinearRegression, Lasso
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
-from utils import mae, create_dataset, skl_format, add_temp
+from utils import mae, create_dataset, skl_format
+from utils import add_temp, add_population_data, add_HDI
 
 id_cols = ['CountryName',
            'RegionName',
@@ -70,6 +71,10 @@ if __name__ == '__main__':
     models = train_config['models']
     countries = train_config['countries']
 
+    # Additional Columns adder
+    adj_cols_fixed = config_data['adj_cols_fixed']
+    adj_cols_time = config_data['adj_cols_time']
+
     # Reading file with historical interventions
     start = time()
     df = pd.read_csv(input_dataset,
@@ -83,8 +88,34 @@ if __name__ == '__main__':
     df = df[(df.Date > start_date) & (df.Date < end_date)]
     df = create_dataset(df)
 
+    # Selecting countries of interest from config file
+    # TO TEST ALL COUNTRY, WRITE "countries" : "" in jsonfile
+    if countries:
+        cols = countries
+    else:
+        cols = list(df.CountryName.unique())
+
+    new_df = pd.DataFrame()
+
+    for col in cols:
+        new_df = new_df.append(df[df.CountryName == col])
+
+    # formatting data for scikitlearn
+    X_samples, y_samples = skl_format(new_df,
+                                      moving_average,
+                                      lookback_days=lookback_days,
+                                      adj_cols_fixed=adj_cols_fixed,
+                                      adj_cols_time=adj_cols_time,
+                                      )
+    # Split data into train and test sets
+    X_train, X_test, y_train, y_test = train_test_split(X_samples,
+                                                        y_samples,
+                                                        test_size=0.2,
+                                                        random_state=301)
+
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():
+
         model = eval(model_name)
         param_grid = models[model_name]
 
@@ -95,32 +126,9 @@ if __name__ == '__main__':
                            param_grid=param_grid,
                            scoring=None,  # TODO
                            n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
-                           cv=2,       # None is K=5 fold CV
+                           cv=2,          # None is K=5 fold CV
                            refit=True,
                            )
-
-        # Selecting countries of interest from config file
-        # TO TEST ALL COUNTRY, WRITE "countries" : "" in jsonfile
-        if countries:
-            cols = countries
-        else:
-            cols = list(df.CountryName.unique())
-
-        new_df = pd.DataFrame()
-
-        for col in cols:
-            new_df = new_df.append(df[df.CountryName == col])
-
-        # formatting data for scikitlearn
-        X_samples, y_samples = skl_format(new_df,
-                                          moving_average,
-                                          lookback_days
-                                          )
-        # Split data into train and test sets
-        X_train, X_test, y_train, y_test = train_test_split(X_samples,
-                                                            y_samples,
-                                                            test_size=0.2,
-                                                            random_state=301)
 
         # Fit the GridSearch
         gcv.fit(X_samples, y_samples)
@@ -146,5 +154,5 @@ if __name__ == '__main__':
         with open(model_path, 'wb') as model_file:
             pickle.dump(gcv, model_file)
 
-        print('Elapsed time: {:.4} s'.format(time() - start))
+        print('Elapsed time: {:.5} s'.format(time() - start))
         logging.info('Elapsed time: ' + str(time() - start))

@@ -68,6 +68,10 @@ if __name__ == '__main__':
     models_input_files = test_config['models_input_files']
     countries = test_config['countries']
 
+    # Additional Columns adder
+    adj_cols_fixed = config_data['adj_cols_fixed']
+    adj_cols_time = config_data['adj_cols_time']
+
     start = time()
 
     # Making predictions of choosen countries and saving
@@ -79,6 +83,8 @@ if __name__ == '__main__':
                                  end_date,
                                  lookback_days,
                                  moving_average=moving_average,
+                                 adj_cols_time=adj_cols_time,
+                                 adj_cols_fixed=adj_cols_fixed,
                                  path_to_ips_file=input_dataset,
                                  model_input_file=model,
                                  verbose=False
