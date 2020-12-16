@@ -16,6 +16,17 @@ from sklearn.model_selection import GridSearchCV
 
 from utils import mae, create_dataset, skl_format
 from utils import add_temp, add_population_data, add_HDI
+from utils import create_lstm
+
+from sklearn.metrics import make_scorer
+from sklearn.metrics import accuracy_score, precision_score, recall_score
+from keras.wrappers.scikit_learn import KerasClassifier
+from sklearn.model_selection import GridSearchCV
+scorers = {
+        # 'precision_score': make_scorer(precision_score),
+        # 'recall_score': make_scorer(recall_score),
+        'accuracy_score': make_scorer(accuracy_score)
+        }
 
 id_cols = ['CountryName',
            'RegionName',
@@ -107,6 +118,8 @@ if __name__ == '__main__':
                                       adj_cols_fixed=adj_cols_fixed,
                                       adj_cols_time=adj_cols_time,
                                       )
+    print(X_samples.shape)
+    print(y_samples.shape)
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
@@ -116,53 +129,48 @@ if __name__ == '__main__':
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():
         # Flag for LSTM model
-        if model_name == "LSTM":
-            # TODO: Add an lstm model different from xprize one
-            predictor = XPrizePredictor(None, input_dataset)
-            predictor_model = predictor.train()
-            # Save model to file
-            if not os.path.exists(models_output_dir):
-                os.mkdir(models_output_dir)
-
-            predictor_model.save_weights("models/" + model_name + ".h5")
+        if model_name == "LSTM()":
+            model = KerasClassifier(build_fn=create_lstm, verbose=0)
         else:
             model = eval(model_name)
-            param_grid = models[model_name]
 
-            for param in models[model_name]:
-              param_grid[param] = eval(param_grid[param])
 
-            gcv = GridSearchCV(estimator=model,
-                               param_grid=param_grid,
-                               scoring=None,  # TODO
-                               n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
-                               cv=2,          # None is K=5 fold CV
-                               refit=True,
-                               )
+        param_grid = models[model_name]
 
-            # Fit the GridSearch
-            gcv.fit(X_samples, y_samples)
+        for param in models[model_name]:
+          param_grid[param] = eval(param_grid[param])
 
-            # Evaluate model
-            train_preds = gcv.predict(X_train)
-            train_preds = np.maximum(train_preds, 0)  # Don't predict negative cases
-            print('\nTrain MAE:', mae(train_preds, y_train))
+        gcv = GridSearchCV(estimator=model,
+                           param_grid=param_grid,
+                           scoring=scorers,  # Added scorers on the top of the file, see: https://stackoverflow.com/questions/60643832/if-no-scoring-is-specified-the-estimator-passed-should-have-a-score-method
+                           n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
+                           cv=2,          # None is K=5 fold CV
+                           refit=False,
+                           )
 
-            # test_preds = model.predict(X_test)
-            # test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
-            # print('Test MAE:', mae(test_preds, y_test))
+        # Fit the GridSearch
+        gcv.fit(X_samples, y_samples)
 
-            model_path = os.path.join(models_output_dir, model_name[:-2] + '.pkl')
+        # Evaluate model
+        train_preds = gcv.predict(X_train)
+        train_preds = np.maximum(train_preds, 0)  # Don't predict negative cases
+        print('\nTrain MAE:', mae(train_preds, y_train))
 
-            print('Saving model in ', model_path)
-            logging.info('Saving model in ' + str(model_path))
+        # test_preds = model.predict(X_test)
+        # test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
+        # print('Test MAE:', mae(test_preds, y_test))
 
-            # Save model to file
-            if not os.path.exists(models_output_dir):
-                os.mkdir(models_output_dir)
+        model_path = os.path.join(models_output_dir, model_name[:-2] + '.pkl')
 
-            with open(model_path, 'wb') as model_file:
-                pickle.dump(gcv, model_file)
+        print('Saving model in ', model_path)
+        logging.info('Saving model in ' + str(model_path))
+
+        # Save model to file
+        if not os.path.exists(models_output_dir):
+            os.mkdir(models_output_dir)
+
+        with open(model_path, 'wb') as model_file:
+            pickle.dump(gcv, model_file)
 
         print('Elapsed time: {:.5} s'.format(time() - start))
         logging.info('Elapsed time: ' + str(time() - start))

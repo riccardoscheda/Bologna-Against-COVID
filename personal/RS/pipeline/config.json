@@ -4,18 +4,15 @@
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : ["Italy", "Spain", "France", "Germany"],
+			"countries" : ["Italy"],
 		  "start_date" : "2020-01-01",
 		  "end_date" : "2020-10-15",
 
 			"models" : {
+					"LSTM()" : {"batch_size" : "[10,20]",
+										"epochs" : "[10,20]"
+					}
 
-					"Lasso()" : {
-							"alpha" : "np.linspace(0.3, 1, 3)",
-		          "max_iter" : "[10000]"
-					},
-
-					"LinearRegression()" : {}
 
 		}
 	},

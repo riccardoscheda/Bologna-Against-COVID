@@ -4,7 +4,10 @@
 import os
 import pandas as pd
 import numpy as np
-
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.wrappers.scikit_learn import KerasClassifier
+from tensorflow.keras.layers import LSTM
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -169,7 +172,7 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
                                        X_adj_time.flatten(),
                                        X_npis.flatten()])
 
-                                       
+
             y_sample = all_case_data[d]
             X_samples.append(X_sample)
             y_samples.append(y_sample)
@@ -178,3 +181,28 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
     y_samples = np.array(y_samples).flatten()
 
     return X_samples, y_samples
+
+
+def create_lstm(data,lookback_days):
+
+    model = Sequential()
+    model.add(LSTM(4, input_shape=(data_to_timesteps(data,lookback_days))))
+    model.add(Dense(1))
+    model.compile(loss='mean_squared_error', optimizer='adam')
+    return model
+
+def data_to_timesteps(data, steps, shift=1):
+
+    X = data.reshape(data.shape[0], -1)
+    Npoints, features = X.shape
+    stride0, stride1 = X.strides
+
+    shape = (Npoints - steps*shift, steps, features)
+
+    strides = (shift*stride0, stride0, stride1)
+
+    X = np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
+
+    y = data[steps:]
+
+    return X, y

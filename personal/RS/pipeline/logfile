@@ -11013,3 +11013,92 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
 
 2020-12-15 14:47:29,365 INFO     Elapsed time:15.27198052406311
+2020-12-15 15:06:52,839 INFO     ################### TRAINING ##################
+2020-12-15 15:06:52,840 INFO     Loading config.json...
+2020-12-15 15:07:02,672 INFO     Saving model in models/Lasso.pkl
+2020-12-15 15:07:02,673 INFO     Elapsed time: 9.83270812034607
+2020-12-15 15:07:02,824 INFO     Saving model in models/LinearRegression.pkl
+2020-12-15 15:07:02,824 INFO     Elapsed time: 9.984071016311646
+2020-12-15 15:07:06,513 INFO     ################ TESTING ###################
+2020-12-15 15:07:06,514 INFO     Loading config.json...
+2020-12-15 15:07:07,110 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-15 15:07:10,049 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-15 15:07:12,713 INFO     Saved to data/predictions.csv
+2020-12-15 15:07:12,713 INFO     Plotting in plot.html
+2020-12-15 15:07:18,009 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-15 15:07:18,009 WARNING  /home/riccardo/miniconda3/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-15 15:07:20,110 INFO     Elapsed time:13.595220804214478
+2020-12-15 15:42:18,171 INFO     ################### TRAINING ##################
+2020-12-15 15:42:18,172 INFO     Loading config.json...
+2020-12-15 15:42:38,476 INFO     ################### TRAINING ##################
+2020-12-15 15:42:38,477 INFO     Loading config.json...
+2020-12-15 15:43:18,661 INFO     ################### TRAINING ##################
+2020-12-15 15:43:18,662 INFO     Loading config.json...
+2020-12-15 15:44:48,075 INFO     ################### TRAINING ##################
+2020-12-15 15:44:48,076 INFO     Loading config.json...
+2020-12-15 15:44:50,530 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 15:48:07,837 INFO     ################### TRAINING ##################
+2020-12-15 15:48:07,839 INFO     Loading config.json...
+2020-12-15 15:48:20,076 INFO     ################### TRAINING ##################
+2020-12-15 15:48:20,077 INFO     Loading config.json...
+2020-12-15 15:48:22,580 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 15:50:29,994 INFO     ################### TRAINING ##################
+2020-12-15 15:50:29,995 INFO     Loading config.json...
+2020-12-15 15:50:32,504 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 15:59:43,698 INFO     ################### TRAINING ##################
+2020-12-15 15:59:43,699 INFO     Loading config.json...
+2020-12-15 15:59:46,121 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:02:49,452 INFO     ################### TRAINING ##################
+2020-12-15 16:02:49,453 INFO     Loading config.json...
+2020-12-15 16:03:04,617 INFO     ################### TRAINING ##################
+2020-12-15 16:03:04,618 INFO     Loading config.json...
+2020-12-15 16:03:07,084 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:04:29,135 INFO     ################### TRAINING ##################
+2020-12-15 16:04:29,136 INFO     Loading config.json...
+2020-12-15 16:04:31,683 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:06:59,708 INFO     ################### TRAINING ##################
+2020-12-15 16:06:59,708 INFO     Loading config.json...
+2020-12-15 16:07:02,196 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:09:22,524 INFO     ################### TRAINING ##################
+2020-12-15 16:09:22,525 INFO     Loading config.json...
+2020-12-15 16:09:24,983 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:14:30,015 INFO     ################### TRAINING ##################
+2020-12-15 16:14:30,024 INFO     Loading config.json...
+2020-12-15 16:15:05,037 INFO     ################### TRAINING ##################
+2020-12-15 16:15:05,038 INFO     Loading config.json...
+2020-12-15 16:15:07,540 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:39,985 DEBUG    Layer lstm_1 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:40,192 DEBUG    Layer lstm_2 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:40,452 DEBUG    Layer lstm_3 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:40,659 DEBUG    Layer lstm_4 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:40,872 DEBUG    Layer lstm_5 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:41,073 DEBUG    Layer lstm_6 will use cuDNN kernel when run on GPU.
+2020-12-15 16:16:41,279 DEBUG    Layer lstm_7 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:54,500 INFO     ################### TRAINING ##################
+2020-12-15 16:39:54,502 INFO     Loading config.json...
+2020-12-15 16:39:57,041 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,056 DEBUG    Layer lstm_1 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,065 DEBUG    Layer lstm_2 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,072 DEBUG    Layer lstm_3 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,080 DEBUG    Layer lstm_4 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,086 DEBUG    Layer lstm_5 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,096 DEBUG    Layer lstm_6 will use cuDNN kernel when run on GPU.
+2020-12-15 16:39:57,104 DEBUG    Layer lstm_7 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:20,854 INFO     ################### TRAINING ##################
+2020-12-15 16:40:20,855 INFO     Loading config.json...
+2020-12-15 16:40:40,629 INFO     ################### TRAINING ##################
+2020-12-15 16:40:40,630 INFO     Loading config.json...
+2020-12-15 16:40:43,061 DEBUG    Layer lstm will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,073 DEBUG    Layer lstm_1 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,080 DEBUG    Layer lstm_2 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,088 DEBUG    Layer lstm_3 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,096 DEBUG    Layer lstm_4 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,104 DEBUG    Layer lstm_5 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,111 DEBUG    Layer lstm_6 will use cuDNN kernel when run on GPU.
+2020-12-15 16:40:43,118 DEBUG    Layer lstm_7 will use cuDNN kernel when run on GPU.
