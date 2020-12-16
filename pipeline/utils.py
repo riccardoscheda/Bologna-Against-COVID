@@ -75,9 +75,10 @@ def add_HDI(df, drop=False):
 
     path_to_HDI = os.path.join('data', 'country_HDI.csv')
     df_HDI = pd.read_csv(path_to_HDI, parse_dates=['Date'])
-    df_HDI = df.merge(df_HDI, how='left', left_on=['CountryName', 'Date'], right_on=['CountryName', 'Date'])
     if drop:
-        df_HDI.dropna(inplace=True)  # TODO: Droppiamo?
+        df_HDI.dropna(inplace=True)
+    df_HDI = df.merge(df_HDI, how='left', left_on=['CountryName', 'Date'], right_on=['CountryName', 'Date'])
+
     return df_HDI
 
 
