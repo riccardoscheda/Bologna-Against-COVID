@@ -6,8 +6,10 @@ from tqdm import tqdm
 from scipy.optimize import curve_fit
 from functools import partial
 import multiprocessing as mp
+import pandas as pd
 
 
+#Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
     ''' Model that use the features to extract SIR parameters and compute predictions. 
     single_pred_days: number of next days to predict. Predictions could be of more than one day, so to have a multi-variate regression (NOT TESTED YET)'''
@@ -87,8 +89,8 @@ class SIRRegressor(BaseEstimator, RegressorMixin):
     
 
 
-class SIR_parfinder(BaseEstimator, RegressorMixin):
-    ''' Model that use the features to extract SIR parameters and compute predictions. 
+class SIR_parfinder():
+    ''' Class that use the features to extract SIR parameters. Fitted parameters will be keyed by country and date. 
     single_pred_days: number of next days to predict. Predictions could be of more than one day, so to have a multi-variate regression (NOT TESTED YET)
     lookback_days: past days to use. Must be higher than fit_days+infected_days.
     infected_days: days previous to day0 to sum the number of currently infected.
@@ -96,17 +98,52 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
     beta_i: initial value for fitting beta (only for labelization).
     gamma_i: initial value for fitting gamma (only for labelization).
     '''
-    def __init__(self, single_pred_days=1,lookback_days=30,infection_days=7,fit_days=15,beta_i=0.6,gamma_i=1/14,nprocs=4):
+    def __init__(self, df,moving_average=False, 
+                 infection_days=7, semi_fit_days=7,
+                 beta_i=0.6, gamma_i=1/7,nprocs=4):
         
-        #self.demo_param = demo_param
-        self.single_pred_days=single_pred_days
-        self.lookback_days=lookback_days
         self.infection_days=infection_days
-        self.fit_days=fit_days
-        self.time_integ=np.linspace(lookback_days-fit_days,lookback_days,fit_days+1)
+        self.semi_fit=semi_fit_days
+        self.fit_days=semi_fit_days*2+1
+        self.time_integ=np.linspace(-self.semi_fit,self.semi_fit,self.fit_days)
         self.beta_i=beta_i
         self.gamma_i=gamma_i
         self.nprocs=nprocs
+        self.df=self.__add_lookback(df,moving_average)
+    
+    def __add_lookback(self,df,moving_average):
+        COL = ['NewCases'] if not moving_average else ['MA']
+        X_cols = df.columns
+        y_col = COL
+        geo_ids = df.GeoID.unique()
+        fit_ids=['CasesDay{}'.format(d) for d in range(-self.semi_fit,self.semi_fit+1)]
+        self.fit_ids=fit_ids
+        #print(fit_ids)
+        df=df[['GeoID','Date','Population']+COL]
+        df=pd.concat([df,pd.DataFrame(columns=fit_ids+['I0','R0'])])
+        print('Adding lookback days to the dataframe...')
+        for g in tqdm(geo_ids):
+            gdf = df[df.GeoID == g]
+            all_case_data = np.array(gdf[COL])
+            nb_total_days = len(gdf)
+            for d,(idx,row) in enumerate(gdf.iterrows()):
+                if d>self.semi_fit and d<(nb_total_days-self.semi_fit):
+                    X_cases = all_case_data[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
+                    try:
+                        df.loc[idx,fit_ids]=X_cases
+                        df.loc[idx,'I0']=all_case_data[d-self.semi_fit- self.infection_days: 
+                                                       d-self.semi_fit+1].sum()
+                        df.loc[idx,'R0']=all_case_data[0: 
+                                                       (d-self.semi_fit-
+                                                       self.infection_days)].sum()
+                    except ValueError:
+                        print(row.GeoID)
+                        print(row.Date)
+                        print(df.loc[idx-self.semi_fit,fit_ids].shape)
+                        print(X_cases.shape)
+                        raise ValueError('Mismatch in shapes for this entry, check the code...')
+                        
+        return df.dropna()
         
         
     def __SIR_ode(self,t,x0, N, beta, gamma):
@@ -125,39 +162,41 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         # The only variable to predict is "NewCases", i.d. the difference of the cumulative Ic
         return np.diff(sol.y[2])#.reshape(lung,1).flatten()
     
-    def labelize_chunk(self,i):
-        X_chunk=self.X_chunks[i]
-        labels=np.empty((X_chunk.shape[0],2))
-        for i in range(X_chunk.shape[0]):
-            labels[i,:]=self.row_fit(X_chunk[i,:])
-        return (i,labels)        
+    def labelize_chunk(self,df_chunk):
+        #df_chunk=self.df_chunks[i]
+        pars_df=df_chunk[['GeoID','Date']].copy()
+        pars_df['beta']=np.nan
+        pars_df['gamma']=np.nan
+        for j,(idx,row) in enumerate(df_chunk.iterrows()):
+            pars_df.iloc[j,:]=[row.GeoID,row.Date]+list(self.row_fit(row))
+        return pars_df        
         
-    def row_initial_conditions(self,X_i):
+    def row_initial_conditions(self,row):
         '''
-        Returs the initial condition from the the SIR integration of this row.
+        Returns the initial condition from the the SIR integration of this row.
         '''
-        N=X_i[self.lookback_days+1]            
+        N=row.Population           
         # Currently infected individuals (sum of new cases on the previous infection_days before the first fit day)
-        I0=X_i[self.lookback_days-self.fit_days-self.infection_days:self.lookback_days-self.fit_days+1].sum()            
+        I0=row.I0          
         # Recovered individuals (taken as current total confirmed cases)
-        R0=X_i[self.lookback_days]        
+        R0=row.R0     
         # Susceptible individuals
         S0=N-I0-R0            
         # Initial condition of integration
         x0=(S0,I0,R0,R0)
         return N,x0
     
-    def row_observed_cases(self,X_i):
+    def row_observed_cases(self,row):
         '''
         Return an array with length fit_days with the real observed new_cases of that row.
         '''
-        return X_i[self.lookback_days-self.fit_days:self.lookback_days]
+        return row[self.fit_ids[1:]].values
     
-    def row_fit(self,X_i):
+    def row_fit(self,row):
         '''
         Fit SIR parameters for one observation
         '''
-        N,x0=self.row_initial_conditions(X_i)
+        N,x0=self.row_initial_conditions(row)
         if x0[1]<0:
             raise ValueError('Infected was {} for popolation {}'.format(x0[1],X_i[self.lookback_days+1]))
         elif x0[1]<1:
@@ -165,62 +204,48 @@ class SIR_parfinder(BaseEstimator, RegressorMixin):
         else:
             fintegranda=partial(self.__SIR_integrate,self.time_integ,x0,N)
             popt, pcov = curve_fit(fintegranda, self.time_integ, 
-                       self.row_observed_cases(X_i),
+                       self.row_observed_cases(row),
                        p0=[self.beta_i,self.gamma_i],maxfev=5000,bounds=([0.,0.],
                                                            [np.inf,1.]))
-        return popt
+        return popt.reshape(-1)
         
-    def row_predict(self,X_i,pars):
+    def row_predict(self,GeoID,date,pars=None):
         '''
         Given the SIR parameters, predicts the new cases. The last one is the actual prediction for the final MAE
         '''
-        N,x0=self.row_initial_conditions(X_i)
+        row=self.df.loc[(self.df.GeoID==GeoID)&(self.df.Date==pd.to_datetime(date)),:].iloc[0,:]
+        N,x0=self.row_initial_conditions(row)
         if np.isnan(pars[0]):
-            return np.repeat(X_i[self.lookback_days-1], self.fit_days)
-        beta=pars[0]
-        gamma=pars[1]
+            return np.repeat(row.CasesDay0, self.fit_days)[1:]
+        if pars is not None:
+            beta=pars[0]
+            gamma=pars[1]
+        else:
+            beta=self.df_pars.loc[(self.df_pars.GeoID==GeoID) & 
+                                  (self.df_pars.Date==pd.to_datetime(date)),'beta'].iloc[0]
+            gamma=self.df_pars.loc[(self.df_pars.GeoID==GeoID) & 
+                                  (self.df_pars.Date==pd.to_datetime(date)),'gamma'].iloc[0]
         Ipred=self.__SIR_integrate(self.time_integ,x0,N,self.time_integ,beta,gamma)
         return Ipred
     
-    def fit(self, X):
-        if self.fit_days+self.infection_days>self.lookback_days:
-            raise ValueError('ValueError: lookback_days ({}) must be higher than fit_days+infected_days ({})'.format(
-                self.lookback_days,self.infection_days+self.fit_days))
-        if self.fit_days<5:
-            raise ValueError('ValueError: fit_days should be higher than 4')
-        X = check_array(X)
+    def fit(self):
+        if self.semi_fit<3:
+            raise ValueError('ValueError: semi_fit_days should be higher than 2')
         
         nchunks=self.nprocs*10
-        self.X_chunks = [X[n * len(X) // nchunks : (n + 1) * len(X) // nchunks] for n in range(nchunks)]
+        self.df_chunks = np.array_split(self.df,nchunks)
+        #print(type(self.df_chunks))
+        empty_cunks=[df for df in self.df_chunks if df.shape[0]==0]
+        if len(empty_cunks):
+            print('{} empty chunks'.format(len(empty_chunks)))
         #nchunks=len(self.X_chunks)
         pool=mp.Pool(self.nprocs)
-        outputs=list(tqdm(pool.imap(self.labelize_chunk,range(nchunks)),total=nchunks))
+        outputs=list(tqdm(pool.imap(self.labelize_chunk,self.df_chunks),total=nchunks))
         pool.close()
         pool.join()
-        outputs.sort(key=lambda x:x[0])
-        self.labels_=np.concatenate([chunk_lab[1] for chunk_lab in outputs])
+        self.df_pars=pd.concat(outputs)
+        self.df_pars.sort_values(['GeoID','Date'],inplace=True)
         # Return the classifier
         return self
     
-    def predict(self, X):
-        '''
-        Fit SIR parameters for each observation
-        '''
-        # Check is fit had been called
-        check_is_fitted(self)
-        # Input validation
-        X = check_array(X)
-        if X.shape[1]==1:
-            return self.row_fit(X.reshape(-1))
-        if X.shape[0]>self.nprocs*10:
-            nchunks=self.nprocs*10
-        else:
-            nchunks=1
-        self.X_chunks = [X[n * len(X) // nchunks : (n + 1) * len(X) // nchunks] for n in range(nchunks)]
-        #nchunks=len(self.X_chunks)
-        pool=mp.Pool(self.nprocs)
-        outputs=list(tqdm(pool.imap(self.labelize_chunk,range(nchunks)),total=nchunks))
-        pool.close()
-        pool.join()
-        outputs.sort(key=lambda x:x[0])
-        return np.concatenate([chunk_lab[1] for chunk_lab in outputs])
+    
