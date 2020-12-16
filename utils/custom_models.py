@@ -90,7 +90,7 @@ class SIRRegressor(BaseEstimator, RegressorMixin):
 
 
 class SIR_parfinder():
-    ''' Class that use the features to extract SIR parameters. Fitted parameters will be keyed by country and date. 
+    ''' DO NOT USE: Class that use the features to extract SIR parameters. Fitted parameters will be keyed by country and date. 
     single_pred_days: number of next days to predict. Predictions could be of more than one day, so to have a multi-variate regression (NOT TESTED YET)
     lookback_days: past days to use. Must be higher than fit_days+infected_days.
     infected_days: days previous to day0 to sum the number of currently infected.
@@ -156,7 +156,7 @@ class SIR_parfinder():
         return dS, dI, dIc,dR
     
     def __SIR_integrate(self,ttotp,x0,N,ti,beta,gamma):
-        ''' Argument ti not used but needed by curve_fit'''
+        ''' Argument ti not used but needed by curve_fit '''
         sol=solve_ivp(self.__SIR_ode,[ttotp[0],ttotp[-1]],x0,args=(N,beta,gamma),t_eval=ttotp)
         #lung=len(sol.y[0])
         # The only variable to predict is "NewCases", i.d. the difference of the cumulative Ic
@@ -256,4 +256,120 @@ class SIR_parfinder():
         # Return the classifier
         return self
     
+class SIR_fitter():
+    ''' Class that use the features to extract SIR parameters. Fitted parameters will be keyed by country and date. 
+    infected_days: days previous to day0 to sum the number of currently infected.
+    semi_fit_days: number of days before and after the actual day to fit the SIR parameters on.
+    beta_i: initial value for fitting beta.
+    gamma_i: initial value for fitting gamma.
+    '''
+    def __init__(self, moving_average=False, 
+                 infection_days=7, semi_fit_days=7,
+                 beta_i=0.6, gamma_i=1/7,nprocs=4):
+        
+        self.infection_days=infection_days
+        self.semi_fit=semi_fit_days
+        self.fit_days=semi_fit_days*2+1
+        self.time_integ=np.linspace(-self.semi_fit,self.semi_fit,self.fit_days)
+        self.beta_i=beta_i
+        self.gamma_i=gamma_i
+        self.nprocs=nprocs
+        self.moving_average=moving_average
+        
+    def fit_country(self,df_country):
+        COL = ['NewCases'] if not self.moving_average else ['MA']
+        X_cols = df_country.columns
+        y_col = COL
+        gdf = df_country
+        gdf['beta']=np.nan
+        gdf['gamma']=np.nan
+        all_case_data = np.array(gdf[COL])
+        nb_total_days = len(gdf)
+        for d,(idx,row) in enumerate(gdf.iterrows()):
+            if d>self.semi_fit and d<(nb_total_days-self.semi_fit):
+                N=row.Population
+                X_cases = all_case_data[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
+                I0=all_case_data[d-self.semi_fit- self.infection_days: 
+                                                       d-self.semi_fit+1].sum()
+                R0=all_case_data[0:(d-self.semi_fit- self.infection_days)].sum()
+                Ic0=all_case_data[0:(d-self.semi_fit)].sum()
+                S0=N-I0-R0
+                x0=(S0,I0,Ic0,R0)
+                if I0<0:
+                    raise ValueError('Infected was {} for popolation {}'.format(x0[1],X_i[self.lookback_days+1]))
+                elif I0<1:
+                    popt=np.array([np.nan,np.nan])
+                else:
+                    fintegranda=partial(self.__SIR_integrate,self.time_integ,x0,N)
+                    popt, pcov = curve_fit(fintegranda, self.time_integ, 
+                           X_cases[1:],
+                           p0=[self.beta_i,self.gamma_i],maxfev=5000,bounds=([0.,0.],
+                                                           [np.inf,1.]))
+                    gdf.loc[idx,'beta']=popt[0]
+                    gdf.loc[idx,'gamma']=popt[1]                
+        return gdf
+        
+        
+    def __SIR_ode(self,t,x0, N, beta, gamma):
+        S, I, Ic, R = x0
+        dS = -beta * S * I / N
+        dI = beta * S * I / N - gamma * I
+        # Computes the cumulative new cases during the integration period
+        dIc= -dS
+        dR = gamma * I
+        return dS, dI, dIc,dR
     
+    def __SIR_integrate(self,ttotp,x0,N,ti,beta,gamma):
+        ''' Argument ti not used but needed by curve_fit '''
+        sol=solve_ivp(self.__SIR_ode,[ttotp[0],ttotp[-1]],x0,args=(N,beta,gamma),t_eval=ttotp)
+        #lung=len(sol.y[0])
+        # The only variable to predict is "NewCases", i.d. the difference of the cumulative Ic
+        return np.diff(sol.y[2])#.reshape(lung,1).flatten()
+    
+   
+        
+   
+    def row_predict(self,GeoID,date,pars=None):
+        '''
+        Given the SIR parameters, predicts the new cases. The last one is the actual prediction for the final MAE
+        '''
+        row=self.df.loc[(self.df.GeoID==GeoID)&(self.df.Date==pd.to_datetime(date)),:].iloc[0,:]
+        N,x0=self.row_initial_conditions(row)
+        if np.isnan(pars[0]):
+            return np.repeat(row.CasesDay0, self.fit_days)[1:]
+        if pars is not None:
+            beta=pars[0]
+            gamma=pars[1]
+        else:
+            beta=self.df_pars.loc[(self.df_pars.GeoID==GeoID) & 
+                                  (self.df_pars.Date==pd.to_datetime(date)),'beta'].iloc[0]
+            gamma=self.df_pars.loc[(self.df_pars.GeoID==GeoID) & 
+                                  (self.df_pars.Date==pd.to_datetime(date)),'gamma'].iloc[0]
+        Ipred=self.__SIR_integrate(self.time_integ,x0,N,self.time_integ,beta,gamma)
+        return Ipred
+    
+    def fit(self,df,save_to=None):
+        '''
+        Fit SIR parameters on all the data. 
+        save_to: path to save the results in pickle format. Results are saved a Pandas DataFrame having columns: GeoID,Date,beta,gamma 
+        '''
+        if self.semi_fit<3:
+            raise ValueError('ValueError: semi_fit_days should be higher than 2')
+        geo_ids = df.GeoID.unique()
+        COL = ['NewCases'] if not self.moving_average else ['MA']
+        df=df[['GeoID','Date','Population']+COL]
+        self.df_chunks=[df[df.GeoID==g].sort_values('Date') 
+                        for g in geo_ids]
+        nchunks=len(self.df_chunks)
+        pool=mp.Pool(self.nprocs)
+        outputs=list(tqdm(pool.imap(self.fit_country,self.df_chunks),total=nchunks))
+        pool.close()
+        pool.join()
+        self.df_pars=pd.concat(outputs)
+        self.df_pars.sort_values(['GeoID','Date'],inplace=True)
+        if save_to is not None:
+            with open(save_to,'wb') as f:
+                pickle.dump(self.df_pars,f)
+                
+        # Return the classifier
+        return self
