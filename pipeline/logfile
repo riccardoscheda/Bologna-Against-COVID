@@ -10776,3 +10776,9 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
   warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
 
 2020-12-15 13:00:21,861 INFO     Elapsed time:16.713329315185547
+2020-12-16 09:47:12,879 INFO     ################### TRAINING ##################
+2020-12-16 09:47:12,880 INFO     Loading config.json...
+2020-12-16 09:47:49,075 INFO     ################### TRAINING ##################
+2020-12-16 09:47:49,077 INFO     Loading config.json...
+2020-12-16 09:52:19,407 INFO     ################### TRAINING ##################
+2020-12-16 09:52:19,408 INFO     Loading config.json...

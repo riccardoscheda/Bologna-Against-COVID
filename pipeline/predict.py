@@ -216,6 +216,7 @@ def my_predict_df(countries: list,
                   start_date_str: str, end_date_str: str,
                   NB_LOOKBACK_DAYS: int,
                   moving_average: bool,
+                  drop_columns_with_Nan: bool,
                   path_to_ips_file: str, model_input_file: str,
                   adj_cols_time=[],
                   adj_cols_fixed=[],
@@ -239,7 +240,7 @@ def my_predict_df(countries: list,
                      dtype={'RegionName': str},
                      error_bad_lines=True)
 
-    df = create_dataset(df)
+    df = create_dataset(df, drop=drop_columns_with_Nan)
 
     country_selection = pd.DataFrame()
 

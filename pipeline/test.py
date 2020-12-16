@@ -65,6 +65,7 @@ if __name__ == '__main__':
     end_date = test_config['end_date']
 
     moving_average = eval(test_config['moving_average'])  # it's a string in json, we want bool
+    drop_columns_with_Nan = eval(config_data['drop_columns_with_Nan'])
     models_input_files = test_config['models_input_files']
     countries = test_config['countries']
 
@@ -83,6 +84,7 @@ if __name__ == '__main__':
                                  end_date,
                                  lookback_days,
                                  moving_average=moving_average,
+                                 drop_columns_with_Nan=drop_columns_with_Nan,
                                  adj_cols_time=adj_cols_time,
                                  adj_cols_fixed=adj_cols_fixed,
                                  path_to_ips_file=input_dataset,

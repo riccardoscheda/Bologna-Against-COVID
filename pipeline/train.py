@@ -70,7 +70,7 @@ if __name__ == '__main__':
     moving_average = eval(train_config['moving_average'])  # it's a string in json, we want bool
     models = train_config['models']
     countries = train_config['countries']
-
+    drop_columns_with_Nan = eval(config_data['drop_columns_with_Nan'])
     # Additional Columns adder
     adj_cols_fixed = config_data['adj_cols_fixed']
     adj_cols_time = config_data['adj_cols_time']
@@ -86,7 +86,7 @@ if __name__ == '__main__':
 
     # Selecting choosen time period from config file
     df = df[(df.Date > start_date) & (df.Date < end_date)]
-    df = create_dataset(df)
+    df = create_dataset(df, drop=drop_columns_with_Nan)
 
     # Selecting countries of interest from config file
     # TO TEST ALL COUNTRY, WRITE "countries" : "" in jsonfile

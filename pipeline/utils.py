@@ -37,7 +37,7 @@ def mov_avg(df, window=7, col="NewCases"):
     return df
 
 
-def add_population_data(df):
+def add_population_data(df, drop=False):
     """
     Add additional data like population, Cancer rate, etc..  in Oxford data.
     But now it removes rows with at least 1 Nan
@@ -46,7 +46,8 @@ def add_population_data(df):
     data_path = os.path.join('data', 'Additional_Context_Data_Global.csv')
 
     more_df = pd.read_csv(data_path)
-    more_df.dropna(inplace=True)
+    if drop:
+        more_df.dropna(inplace=True)
     new_df = more_df.merge(df,
                            how='left',
                            left_on=['CountryName', 'CountryCode'],
@@ -66,7 +67,7 @@ def add_temp(df):
     return df_T
 
 
-def add_HDI(df):
+def add_HDI(df, drop=False):
     '''Use this only on the Oxford dataframe.
     Return the same dataframe with a column HDI taken from data/country_HDI.csv
     Dataset from https://ourworldindata.org/coronavirus-testing
@@ -75,7 +76,8 @@ def add_HDI(df):
     path_to_HDI = os.path.join('data', 'country_HDI.csv')
     df_HDI = pd.read_csv(path_to_HDI, parse_dates=['Date'])
     df_HDI = df.merge(df_HDI, how='left', left_on=['CountryName', 'Date'], right_on=['CountryName', 'Date'])
-    # df_HDI.dropna(inplace=True)  # TODO: Droppiamo?
+    if drop:
+        df_HDI.dropna(inplace=True)  # TODO: Droppiamo?
     return df_HDI
 
 
@@ -85,7 +87,7 @@ def mae(pred, true):
 
 
 #  This Function needs to be outside the training process
-def create_dataset(df, npis=True):
+def create_dataset(df, drop=False, npis=True):
     """
     From XPRIZE jupyter, this function merges country and region, fills any missing cases
     and fills any missing pis
@@ -109,8 +111,8 @@ def create_dataset(df, npis=True):
 
     # Always merge additional column
     df = add_temp(df)
-    df = add_population_data(df)
-    df = add_HDI(df)
+    df = add_population_data(df, drop)
+    df = add_HDI(df, drop)
 
     return df
 
