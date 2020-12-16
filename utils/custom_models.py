@@ -228,7 +228,11 @@ class SIR_parfinder():
         Ipred=self.__SIR_integrate(self.time_integ,x0,N,self.time_integ,beta,gamma)
         return Ipred
     
-    def fit(self):
+    def fit(self,save_to=None):
+        '''
+        Fit SIR parameters on all the data. 
+        save_to: path to save the results in pickle format. Results are saved a Pandas DataFrame having columns: GeoID,Date,beta,gamma 
+        '''
         if self.semi_fit<3:
             raise ValueError('ValueError: semi_fit_days should be higher than 2')
         
@@ -245,6 +249,10 @@ class SIR_parfinder():
         pool.join()
         self.df_pars=pd.concat(outputs)
         self.df_pars.sort_values(['GeoID','Date'],inplace=True)
+        if save_to is not None:
+            with open(save_to,'wb') as f:
+                pickle.dump(self.df_pars,f)
+                
         # Return the classifier
         return self
     
