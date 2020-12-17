@@ -15,50 +15,57 @@ import matplotlib.pyplot as plt
 
 class NetSEIR(tf.keras.Model):
 
-    def __init__(self, n_input, n_hidden, S_0, E_0, I_0, R_0, N):
+    def __init__(self, n_input, n_hidden, S_0, E_0, I_0, R_0, N, LR=1e7):
 
         self.S_0 = S_0
-        self.E_0 = tf.Variable(E_0, dtype='float64', trainable=True)
+        self.E_0 = E_0
         self.I_0 = I_0
         self.R_0 = R_0
 
+        self.e = tf.Variable(1e-3, dtype='float64')
+
         self.S_ = tf.Variable([self.S_0], dtype='float64')
-        self.E_ = tf.Variable([self.E_0.numpy()], dtype='float64')
+        self.E_ = tf.Variable([self.E_0 * self.e], dtype='float64')
         self.I_ = tf.Variable([self.I_0], dtype='float64')
         self.I_c = tf.Variable([self.I_0], dtype='float64')
         self.R_ = tf.Variable([self.R_0], dtype='float64')
         self.N = tf.Variable(N, dtype='float64')
 
         self.n_input = n_input
-
+        n_hidden = 8
         self.initializer = tf.random_uniform_initializer(seed=42)
 
-
-        self.w_beta = tf.Variable(self.initializer(shape=(self.n_input, self.n_input), dtype='float64'), trainable=True)
-        self.w_beta_1 = tf.Variable(self.initializer(shape=(self.n_input,), dtype='float64'), trainable=True)
+        self.w_beta = tf.Variable(self.initializer(shape=(self.n_input, n_hidden), dtype='float64'), trainable=True)
+        self.w_beta_1 = tf.Variable(self.initializer(shape=(n_hidden,), dtype='float64'), trainable=True)
         # self.w_beta_2 = tf.Variable(self.initializer(shape=(self.n_input, ), dtype='float64'), trainable=True)
         # # self.w1_beta = tf.Variable(self.initializer_beta(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w2_beta = tf.Variable(self.initializer_beta(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w3_beta = tf.Variable(self.initializer_beta(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w4_beta = tf.Variable(self.initializer_beta(shape=(self.n_hidden,), dtype='float64'), trainable=True)
         # self.initializer_gamma = tf.random_uniform_initializer(seed=42)
-        self.w_gamma = tf.Variable(self.initializer(shape=(self.n_input, self.n_input), dtype='float64'), trainable=True)
-        self.w_gamma_1 = tf.Variable(self.initializer(shape=(self.n_input,), dtype='float64'), trainable=True)
+        self.w_gamma = tf.Variable(self.initializer(shape=(self.n_input, n_hidden), dtype='float64'), trainable=True)
+        self.w_gamma_1 = tf.Variable(self.initializer(shape=(n_hidden,), dtype='float64'), trainable=True)
         # self.w_gamma_2 = tf.Variable(self.initializer(shape=(self.n_input, ), dtype='float64'), trainable=True)
         # # self.w1_gamma = tf.Variable(self.initializer_gamma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w2_gamma = tf.Variable(self.initializer_gamma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w3_gamma = tf.Variable(self.initializer_gamma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w4_gamma = tf.Variable(self.initializer_gamma(shape=(self.n_hidden,), dtype='float64'), trainable=True)
         # self.initializer_sigma = tf.random_uniform_initializer(seed=42)
-        self.w_sigma = tf.Variable(self.initializer(shape=(self.n_input, self.n_input), dtype='float64'), trainable=True)
-        self.w_sigma_1 = tf.Variable(self.initializer(shape=(self.n_input,), dtype='float64'), trainable=True)
+        self.w_sigma = tf.Variable(self.initializer(shape=(self.n_input, n_hidden), dtype='float64'), trainable=True)
+        self.w_sigma_1 = tf.Variable(self.initializer(shape=(n_hidden,), dtype='float64'), trainable=True)
         # self.w_sigma_2 = tf.Variable(self.initializer(shape=(self.n_input, ), dtype='float64'), trainable=True)
         # # self.w1_sigma = tf.Variable(self.initializer_sigma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w2_sigma = tf.Variable(self.initializer_sigma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w3_sigma = tf.Variable(self.initializer_sigma(shape=(self.n_hidden, self.n_hidden), dtype='float64'), trainable=True)
         # # self.w4_sigma = tf.Variable(self.initializer_sigma(shape=(self.n_hidden,), dtype='float64'), trainable=True)
         #
-
+        self.LR = LR
+        self.lambda_beta = tf.Variable(0, dtype='float64')
+        self.violatin_beta = tf.Variable(0, dtype='float64')
+        self.lambda_gamma = tf.Variable(0, dtype='float64')
+        self.violatin_gamma = tf.Variable(0, dtype='float64')
+        self.lambda_sigma = tf.Variable(0, dtype='float64')
+        self.violatin_sigma = tf.Variable(0, dtype='float64')
 
     def __step(self, t):
         beta = tf.nn.relu(tf.tensordot(self.X[t], self.w_beta, 1))
@@ -96,7 +103,7 @@ class NetSEIR(tf.keras.Model):
 
     def run_simulation(self):
         self.S_ = tf.Variable([self.S_0], dtype='float64')
-        self.E_ = tf.Variable([self.E_0.numpy()], dtype='float64')
+        self.E_ = tf.Variable([self.N * self.e], dtype='float64')
         self.I_ = tf.Variable([self.I_0], dtype='float64')
         self.I_c = tf.Variable([self.I_0], dtype='float64')
         self.R_ = tf.Variable([self.R_0], dtype='float64')
@@ -107,24 +114,34 @@ class NetSEIR(tf.keras.Model):
         self.run_simulation()
         betas = tf.nn.relu(tf.tensordot(self.X, self.w_sigma, 1))
         betas = tf.nn.sigmoid(tf.tensordot(betas, self.w_sigma_1, 1))
-        # betas = tf.nn.tanh(tf.tensordot(betas, self.w_sigma_2, 1))
-        beta_ = betas[0:-1]
-        beta__ = betas[1:]
         gammas = tf.nn.relu(tf.tensordot(self.X, self.w_gamma, 1))
         gammas = tf.nn.sigmoid(tf.tensordot(gammas, self.w_gamma_1, 1))
-        # gammas = tf.nn.tanh(tf.tensordot(gammas, self.w_gamma_2, 1))
-        gamma_ = gammas[0:-1]
-        gamma__ = gammas[1:]
         sigmas = tf.nn.relu(tf.tensordot(self.X, self.w_sigma, 1))
         sigmas = tf.nn.sigmoid(tf.tensordot(sigmas, self.w_sigma_1, 1))
-        # sigmas = tf.nn.tanh(tf.tensordot(sigmas, self.w_sigma_2, 1))
+        self.run_simulation()
+        beta_ = betas[0:-1]
+        beta__ = betas[1:]
+        self.violatin_beta = (beta_ - beta__) ** 2
+        gamma_ = gammas[0:-1]
+        gamma__ = gammas[1:]
+        self.violatin_gamma = (gamma_ - gamma__) ** 2
         sigma_ = sigmas[0:-1]
         sigma__ = sigmas[1:]
-        print("loss -: " + str(tf.reduce_mean((self.I_ - self.y)**2)))
+        self.violatin_sigma = (sigma_ - sigma__) ** 2
+        # print("loss -: " + str(tf.reduce_mean((self.I_ - self.y)**2)))
         return tf.reduce_mean((self.I_ - self.y)**2) +\
-               1e12 * tf.reduce_mean((beta_ - beta__)**2) +\
-               1e9 * tf.reduce_mean((gamma_ - gamma__)**2) +\
-               1e12 * tf.reduce_mean((sigma_ - sigma__)**2)
+               self.lambda_beta * tf.reduce_mean((beta_ - beta__)**2) +\
+               self.lambda_gamma * tf.reduce_mean((gamma_ - gamma__)**2) +\
+               self.lambda_sigma * tf.reduce_mean((sigma_ - sigma__)**2)
+
+    def optimize_lagrangian_beta(self):
+        self.lambda_beta = self.lambda_beta + self.LR * self.violatin_beta
+
+    def optimize_lagrangian_gamma(self):
+        self.lambda_gamma = self.lambda_gamma + self.LR * self.violatin_gamma
+
+    def optimize_lagrangian_sigma(self):
+        self.lambda_sigma = self.lambda_sigma + self.LR * self.violatin_sigma
 
     def train(self, X, y, optimizer):
         self.X = tf.Variable(X, dtype='float64')
@@ -132,7 +149,10 @@ class NetSEIR(tf.keras.Model):
         optimizer.minimize(self.loss_op, var_list=[self.w_beta, self.w_sigma, self.w_gamma,
                                                    self.w_beta_1, self.w_sigma_1, self.w_gamma_1,
                                                    # self.w_beta_2, self.w_sigma_2, self.w_gamma_2,
-                                                   self.E_0])
+                                                   self.e])
+        self.optimize_lagrangian_beta()
+        self.optimize_lagrangian_gamma()
+        self.optimize_lagrangian_sigma()
 
     def get_SEIR_fit(self):
         self.run_simulation()
@@ -168,12 +188,29 @@ class NetSEIR(tf.keras.Model):
 
         return beta.numpy(), gamma.numpy(), sigma.numpy()
 
+    # def save_weights(self, filename):
+    #     tf.io.write_file(filename, self.w_beta)
+    #     tf.io.write_file(filename, self.w_beta_1)
+
+
+def mov_avg(df, window=7, col="NewCases"):
+    """Returns the dataset with the moving average col for new cases
+    """
+
+    MA = pd.Series(dtype=np.float64)
+    for geo in df.GeoID.unique():
+        MA = MA.append(df[df["GeoID"] == geo][col].rolling(window=window).mean()).fillna(0)
+    df["MA"] = MA
+
+    return df
+
 if __name__ == '__main__':
     import pickle
     import numpy as np
     import pandas as pd
     import sys, os
     import urllib.request
+    from sklearn import preprocessing
     # from os.path import pardir, sep
     sys.path.insert(1, '/' + os.path.join(*os.getcwd().split('/')[:-2]) + '/utils')
     from df_preparation import *
@@ -208,12 +245,13 @@ if __name__ == '__main__':
     # Add new cases column
     df['NewCases'] = df.groupby('GeoID').ConfirmedCases.diff().fillna(0)
 
+    df = mov_avg(df)
     # Keep only columns of interest
     id_cols = ['CountryName',
                'RegionName',
                'GeoID',
                'Date']
-    cases_col = ['NewCases']
+    cases_col = ['NewCases', 'MA']
     npi_cols = ['C1_School closing',
                 'C2_Workplace closing',
                 'C3_Cancel public events',
@@ -239,11 +277,11 @@ if __name__ == '__main__':
     df_italy = df[df['CountryName'] == 'Italy']
 
     N = 60000000
-    I = np.array(df_italy['NewCases'].replace(0, 1))
+    I = np.array(df_italy['MA'].replace(0, 1))
     E_0 = 1
     S = N - I - E_0
     X = np.array(df_italy[npi_cols])
-    epochs = 400
+    epochs = 2
     model = NetSEIR(len(X[0]), 16, S[0], E_0, I[0], 0, N)
     # model.run_simulation()
     optimizer = tf.compat.v1.train.AdamOptimizer()
@@ -253,6 +291,7 @@ if __name__ == '__main__':
 
     S_, E_, I_, R_ = model.get_SEIR_fit()
     beta, gamma, sigma = model.get_SEIR_param()
+    # model.save_weights('prova')
     # w_b, w_g, w_s = model.get_params()
     # betas = model.get_betas()
     fig, (ax1, ax2) = plt.subplots(1, 2)
