@@ -172,7 +172,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         #print(self.X_pars.shape)
         # remove last column (df.index)
         # remove first lookback_days columns: not using cases to predict parameters
-        self.X_pars=self.X_pars[:,lookback_days:-1]
+        self.X_pars=self.X_pars[:,self.lookback_days:-1]
         
         self.MLmodel.fit(self.X_pars,self.y_pars)
         self.TMAE=mae(SP.MLmodel.predict(self.X_pars),self.y_pars)

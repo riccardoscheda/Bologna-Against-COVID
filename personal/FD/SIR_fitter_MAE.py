@@ -8,6 +8,7 @@ from scipy.integrate import solve_ivp
 import random
 from tqdm import tqdm
 import time
+import csv
 import sys, os
 #from os.path import pardir, sep 
 sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-2]))
@@ -76,7 +77,9 @@ X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                     test_size=0.2,
                                                     random_state=301)
 
-models_str=['Lasso(alpha=0.001)','Lasso(alpha=0.01)','Lasso(alpha=0.1)']
+models_str=["Lasso(alpha=0.001,normalize=True,max_iter=100000,tol=1e-5,selection='random')",
+            "Lasso(alpha=0.01, normalize=True,max_iter=100000,tol=1e-5,selection='random')",
+            "Lasso(alpha=0.1, normalize=True,max_iter=100000,tol=1e-5,selection='random')"]
 res_list=[]
 s_t=time.time()
 i=0
@@ -93,8 +96,10 @@ for lookback_days in [15,30]:
                 try:
                     SP.fit(X_train,y_train);
                     TMAE=SP.TMAE
-                except:
+                except Exception as e: 
+                    print(e)
                     TMAE=np.nan
+                print('Training error MAE:',TMAE)
                 if i==0:
                     with open('data/SIRfitter_MAE.csv','w') as fd:
                         writer = csv.writer(fd)
@@ -103,11 +108,11 @@ for lookback_days in [15,30]:
                                                   'semi_fit_days','md_str',
                                                   'TMAE'])
                         writer.writerow([i,lookback_days,infection_days, semi_fit_days,
-                                md_str,SP.TMAE])
+                                md_str,TMAE])
                 else:
                     with open('data/SIRfitter_MAE.csv','w') as fd:
                         writer = csv.writer(fd)
                         writer.writerow([i,lookback_days,infection_days, 
-                                         semi_fit_days, md_str,SP.TMAE])
+                                         semi_fit_days, md_str,TMAE])
 e_t=time.time()-s_t
 print('Elapsed time: {} min'.format(e_t/60))
