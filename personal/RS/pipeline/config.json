@@ -6,13 +6,18 @@
 			"moving_average" : "True",
 			"countries" : ["Italy"],
 		  "start_date" : "2020-01-01",
-		  "end_date" : "2020-10-15",
+		  "end_date" : "2020-12-15",
 
 			"models" : {
-					"LSTM()" : {"batch_size" : "[10,20]",
-										"epochs" : "[10,20]"
+					"LSTM()" : {
+										  "epochs" : "[500]",
+											"units" : "[100]",
+											"batch_size" : "[8]",
+											"activation" : "['tanh']",
+											"loss" : "['mean_absolute_error']",
+											"verbose" : "[0]",
+											"learning_rate" : "[1.]"
 					}
-
 
 		}
 	},
@@ -21,15 +26,15 @@
 			"input_file" : "data/data.csv",
 			"output_file" : "data/predictions.csv",
 
-			"models_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
+			"models_input_files": ["models/LSTM.h5"],
 
 			"moving_average" : "True",
-			"countries" : ["Italy", "Spain", "France", "Germany"],
-			"start_date" : "2020-10-15",
+			"countries" : ["Italy"],
+			"start_date" : "2020-03-01",
 			"end_date" : "2020-12-08"
 	},
 
 	"lookback_days" : 30,
-	"adj_cols_fixed" : ["Population Density (# per km2)","Population ages 65 and above (% of total population)"],
-	"adj_cols_time" : ["TemperatureC"]
+	"adj_cols_fixed" : [],
+	"adj_cols_time" : []
 }

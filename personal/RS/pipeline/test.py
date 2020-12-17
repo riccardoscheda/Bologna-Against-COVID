@@ -77,29 +77,20 @@ if __name__ == '__main__':
     # Making predictions of choosen countries and saving
     tot = pd.DataFrame()
     for model in models_input_files:
-        if "LSTM" in model:
-            # TODO: Add an lstm model different from xprize one
-            print("selected LSTM model...")
-            predictor = XPrizePredictor(model, test_config["input_file"])
-            print("predicting...")
-            preds_df = predictor.predict(start_date, end_date, test_config["input_file"])
-            preds_df['Model'] = model.split(os.sep)[-1].split('.')[0]
 
-            print("finished")
-        else:
-            preds_df = my_predict_df(countries,
-                                     start_date,
-                                     end_date,
-                                     lookback_days,
-                                     moving_average=moving_average,
-                                     adj_cols_time=adj_cols_time,
-                                     adj_cols_fixed=adj_cols_fixed,
-                                     path_to_ips_file=input_dataset,
-                                     model_input_file=model,
-                                     verbose=False
-                                     )
+        preds_df = my_predict_df(countries,
+                                 start_date,
+                                 end_date,
+                                 lookback_days,
+                                 moving_average=moving_average,
+                                 adj_cols_time=adj_cols_time,
+                                 adj_cols_fixed=adj_cols_fixed,
+                                 path_to_ips_file=input_dataset,
+                                 model_input_file=model,
+                                 verbose=False
+                                 )
 
-            preds_df['Model'] = model.split(os.sep)[-1].split('.')[0]
+        preds_df['Model'] = model.split(os.sep)[-1].split('.')[0]
 
         tot = tot.append(preds_df)
 

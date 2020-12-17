@@ -6,13 +6,15 @@ import pickle
 
 import numpy as np
 import pandas as pd
+import tensorflow as tf
+from tensorflow.keras.models import load_model
 
 from utils import mov_avg, create_dataset
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
-#MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
-#DATA_FILE = os.path.join(ROOT_DIR, 'data', "data.csv")
+# MODEL_FILE = os.path.join(ROOT_DIR, "models", "model.pkl")
+# DATA_FILE = os.path.join(ROOT_DIR, 'data', "data.csv")
 ID_COLS = ['CountryName',
            'RegionName',
            'GeoID',
@@ -32,7 +34,7 @@ NPI_COLS = ['C1_School closing',
             'H6_Facial Coverings']
 
 # For testing, restrict training data to that before a hypothetical predictor submission date
-#HYPOTHETICAL_SUBMISSION_DATE = np.datetime64("2020-07-31")
+# HYPOTHETICAL_SUBMISSION_DATE = np.datetime64("2020-07-31")
 
 
 def predict(start_date: str,
@@ -226,8 +228,13 @@ def my_predict_df(countries: list,
     else:
         CASES_COL = ['NewCases']
 
-    with open(model_input_file, 'rb') as model_file:
-        model = pickle.load(model_file)
+    print(model_input_file)
+    if 'LSTM' in model_input_file:
+        model = load_model(model_input_file)
+
+    else:
+        with open(model_input_file, 'rb') as model_file:
+            model = pickle.load(model_file)
 
     start_date = pd.to_datetime(start_date_str, format='%Y-%m-%d')
     end_date = pd.to_datetime(end_date_str, format='%Y-%m-%d')
@@ -259,8 +266,12 @@ def my_predict_df(countries: list,
         geo_pred_df = pd.DataFrame()
         country = geo.split('__')[0]
         region = geo.split('__')[1]
+
+        # Essential columns
         geo_ips = ips[ips['GeoID'] == geo]
         geo_cases = cases[cases['GeoID'] == geo]
+
+        # Additional columns
         geo_adj_time = adj_time_df[adj_fixed_df['GeoID'] == geo]
         geo_adj_fixed = adj_fixed_df[adj_fixed_df['GeoID'] == geo]
 
@@ -282,7 +293,8 @@ def my_predict_df(countries: list,
             date_mask_time = ((geo_adj_time.Date < current_date) &
                               (geo_adj_time.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
 
-            date_mask_fixed = geo_adj_fixed.Date == current_date
+            date_mask_fixed = ((geo_adj_fixed.Date < current_date) &
+                               (geo_adj_fixed.Date >= (current_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
 
             X_npis = np.array(geo_ips[date_mask_npi][NPI_COLS].values)
             X_adj_time = np.array(geo_adj_time[date_mask_time][adj_cols_time].values)
@@ -294,9 +306,16 @@ def my_predict_df(countries: list,
                                 X_adj_time.flatten(),
                                 X_adj_fixed.flatten(),
                                 X_npis.flatten()])
-            
+
             # Make the prediction (reshape so that sklearn is happy)
-            pred = model.predict(X.reshape(1, -1))[0]
+            if 'LSTM' in model_input_file:
+                features = len(CASES_COL + adj_cols_time + adj_cols_fixed + NPI_COLS)
+                X_tf = X.reshape(-1, NB_LOOKBACK_DAYS, features).astype('float32')
+                pred = model.predict(X_tf)[0, 0]
+
+            else:
+                pred = model.predict(X.reshape(1, -1))[0]
+
             pred = np.maximum(pred, 0)
             preds.append(pred)
             X_cases.append(pred)
@@ -314,6 +333,7 @@ def my_predict_df(countries: list,
     # pred_df = pred_df.drop(columns=['GeoID'])
     return tot
     # Add if it's a requested date
+
 
 # !!! PLEASE DO NOT EDIT. THIS IS THE OFFICIAL COMPETITION API !!!
 if __name__ == '__main__':

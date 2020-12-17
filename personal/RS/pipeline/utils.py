@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*-
 
 import os
-import pandas as pd
+
 import numpy as np
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.wrappers.scikit_learn import KerasClassifier
-from tensorflow.keras.layers import LSTM
+import pandas as pd
+from tensorflow.keras.models import Model
+from tensorflow.keras.layers import Dense, LSTM, Input
+from tensorflow.keras.optimizers import Adam
+
 # Keep only columns of interest
 id_cols = ['CountryName',
            'RegionName',
@@ -77,8 +78,8 @@ def add_HDI(df):
 
     path_to_HDI = os.path.join('data', 'country_HDI.csv')
     df_HDI = pd.read_csv(path_to_HDI, parse_dates=['Date'])
+    df_HDI.dropna(inplace=True)
     df_HDI = df.merge(df_HDI, how='left', left_on=['CountryName', 'Date'], right_on=['CountryName', 'Date'])
-    # df_HDI.dropna(inplace=True)  # TODO: Droppiamo?
     return df_HDI
 
 
@@ -136,8 +137,6 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
         all_case_data = np.array(gdf[COL])
         all_npi_data = np.array(gdf[npi_cols])
 
-        # WARNING: If you want to use additional columns remember to add them in the dataset
-        # using the appropriate functions!!!
         if adj_cols_fixed:
             all_adj_fixed_data = np.array(gdf[adj_cols_fixed])
 
@@ -172,7 +171,6 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
                                        X_adj_time.flatten(),
                                        X_npis.flatten()])
 
-
             y_sample = all_case_data[d]
             X_samples.append(X_sample)
             y_samples.append(y_sample)
@@ -183,26 +181,61 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
     return X_samples, y_samples
 
 
-def create_lstm(data,lookback_days):
+def create_model(lookback_days,
+                 features,
+                 activation='tanh',
+                 units=100,
+                 loss='mean_absolute_error',
+                 learning_rate=0.1
+                 ):
 
-    model = Sequential()
-    model.add(LSTM(4, input_shape=(data_to_timesteps(data,lookback_days))))
-    model.add(Dense(1))
-    model.compile(loss='mean_squared_error', optimizer='adam')
+    inp = Input(shape=(lookback_days, features))
+    lstm1 = LSTM(units=units,
+                 activation=activation,
+                 return_sequences=False,
+                 return_state=False
+                 )(inp)
+    dense = Dense(units=1, activation='relu')(lstm1)
+
+    opt = Adam(learning_rate=learning_rate,
+               beta_1=.9,
+               beta_2=.999,
+               epsilon=1e-7,
+               amsgrad=False,
+               )
+    model = Model(inputs=[inp], outputs=[dense])
+    model.compile(loss=loss, optimizer=opt)
+
     return model
 
+
 def data_to_timesteps(data, steps, shift=1):
+    '''This function returns a VIEW on a 2d numpy array.
+    The shape of the numpy array should be (N_samples, Features) and
+    the returned format is (N_Batch, steps, features), where steps is
+    "lookback_days". The number of BATCH is determined by the number of
+    samples (or the number of days available) AND the number of lookback_days
+
+    Parameters
+    ----------
+
+
+    Returns
+    -------
+
+    '''
 
     X = data.reshape(data.shape[0], -1)
     Npoints, features = X.shape
     stride0, stride1 = X.strides
 
-    shape = (Npoints - steps*shift, steps, features)
+    shape = (Npoints - steps, steps, features)
 
-    strides = (shift*stride0, stride0, stride1)
+    strides = (shift * stride0, stride0, stride1)
 
     X = np.lib.stride_tricks.as_strided(data, shape=shape, strides=strides)
 
+    # here, y should only consider NewCases as a column, not the entire features space
     y = data[steps:]
 
     return X, y

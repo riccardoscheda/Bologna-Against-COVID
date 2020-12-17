@@ -16,17 +16,19 @@ from sklearn.model_selection import GridSearchCV
 
 from utils import mae, create_dataset, skl_format
 from utils import add_temp, add_population_data, add_HDI
-from utils import create_lstm
+from utils import create_model
+from utils import data_to_timesteps
 
 from sklearn.metrics import make_scorer
 from sklearn.metrics import accuracy_score, precision_score, recall_score
-from keras.wrappers.scikit_learn import KerasClassifier
+from keras.wrappers.scikit_learn import KerasClassifier, KerasRegressor
 from sklearn.model_selection import GridSearchCV
+
 scorers = {
-        # 'precision_score': make_scorer(precision_score),
-        # 'recall_score': make_scorer(recall_score),
-        'accuracy_score': make_scorer(accuracy_score)
-        }
+    # 'precision_score': make_scorer(precision_score),
+    # 'recall_score': make_scorer(recall_score),
+    'accuracy_score': make_scorer(accuracy_score)
+    }
 
 id_cols = ['CountryName',
            'RegionName',
@@ -111,15 +113,14 @@ if __name__ == '__main__':
     for col in cols:
         new_df = new_df.append(df[df.CountryName == col])
 
-    # formatting data for scikitlearn
+    # Formatting data for scikitlearn / keras
     X_samples, y_samples = skl_format(new_df,
                                       moving_average,
                                       lookback_days=lookback_days,
                                       adj_cols_fixed=adj_cols_fixed,
                                       adj_cols_time=adj_cols_time,
                                       )
-    print(X_samples.shape)
-    print(y_samples.shape)
+
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
@@ -128,12 +129,23 @@ if __name__ == '__main__':
 
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():
+
         # Flag for LSTM model
         if model_name == "LSTM()":
-            model = KerasClassifier(build_fn=create_lstm, verbose=0)
+
+            model = KerasRegressor(build_fn=create_model, verbose=0)
+            models[model_name]['lookback_days'] = f'[{lookback_days}]'
+
+            n_features = len(cases_col + npi_cols + adj_cols_fixed + adj_cols_time)
+            models[model_name]['features'] = f'[{n_features}]'
+
+            # Reshape to make Keras Happy
+            X_samples = X_samples.reshape(-1, lookback_days, n_features)
+            X_test = X_test.reshape(-1, lookback_days, n_features)
+            X_train = X_train.reshape(-1, lookback_days, n_features)
+
         else:
             model = eval(model_name)
-
 
         param_grid = models[model_name]
 
@@ -142,23 +154,23 @@ if __name__ == '__main__':
 
         gcv = GridSearchCV(estimator=model,
                            param_grid=param_grid,
-                           scoring=scorers,  # Added scorers on the top of the file, see: https://stackoverflow.com/questions/60643832/if-no-scoring-is-specified-the-estimator-passed-should-have-a-score-method
-                           n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
-                           cv=2,          # None is K=5 fold CV
-                           refit=False,
+                           scoring='neg_mean_absolute_error',     # Added scorers on the top of the file, see: https://stackoverflow.com/questions/60643832/if-no-scoring-is-specified-the-estimator-passed-should-have-a-score-method
+                           n_jobs=1,         # -1 is ALL PROCESSOR AVAILABLE
+                           cv=5,             # None is K=5 fold CV
+                           refit=True,
                            )
 
         # Fit the GridSearch
         gcv.fit(X_samples, y_samples)
 
         # Evaluate model
-        train_preds = gcv.predict(X_train)
-        train_preds = np.maximum(train_preds, 0)  # Don't predict negative cases
-        print('\nTrain MAE:', mae(train_preds, y_train))
+        # train_preds = gcv.predict(X_test)
+        # train_preds = np.maximum(train_preds, 0)  # Don't predict negative cases
+        # print('\nTrain MAE:', mae(train_preds, y_train))
 
-        # test_preds = model.predict(X_test)
-        # test_preds = np.maximum(test_preds, 0) # Don't predict negative cases
-        # print('Test MAE:', mae(test_preds, y_test))
+        test_preds = gcv.predict(X_test)
+        test_preds = np.maximum(test_preds, 0)  # Don't predict negative cases
+        print('Test MAE:', mae(test_preds, y_test))
 
         model_path = os.path.join(models_output_dir, model_name[:-2] + '.pkl')
 
@@ -169,8 +181,16 @@ if __name__ == '__main__':
         if not os.path.exists(models_output_dir):
             os.mkdir(models_output_dir)
 
-        with open(model_path, 'wb') as model_file:
-            pickle.dump(gcv, model_file)
+        # Take a look at the best params
+        print(gcv.best_params_)
+
+        if model_name == 'LSTM()':
+            model_path = model_path.split('.')[0] + '.h5'
+            gcv.best_estimator_.model.save(model_path)
+
+        else:
+            with open(model_path, 'wb') as model_file:
+                pickle.dump(gcv, model_file)
 
         print('Elapsed time: {:.5} s'.format(time() - start))
         logging.info('Elapsed time: ' + str(time() - start))

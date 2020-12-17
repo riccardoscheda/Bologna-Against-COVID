@@ -11102,3 +11102,265 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 2020-12-15 16:40:43,104 DEBUG    Layer lstm_5 will use cuDNN kernel when run on GPU.
 2020-12-15 16:40:43,111 DEBUG    Layer lstm_6 will use cuDNN kernel when run on GPU.
 2020-12-15 16:40:43,118 DEBUG    Layer lstm_7 will use cuDNN kernel when run on GPU.
+2020-12-16 12:20:39,175 INFO     ################### TRAINING ##################
+2020-12-16 12:20:39,177 INFO     Loading config.json...
+2020-12-16 12:20:53,760 INFO     ################### TRAINING ##################
+2020-12-16 12:20:53,762 INFO     Loading config.json...
+2020-12-16 12:21:02,251 INFO     ################### TRAINING ##################
+2020-12-16 12:21:02,252 INFO     Loading config.json...
+2020-12-16 12:21:42,512 INFO     ################### TRAINING ##################
+2020-12-16 12:21:42,513 INFO     Loading config.json...
+2020-12-16 12:32:06,710 INFO     ################### TRAINING ##################
+2020-12-16 12:32:06,712 INFO     Loading config.json...
+2020-12-16 13:03:35,404 INFO     ################### TRAINING ##################
+2020-12-16 13:03:35,558 INFO     Loading config.json...
+2020-12-16 13:06:12,901 INFO     ################### TRAINING ##################
+2020-12-16 13:06:12,903 INFO     Loading config.json...
+2020-12-16 13:06:37,653 INFO     ################### TRAINING ##################
+2020-12-16 13:06:37,655 INFO     Loading config.json...
+2020-12-16 13:06:45,165 INFO     ################### TRAINING ##################
+2020-12-16 13:06:45,167 INFO     Loading config.json...
+2020-12-16 13:07:13,527 INFO     ################### TRAINING ##################
+2020-12-16 13:07:13,528 INFO     Loading config.json...
+2020-12-16 13:07:55,040 INFO     ################### TRAINING ##################
+2020-12-16 13:07:55,042 INFO     Loading config.json...
+2020-12-16 13:22:37,467 INFO     ################### TRAINING ##################
+2020-12-16 13:22:37,468 INFO     Loading config.json...
+2020-12-16 13:23:07,745 INFO     ################### TRAINING ##################
+2020-12-16 13:23:07,747 INFO     Loading config.json...
+2020-12-16 13:23:32,234 INFO     ################### TRAINING ##################
+2020-12-16 13:23:32,236 INFO     Loading config.json...
+2020-12-16 13:27:02,942 INFO     ################### TRAINING ##################
+2020-12-16 13:27:02,943 INFO     Loading config.json...
+2020-12-16 13:27:47,626 INFO     ################### TRAINING ##################
+2020-12-16 13:27:47,628 INFO     Loading config.json...
+2020-12-16 13:28:13,957 INFO     ################### TRAINING ##################
+2020-12-16 13:28:13,958 INFO     Loading config.json...
+2020-12-16 13:28:57,348 INFO     ################### TRAINING ##################
+2020-12-16 13:28:57,349 INFO     Loading config.json...
+2020-12-16 15:47:38,597 INFO     ################### TRAINING ##################
+2020-12-16 15:47:38,600 INFO     Loading config.json...
+2020-12-16 15:47:53,460 INFO     ################### TRAINING ##################
+2020-12-16 15:47:53,461 INFO     Loading config.json...
+2020-12-16 15:48:57,129 INFO     ################### TRAINING ##################
+2020-12-16 15:48:57,130 INFO     Loading config.json...
+2020-12-16 15:49:01,083 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_1:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:01,521 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_2:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:02,018 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_3:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:02,418 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_4:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:02,819 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_5:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:03,219 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_6:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:03,776 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_7:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:04,175 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_8:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:04,567 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_9:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:04,973 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_10:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:05,380 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_11:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:05,777 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_12:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:49:06,361 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_13:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (8, 390).
+2020-12-16 15:50:56,689 INFO     ################### TRAINING ##################
+2020-12-16 15:50:56,690 INFO     Loading config.json...
+2020-12-16 15:51:00,868 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_1:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:01,279 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_2:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:01,785 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_3:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:02,178 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_4:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:02,586 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_5:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:02,990 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_6:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:03,569 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_7:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:03,972 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_8:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:04,374 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_9:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:04,771 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_10:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:05,245 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_11:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:05,652 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_12:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:51:06,227 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_13:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (8, 390).
+2020-12-16 15:52:38,111 INFO     ################### TRAINING ##################
+2020-12-16 15:52:38,112 INFO     Loading config.json...
+2020-12-16 15:53:06,975 INFO     ################### TRAINING ##################
+2020-12-16 15:53:06,977 INFO     Loading config.json...
+2020-12-16 15:53:55,089 INFO     ################### TRAINING ##################
+2020-12-16 15:53:55,090 INFO     Loading config.json...
+2020-12-16 15:54:50,224 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_13:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:55:40,392 INFO     ################### TRAINING ##################
+2020-12-16 15:55:40,394 INFO     Loading config.json...
+2020-12-16 15:56:40,932 INFO     ################### TRAINING ##################
+2020-12-16 15:56:40,933 INFO     Loading config.json...
+2020-12-16 15:56:51,936 INFO     ################### TRAINING ##################
+2020-12-16 15:56:51,937 INFO     Loading config.json...
+2020-12-16 15:57:55,656 WARNING  Model was constructed with shape (None, 30, 13) for input Tensor("input_13:0", shape=(None, 30, 13), dtype=float32), but it was called on an input with incompatible shape (None, 390).
+2020-12-16 15:59:32,324 INFO     ################### TRAINING ##################
+2020-12-16 15:59:32,325 INFO     Loading config.json...
+2020-12-16 16:27:56,990 INFO     ################### TRAINING ##################
+2020-12-16 16:27:56,992 INFO     Loading config.json...
+2020-12-16 16:28:13,042 INFO     ################### TRAINING ##################
+2020-12-16 16:28:13,046 INFO     Loading config.json...
+2020-12-16 16:31:14,619 INFO     ################### TRAINING ##################
+2020-12-16 16:31:14,621 INFO     Loading config.json...
+2020-12-16 16:31:58,715 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:07:23,445 INFO     ################### TRAINING ##################
+2020-12-17 10:07:23,447 INFO     Loading config.json...
+2020-12-17 10:07:53,190 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:16:15,237 INFO     ################### TRAINING ##################
+2020-12-17 10:16:15,238 INFO     Loading config.json...
+2020-12-17 10:16:42,351 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:19:13,549 INFO     ################### TRAINING ##################
+2020-12-17 10:19:13,550 INFO     Loading config.json...
+2020-12-17 10:19:41,683 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:26:53,771 INFO     ################### TRAINING ##################
+2020-12-17 10:26:53,772 INFO     Loading config.json...
+2020-12-17 10:27:22,352 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:30:23,220 INFO     ################### TRAINING ##################
+2020-12-17 10:30:23,223 INFO     Loading config.json...
+2020-12-17 10:30:59,548 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:34:57,238 INFO     ################### TRAINING ##################
+2020-12-17 10:34:57,239 INFO     Loading config.json...
+2020-12-17 10:35:26,924 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:35:48,384 INFO     ################### TRAINING ##################
+2020-12-17 10:35:48,386 INFO     Loading config.json...
+2020-12-17 10:36:18,336 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:37:09,859 INFO     ################### TRAINING ##################
+2020-12-17 10:37:09,860 INFO     Loading config.json...
+2020-12-17 10:37:40,139 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:44:52,544 INFO     ################### TRAINING ##################
+2020-12-17 10:44:52,546 INFO     Loading config.json...
+2020-12-17 10:45:21,962 INFO     Saving model in models/LSTM.pkl
+2020-12-17 10:45:21,988 INFO     Elapsed time: 29.44208860397339
+2020-12-17 12:11:34,259 INFO     ################ TESTING ###################
+2020-12-17 12:11:34,344 INFO     Loading config.json...
+2020-12-17 12:11:35,491 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:12:27,889 INFO     ################ TESTING ###################
+2020-12-17 12:12:27,890 INFO     Loading config.json...
+2020-12-17 12:13:05,100 INFO     ################ TESTING ###################
+2020-12-17 12:13:05,102 INFO     Loading config.json...
+2020-12-17 12:13:32,028 INFO     ################ TESTING ###################
+2020-12-17 12:13:32,029 INFO     Loading config.json...
+2020-12-17 12:13:48,895 INFO     ################ TESTING ###################
+2020-12-17 12:13:48,896 INFO     Loading config.json...
+2020-12-17 12:13:50,506 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:14:47,268 INFO     ################ TESTING ###################
+2020-12-17 12:14:47,269 INFO     Loading config.json...
+2020-12-17 12:14:48,302 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:15:24,256 INFO     ################ TESTING ###################
+2020-12-17 12:15:24,257 INFO     Loading config.json...
+2020-12-17 12:15:25,279 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:15:43,229 INFO     ################ TESTING ###################
+2020-12-17 12:15:43,230 INFO     Loading config.json...
+2020-12-17 12:15:44,302 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:17:10,341 INFO     ################ TESTING ###################
+2020-12-17 12:17:10,342 INFO     Loading config.json...
+2020-12-17 12:17:11,408 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:17:30,956 INFO     ################ TESTING ###################
+2020-12-17 12:17:30,957 INFO     Loading config.json...
+2020-12-17 12:17:32,286 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:18:21,429 INFO     ################ TESTING ###################
+2020-12-17 12:18:21,430 INFO     Loading config.json...
+2020-12-17 12:18:22,482 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:18:55,462 INFO     ################ TESTING ###################
+2020-12-17 12:18:55,464 INFO     Loading config.json...
+2020-12-17 12:18:56,528 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:19:19,494 INFO     ################ TESTING ###################
+2020-12-17 12:19:19,496 INFO     Loading config.json...
+2020-12-17 12:19:20,704 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:19:50,723 INFO     ################ TESTING ###################
+2020-12-17 12:19:50,724 INFO     Loading config.json...
+2020-12-17 12:19:51,822 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:20:46,016 INFO     ################ TESTING ###################
+2020-12-17 12:20:46,017 INFO     Loading config.json...
+2020-12-17 12:20:46,992 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:20:58,112 INFO     Saved to data/predictions.csv
+2020-12-17 12:20:58,112 INFO     Plotting in plot.html
+2020-12-17 12:21:04,329 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-17 12:21:04,329 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-17 12:21:05,920 INFO     Elapsed time:19.90267848968506
+2020-12-17 12:22:38,616 INFO     ################ TESTING ###################
+2020-12-17 12:22:38,618 INFO     Loading config.json...
+2020-12-17 12:22:39,677 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:22:52,024 INFO     Saved to data/predictions.csv
+2020-12-17 12:22:52,025 INFO     Plotting in plot.html
+2020-12-17 12:22:58,146 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-17 12:22:58,146 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-17 12:22:59,784 INFO     Elapsed time:21.165059566497803
+2020-12-17 12:23:36,379 INFO     ################### TRAINING ##################
+2020-12-17 12:23:36,381 INFO     Loading config.json...
+2020-12-17 12:25:12,541 INFO     ################### TRAINING ##################
+2020-12-17 12:25:12,542 INFO     Loading config.json...
+2020-12-17 12:32:10,516 INFO     Saving model in models/LSTM.pkl
+2020-12-17 12:32:10,533 INFO     Elapsed time: 417.9905126094818
+2020-12-17 12:32:43,339 INFO     ################ TESTING ###################
+2020-12-17 12:32:43,341 INFO     Loading config.json...
+2020-12-17 12:32:44,514 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:32:57,517 INFO     Saved to data/predictions.csv
+2020-12-17 12:32:57,517 INFO     Plotting in plot.html
+2020-12-17 12:33:03,908 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-17 12:33:03,909 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-17 12:33:05,632 INFO     Elapsed time:22.290210723876953
+2020-12-17 12:35:51,661 INFO     ################ TESTING ###################
+2020-12-17 12:35:51,662 INFO     Loading config.json...
+2020-12-17 12:35:52,915 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 12:36:03,753 INFO     Saved to data/predictions.csv
+2020-12-17 12:36:03,753 INFO     Plotting in plot.html
+2020-12-17 12:36:10,066 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-17 12:36:10,067 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-17 12:36:11,811 INFO     Elapsed time:20.14802312850952
+2020-12-17 12:40:15,083 INFO     ################### TRAINING ##################
+2020-12-17 12:40:15,085 INFO     Loading config.json...
+2020-12-17 12:40:53,343 INFO     ################### TRAINING ##################
+2020-12-17 12:40:53,344 INFO     Loading config.json...
+2020-12-17 12:41:58,643 INFO     ################### TRAINING ##################
+2020-12-17 12:41:58,644 INFO     Loading config.json...
+2020-12-17 12:42:33,843 INFO     ################### TRAINING ##################
+2020-12-17 12:42:33,845 INFO     Loading config.json...
+2020-12-17 13:03:53,720 INFO     ################### TRAINING ##################
+2020-12-17 13:03:53,721 INFO     Loading config.json...
+2020-12-17 13:32:52,866 INFO     ################### TRAINING ##################
+2020-12-17 13:32:52,867 INFO     Loading config.json...
+2020-12-17 13:43:03,395 INFO     ################### TRAINING ##################
+2020-12-17 13:43:03,396 INFO     Loading config.json...
+2020-12-17 13:43:46,871 INFO     Saving model in models/LSTM.pkl
+2020-12-17 13:43:46,888 INFO     Elapsed time: 43.491599321365356
+2020-12-17 13:44:12,848 INFO     ################### TRAINING ##################
+2020-12-17 13:44:12,849 INFO     Loading config.json...
+2020-12-17 14:07:51,119 INFO     Saving model in models/LSTM.pkl
+2020-12-17 14:07:51,142 INFO     Elapsed time: 1418.2921087741852
+2020-12-17 14:27:40,762 INFO     ################ TESTING ###################
+2020-12-17 14:27:40,763 INFO     Loading config.json...
+2020-12-17 14:27:41,794 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-17 14:27:57,355 INFO     Saved to data/predictions.csv
+2020-12-17 14:27:57,355 INFO     Plotting in plot.html
+2020-12-17 14:28:03,281 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-17 14:28:03,281 WARNING  /home/mattia/miniconda3/envs/xpri/lib/python3.8/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-17 14:28:04,769 INFO     Elapsed time:24.00618624687195
