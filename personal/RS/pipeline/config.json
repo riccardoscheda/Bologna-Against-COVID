@@ -1,0 +1,40 @@
+{
+	"train": {
+			"input_file" : "data/data.csv",
+		  "models_output_dir" : "models",
+
+			"moving_average" : "True",
+			"countries" : ["Italy"],
+		  "start_date" : "2020-01-01",
+		  "end_date" : "2020-12-15",
+
+			"models" : {
+					"LSTM()" : {
+										  "epochs" : "[500]",
+											"units" : "[100]",
+											"batch_size" : "[8]",
+											"activation" : "['tanh']",
+											"loss" : "['mean_absolute_error']",
+											"verbose" : "[0]",
+											"learning_rate" : "[1.]"
+					}
+
+		}
+	},
+
+	"test" : {
+			"input_file" : "data/data.csv",
+			"output_file" : "data/predictions.csv",
+
+			"models_input_files": ["models/LSTM.h5"],
+
+			"moving_average" : "True",
+			"countries" : ["Italy"],
+			"start_date" : "2020-03-01",
+			"end_date" : "2020-12-08"
+	},
+
+	"lookback_days" : 30,
+	"adj_cols_fixed" : [],
+	"adj_cols_time" : []
+}

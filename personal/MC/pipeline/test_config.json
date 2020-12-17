@@ -1,9 +1,10 @@
 {
   "input_file" : "data/data.csv",
   "output_file" : "data/predictions.csv",
-  "model_input_file": "models/model.pkl",
-  "countries" : ["Italy", "France", "Germany", "Spain", "China", "India"],
-  "start_date" : "2020-03-01",
-  "end_date" : "2020-12-09",
+  "model_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
+  "moving_average" : "True",
+  "countries" : ["France"],
+  "start_date" : "2020-03-15",
+  "end_date" : "2020-12-08",
   "lookback_days" : 30
 }
