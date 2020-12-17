@@ -118,7 +118,7 @@ def create_dataset(df, drop=False, npis=True):
     return df
 
 
-def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], adj_cols_time=[]):
+def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], adj_cols_time=[],keep_df_index=False):
     """
     Takes data and makes a formatting for sklearn
     """
@@ -167,10 +167,16 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
                 X_adj_time = all_adj_time_data[d - lookback_days:d]
 
             # Flatten all input data so it fits scikit input format.
-            X_sample = np.concatenate([X_cases.flatten(),
-                                       X_adj_fixed.flatten(),
-                                       X_adj_time.flatten(),
-                                       X_npis.flatten()])
+            if keep_df_index:
+                X_sample = np.concatenate([X_cases.flatten(),
+                                           X_adj_fixed.flatten(),
+                                           X_adj_time.flatten(),
+                                           X_npis.flatten(),np.array([gdf.index[d]])])
+            else:
+                X_sample = np.concatenate([X_cases.flatten(),
+                                           X_adj_fixed.flatten(),
+                                           X_adj_time.flatten(),
+                                           X_npis.flatten()])
 
             y_sample = all_case_data[d]
             X_samples.append(X_sample)
