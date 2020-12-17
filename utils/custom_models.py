@@ -9,6 +9,10 @@ import multiprocessing as mp
 import pandas as pd
 from sklearn.linear_model import Lasso
 
+    
+def mae(pred, true):
+    return np.mean(np.abs(pred - true))
+
 
 class SIR_fitter():
     ''' Class that use the features to extract SIR parameters. Fitted parameters will be keyed by country and date. 
@@ -142,7 +146,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         self.lookback_days=lookback_days
         self.nprocs=nprocs
         self.MLmodel=eval(ML_model)
-        
+    
     def SIR_ode(self):
         return self._SIR_fitter__SIR_ode()
     def SIR_integrate(self):
@@ -175,12 +179,15 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         self.X_pars=self.X_pars[:,self.lookback_days:-1]
         
         self.MLmodel.fit(self.X_pars,self.y_pars)
-        self.TMAE=mae(SP.MLmodel.predict(self.X_pars),self.y_pars)
+        self.TMAE=mae(self.MLmodel.predict(self.X_pars),self.y_pars)
         print('Training MAE for params:', self.TMAE)
         return self
     
     def predict_pars(self,X):
         return self.MLmodel.predict(X[:,self.lookback_days:-1])
+    
+    def predict(X):
+        pass
 
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
