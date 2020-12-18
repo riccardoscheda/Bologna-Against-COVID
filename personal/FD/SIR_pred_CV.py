@@ -8,8 +8,8 @@ import random
 from tqdm import tqdm
 import time
 import sys, os
-from sklearn.externals import joblib
 from sklearn.model_selection import GridSearchCV
+from itertools import product
 #from os.path import pardir, sep 
 sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-2]))
 from pipeline.custom_models import SIR_fitter, SIR_predictor
@@ -67,8 +67,8 @@ npi_cols = ['C1_School closing',
             'H6_Facial Coverings']
 df = df[id_cols+ cases_col  +adj_cols_fixed+ adj_cols_time+ npi_cols]
 
-df=df[df['CountryName'].isin(['Italy','Germany','Spain','France'])].sort_values(
-    ['GeoID','Date'])
+#df=df[df['CountryName'].isin(['Italy','Germany','Spain','France'])].sort_values(
+#    ['GeoID','Date'])
 
 df.loc[df.MA<0,'MA']=0.
 
@@ -84,20 +84,33 @@ X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                     test_size=0.2,
                                                     random_state=301)
 
-param_grid={'semi_fit':[3,7],
-           'infection_days':[3,7,10].
-           'MLmodel__learning_rate':[0.1,0.3]}
+precomp_df_pars=SIR_predictor(df,moving_average=True,lookback_days=lookback_days,infection_days=7,
+                 semi_fit=7,nprocs=26).fit(X_train,y_train).SFmodel.df_pars
+
+gammas=[0,0.1]#,0.2,0.5]
+lrates=[0.05]#,0.1,0.2]
+mdeps=[2,3]
+nestims=[10]#,50,100]
+ssamples=[.25,.5,1]
+mcombs=[]
+for comb in product(gammas,lrates,mdeps,nestims,ssamples):
+    mcombs.append('MultiOutputRegressor(xgb.XGBRegressor(gamma={},learning_rate={},max_depth={},n_estimators={},subsample={}))'.format(*comb))
+    
+param_grid={'semi_fit':[7],
+           'infection_days':[7],
+           'MLmodel':mcombs}
 gcv = GridSearchCV(estimator=SIR_predictor(df,moving_average=True,lookback_days=lookback_days,infection_days=7,
-                 semi_fit=7,nprocs=26),
+                 semi_fit=7,nprocs=26,pre_computed=precomp_df_pars),
                            param_grid=param_grid,
                            scoring=None,  # TODO
-                           n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
-                           cv=2,          # None is K=5 fold CV
+                           n_jobs=14,      # -1 is ALL PROCESSOR AVAILABLE
+                           cv=3,          # None is K=5 fold CV
                            refit=False,
-                   verbose=1
+                   verbose=3
                            )
 
         # Fit the GridSearch
 gcv.fit(X_train, y_train);
 
-joblib.dump(gcv, 'models/gcv.pkl')
+with open('models/gcv.pkl','wb') as f:
+    pickle.dump(gcv.cv_results_,f)

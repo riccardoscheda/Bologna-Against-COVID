@@ -138,7 +138,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
                  infection_days=7, semi_fit=3,
                  beta_i=0.6, gamma_i=1/7,lookback_days=15,
                  MLmodel= 'MultiOutputRegressor(xgb.XGBRegressor())', 
-                 paral_predict=False,nprocs=4):
+                 paral_predict=False,pre_computed=None,nprocs=4):
         self.df=df
         self.moving_average=moving_average
         self.infection_days=infection_days
@@ -149,6 +149,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         self.nprocs=nprocs
         self.paral_predict=paral_predict
         self.MLmodel=MLmodel
+        self.pre_computed=pre_computed
     
     def SIR_ode(self,t,x0, N, beta, gamma):
         return self._SIR_fitter__SIR_ode(t,x0, N, beta, gamma)
@@ -156,18 +157,24 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         return self._SIR_fitter__SIR_integrate(ttotp,x0,N,ti,beta,gamma)
     def fit(self,X,y):
         check_X_y(X,y)
-        
-        if 'MA' in self.df.columns:
-            self.df.loc[self.df.MA<0,'MA']=0.
-        if 'NewCases' in self.df.columns:
-            self.df.loc[self.df.NewCases<0,'NewCases']=0.
-        self.df.loc[self.df.ConfirmedCases<0,'ConfirmedCases']=0.
-        
-        self.SFmodel=SIR_fitter(self.moving_average, 
-                 self.infection_days, self.semi_fit,
-                 self.beta_i, self.gamma_i,self.nprocs)
-        print('Fitting SIR parameters...')
-        self.SFmodel.fit(self.df)
+        if self.pre_computed is None:
+            if 'MA' in self.df.columns:
+                self.df.loc[self.df.MA<0,'MA']=0.
+            if 'NewCases' in self.df.columns:
+                self.df.loc[self.df.NewCases<0,'NewCases']=0.
+            self.df.loc[self.df.ConfirmedCases<0,'ConfirmedCases']=0.
+
+            self.SFmodel=SIR_fitter(self.moving_average, 
+                     self.infection_days, self.semi_fit,
+                     self.beta_i, self.gamma_i,self.nprocs)
+            print('Fitting SIR parameters...')
+            self.SFmodel.fit(self.df)
+        else:
+            print('Already computed SIR parameters')
+            self.SFmodel=SIR_fitter(self.moving_average, 
+                     self.infection_days, self.semi_fit,
+                     self.beta_i, self.gamma_i,self.nprocs)
+            self.SFmodel.df_pars=self.pre_computed
         #self.SFmodel.df_pars=self.df.copy()
         #self.SFmodel.df_pars['beta']=0.6
         #self.SFmodel.df_pars['gamma']=1/7
@@ -233,7 +240,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     def score(self,X_test,y_test):
         check_X_y(X_test,y_test)
         y_pred=self.predict(X_test)
-        return mae(y_pred,y_test)
+        # Take negative to mean "score"
+        return -mae(y_pred,y_test)
 
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
