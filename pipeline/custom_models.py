@@ -55,7 +55,7 @@ class SIR_fitter():
                 S0=N-I0-R0
                 x0=(S0,I0,Ic0,R0)
                 if I0<0:
-                    raise ValueError('Infected was {} for popolation {}'.format(x0[1],X_i[self.lookback_days+1]))
+                    raise ValueError('Infected was {} for population {}'.format(x0[1],N))
                 elif I0<1:
                     popt=np.array([np.nan,np.nan])
                 else:
@@ -134,21 +134,21 @@ class SIR_fitter():
         return self
 
 class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
-    def __init__(self, df,moving_average=False, 
-                 infection_days=7, semi_fit_days=7,
+    def __init__(self, df=None,moving_average=False, 
+                 infection_days=7, semi_fit=3,
                  beta_i=0.6, gamma_i=1/7,lookback_days=15,
-                 ML_model= 'MultiOutputRegressor(xgb.XGBRegressor())', 
+                 MLmodel= 'MultiOutputRegressor(xgb.XGBRegressor())', 
                  paral_predict=False,nprocs=4):
         self.df=df
         self.moving_average=moving_average
         self.infection_days=infection_days
-        self.semi_fit=semi_fit_days
+        self.semi_fit=semi_fit
         self.beta_i=beta_i
         self.gamma_i=gamma_i
         self.lookback_days=lookback_days
         self.nprocs=nprocs
         self.paral_predict=paral_predict
-        self.MLmodel=eval(ML_model)
+        self.MLmodel=MLmodel
     
     def SIR_ode(self,t,x0, N, beta, gamma):
         return self._SIR_fitter__SIR_ode(t,x0, N, beta, gamma)
@@ -156,6 +156,12 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         return self._SIR_fitter__SIR_integrate(ttotp,x0,N,ti,beta,gamma)
     def fit(self,X,y):
         check_X_y(X,y)
+        
+        if 'MA' in self.df.columns:
+            self.df.loc[self.df.MA<0,'MA']=0.
+        if 'NewCases' in self.df.columns:
+            self.df.loc[self.df.NewCases<0,'NewCases']=0.
+        self.df.loc[self.df.ConfirmedCases<0,'ConfirmedCases']=0.
         
         self.SFmodel=SIR_fitter(self.moving_average, 
                  self.infection_days, self.semi_fit,
@@ -182,6 +188,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         # remove first lookback_days columns: not using cases to predict parameters
         self.X_pars=self.X_pars[:,self.lookback_days:-1]
         
+        self.MLmodel=eval(str(self.MLmodel))
+        #print('\n ML model: ',type(self.MLmodel))
         self.MLmodel.fit(self.X_pars,self.y_pars)
         self.TMAE=mae(self.MLmodel.predict(self.X_pars),self.y_pars)
         #print('Training MAE for params:', self.TMAE)
@@ -192,18 +200,19 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     
     def predict_chunk(self,X_chunk):
         y_chunk=[]
-        for i in tqdm(range(X_chunk.shape[0])):
+        for i in range(X_chunk.shape[0]):
             N=X_chunk[i,self.lookback_days+1]
-            I0=X_chunk[i,self.lookback_days-self.infection_days:self.lookback_days].sum()
+            I0=X_chunk[i,self.lookback_days-1].sum()
             Ic0=X_chunk[i,self.lookback_days]
-            R0=Ic0-I0
+            R0=Ic0
             S0=N-I0-R0
             x0=(S0,I0,Ic0,R0)
             pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
             beta=pars[0][0]
             gamma=pars[0][1]
             time_integ=[0,1]
-            I=self.SIR_integrate(time_integ,x0,N,time_integ,beta,gamma)[0]
+            I=solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
+                        x0,args=(N,beta,gamma),t_eval=time_integ).y[1][1]
             y_chunk.append(I)
         return y_chunk
     
@@ -212,7 +221,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             nchunks=self.nprocs*10
             X_chunks=np.array_split(X,nchunks)
             pool=mp.Pool(self.nprocs)
-            y_chunks=list(tqdm(pool.imap(self.predict_chunk,X_chunks),total=nchunks))
+            y_chunks=list(pool.imap(self.predict_chunk,X_chunks))
             pool.close()
             pool.join()
             y=[item for sublist in y_chunks for item in sublist]
@@ -220,6 +229,11 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         else:
             y=self.predict_chunk(X)
             return y
+    
+    def score(self,X_test,y_test):
+        check_X_y(X_test,y_test)
+        y_pred=self.predict(X_test)
+        return mae(y_pred,y_test)
 
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):

@@ -10830,3 +10830,109 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 2020-12-18 14:37:56,487 INFO     Loading config.json...
 2020-12-18 14:37:56,820 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
 2020-12-18 14:37:56,820 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:41:10,740 INFO     ################### TRAINING ##################
+2020-12-18 14:41:10,740 INFO     Loading config.json...
+2020-12-18 14:41:11,086 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:41:11,086 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:42:47,865 INFO     ################### TRAINING ##################
+2020-12-18 14:42:47,866 INFO     Loading config.json...
+2020-12-18 14:44:16,598 INFO     ################### TRAINING ##################
+2020-12-18 14:44:16,599 INFO     Loading config.json...
+2020-12-18 14:44:36,686 INFO     ################### TRAINING ##################
+2020-12-18 14:44:36,687 INFO     Loading config.json...
+2020-12-18 14:44:36,978 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:44:36,979 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:45:05,838 INFO     ################### TRAINING ##################
+2020-12-18 14:45:05,839 INFO     Loading config.json...
+2020-12-18 14:45:06,123 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:45:06,123 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:47:54,119 INFO     ################### TRAINING ##################
+2020-12-18 14:47:54,119 INFO     Loading config.json...
+2020-12-18 14:47:54,459 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:47:54,459 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:48:16,511 INFO     ################### TRAINING ##################
+2020-12-18 14:48:16,512 INFO     Loading config.json...
+2020-12-18 14:48:16,794 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:48:16,794 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:48:52,039 INFO     ################### TRAINING ##################
+2020-12-18 14:48:52,040 INFO     Loading config.json...
+2020-12-18 14:48:52,322 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:48:52,322 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:50:57,563 INFO     ################### TRAINING ##################
+2020-12-18 14:50:57,564 INFO     Loading config.json...
+2020-12-18 14:50:57,847 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:50:57,847 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:52:38,981 INFO     ################### TRAINING ##################
+2020-12-18 14:52:38,982 INFO     Loading config.json...
+2020-12-18 14:52:39,263 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:52:39,264 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:58:42,565 INFO     ################### TRAINING ##################
+2020-12-18 14:58:42,566 INFO     Loading config.json...
+2020-12-18 14:58:42,897 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:58:42,897 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:58:56,842 INFO     ################### TRAINING ##################
+2020-12-18 14:58:56,843 INFO     Loading config.json...
+2020-12-18 14:58:57,146 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:58:57,147 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 15:01:52,831 INFO     ################### TRAINING ##################
+2020-12-18 15:01:52,832 INFO     Loading config.json...
+2020-12-18 15:01:53,146 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 15:01:53,146 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:03:47,150 INFO     ################### TRAINING ##################
+2020-12-18 16:03:47,151 INFO     Loading config.json...
+2020-12-18 16:03:47,436 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:03:47,436 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:08:35,321 INFO     ################### TRAINING ##################
+2020-12-18 16:08:35,322 INFO     Loading config.json...
+2020-12-18 16:08:35,653 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:08:35,653 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:10:06,437 INFO     ################### TRAINING ##################
+2020-12-18 16:10:06,437 INFO     Loading config.json...
+2020-12-18 16:10:06,719 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:10:06,719 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:17:54,998 INFO     ################### TRAINING ##################
+2020-12-18 16:17:54,999 INFO     Loading config.json...
+2020-12-18 16:17:55,280 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:17:55,280 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:23:08,726 INFO     ################### TRAINING ##################
+2020-12-18 16:23:08,727 INFO     Loading config.json...
+2020-12-18 16:23:09,020 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:23:09,020 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:25:43,807 INFO     ################### TRAINING ##################
+2020-12-18 16:25:43,808 INFO     Loading config.json...
+2020-12-18 16:25:44,092 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:25:44,092 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:28:57,548 INFO     ################### TRAINING ##################
+2020-12-18 16:28:57,548 INFO     Loading config.json...
+2020-12-18 16:28:57,835 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:28:57,835 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:33:04,051 INFO     ################### TRAINING ##################
+2020-12-18 16:33:04,052 INFO     Loading config.json...
+2020-12-18 16:33:04,355 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:33:04,355 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 16:34:03,349 INFO     ################### TRAINING ##################
+2020-12-18 16:34:03,349 INFO     Loading config.json...
+2020-12-18 16:34:03,640 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 16:34:03,640 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:11:23,250 INFO     ################### TRAINING ##################
+2020-12-18 17:11:23,251 INFO     Loading config.json...
+2020-12-18 17:11:23,533 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 17:11:23,533 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:11:52,979 INFO     ################### TRAINING ##################
+2020-12-18 17:11:52,980 INFO     Loading config.json...
+2020-12-18 17:11:53,261 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 17:11:53,262 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:30:28,838 INFO     ################### TRAINING ##################
+2020-12-18 17:30:28,839 INFO     Loading config.json...
+2020-12-18 17:30:29,121 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 17:30:29,121 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:33:41,328 INFO     ################### TRAINING ##################
+2020-12-18 17:33:41,329 INFO     Loading config.json...
+2020-12-18 17:33:41,614 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 17:33:41,614 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:34:21,784 INFO     ################### TRAINING ##################
+2020-12-18 17:34:21,785 INFO     Loading config.json...
+2020-12-18 17:34:22,119 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 17:34:22,119 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 17:35:38,982 INFO     Saving model in models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=2.pkl
+2020-12-18 17:35:39,036 INFO     Elapsed time: 77.2506697177887

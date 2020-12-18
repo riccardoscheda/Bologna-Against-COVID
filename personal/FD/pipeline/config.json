@@ -10,8 +10,8 @@
 
 			"models" : {
 
-					"SIR_predictor(df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit_days=7,nprocs=26)":
-                {"MLmodel":["MultiOutputRegressor(xgb.XGBRegressor(n_estimators=100,max_depth=3,learning_rate=0.2,gamma=0.1,n_jobs=24))"]}
+					"SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=26)":
+                {"semi_fit":"[3,7]"}
 
 		}
 	},
@@ -28,7 +28,7 @@
 			"end_date" : "2020-12-10"
 	},
 
-	"drop_columns_with_Nan" : "True",
+	"drop_columns_with_Nan" : "False",
 	"lookback_days" : 30,
 	"adj_cols_fixed" : ["ConfirmedCases","Population"],
 	"adj_cols_time" : ["TemperatureC"]

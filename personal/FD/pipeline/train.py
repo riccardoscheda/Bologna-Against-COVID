@@ -14,12 +14,12 @@ from sklearn.linear_model import LinearRegression, Lasso
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
-from utils import mae, create_dataset, skl_format
-from utils import add_temp, add_population_data, add_HDI
 
 import sys
 sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-3]))
 from pipeline.custom_models import SIR_fitter, SIR_predictor
+from pipeline.utils import mae, create_dataset, skl_format
+from pipeline.utils import add_temp, add_population_data, add_HDI
 
 id_cols = ['CountryName',
            'RegionName',
@@ -87,7 +87,6 @@ if __name__ == '__main__':
                      dtype={'RegionName': str,
                             'RegionCode': str},
                      error_bad_lines=True)
-
     # Selecting choosen time period from config file
     df = df[(df.Date > start_date) & (df.Date < end_date)]
     df = create_dataset(df, drop=drop_columns_with_Nan)
@@ -110,7 +109,7 @@ if __name__ == '__main__':
                                       lookback_days=lookback_days,
                                       adj_cols_fixed=adj_cols_fixed,
                                       adj_cols_time=adj_cols_time,
-                                      )
+                                      keep_df_index=True)
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
@@ -124,7 +123,7 @@ if __name__ == '__main__':
         param_grid = models[model_name]
 
         for param in models[model_name]:
-          param_grid[param] = eval(param_grid[param])
+            param_grid[param] = eval(param_grid[param])
 
         gcv = GridSearchCV(estimator=model,
                            param_grid=param_grid,
@@ -135,7 +134,7 @@ if __name__ == '__main__':
                            )
 
         # Fit the GridSearch
-        gcv.fit(X_samples, y_samples)
+        gcv.fit(X_train, y_train)
 
         # Evaluate model
         train_preds = gcv.predict(X_train)
