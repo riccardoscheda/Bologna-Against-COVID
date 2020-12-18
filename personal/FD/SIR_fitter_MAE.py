@@ -77,7 +77,10 @@ X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                     test_size=0.2,
                                                     random_state=301)
 
-models_str=["MultiTaskLassoCV(alphas=[1e-5,1e-7,1e-9], normalize=True,  max_iter=500000, tol=1e-4,  cv=3, verbose=False, n_jobs=14,selection='random')"]
+models_str= ["MultiOutputRegressor(xgb.XGBRegressor(n_estimators=100,max_depth=3,learning_rate=0.2,gamma=0.05,n_jobs=24))",
+             "MultiOutputRegressor(xgb.XGBRegressor(n_estimators=100,max_depth=3,learning_rate=0.2,gamma=0.1,n_jobs=24))",
+             "MultiOutputRegressor(xgb.XGBRegressor(n_estimators=100,max_depth=3,learning_rate=0.2,gamma=0.2,n_jobs=24))"
+]
 res_list=[]
 s_t=time.time()
 i=0

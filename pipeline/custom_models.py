@@ -137,7 +137,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     def __init__(self, df,moving_average=False, 
                  infection_days=7, semi_fit_days=7,
                  beta_i=0.6, gamma_i=1/7,lookback_days=15,
-                 ML_model='LassoCV(max_iter=100000,tol=1e-7)',paral_predict=False,nprocs=4):
+                 ML_model= 'MultiOutputRegressor(xgb.XGBRegressor())', 
+                 paral_predict=False,nprocs=4):
         self.df=df
         self.moving_average=moving_average
         self.infection_days=infection_days

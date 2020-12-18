@@ -10808,3 +10808,25 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 2020-12-18 14:23:49,899 INFO     Elapsed time: 93.71979475021362
 2020-12-18 14:23:49,983 INFO     Saving model in models/LinearRegression.pkl
 2020-12-18 14:23:49,983 INFO     Elapsed time: 93.8037919998169
+2020-12-18 14:28:24,421 INFO     ################### TRAINING ##################
+2020-12-18 14:28:24,422 INFO     Loading config.json...
+2020-12-18 14:29:06,543 INFO     ################### TRAINING ##################
+2020-12-18 14:29:06,544 INFO     Loading config.json...
+2020-12-18 14:29:06,827 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:29:06,827 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:30:30,330 INFO     Saving model in models/Lasso.pkl
+2020-12-18 14:30:30,336 INFO     Elapsed time: 83.79130411148071
+2020-12-18 14:30:31,516 INFO     Saving model in models/LinearRegression.pkl
+2020-12-18 14:30:31,521 INFO     Elapsed time: 84.97665548324585
+2020-12-18 14:36:04,582 INFO     ################### TRAINING ##################
+2020-12-18 14:36:04,583 INFO     Loading config.json...
+2020-12-18 14:36:04,868 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:36:04,869 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:36:34,083 INFO     ################### TRAINING ##################
+2020-12-18 14:36:34,084 INFO     Loading config.json...
+2020-12-18 14:36:34,417 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:36:34,417 INFO     NumExpr defaulting to 8 threads.
+2020-12-18 14:37:56,486 INFO     ################### TRAINING ##################
+2020-12-18 14:37:56,487 INFO     Loading config.json...
+2020-12-18 14:37:56,820 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-18 14:37:56,820 INFO     NumExpr defaulting to 8 threads.
