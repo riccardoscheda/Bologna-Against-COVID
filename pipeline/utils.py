@@ -101,6 +101,8 @@ def create_dataset(df, drop=False, npis=True):
     # Fill any missing case values by interpolation and setting NaNs to 0
     df.update(df.groupby('GeoID').NewCases.apply(
         lambda group: group.interpolate()).fillna(0))
+    df.update(df.groupby('GeoID').ConfirmedCases.apply(
+        lambda group: group.interpolate()).fillna(0))
 
     # Fill any missing NPIs by assuming they are the same as previous day
     if npis:
