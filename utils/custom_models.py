@@ -7,7 +7,7 @@ from scipy.optimize import curve_fit
 from functools import partial
 import multiprocessing as mp
 import pandas as pd
-from sklearn.linear_model import Lasso
+from sklearn.linear_model import MultiTaskLassoCV , Lasso
 
     
 def mae(pred, true):
@@ -136,7 +136,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     def __init__(self, df,moving_average=False, 
                  infection_days=7, semi_fit_days=7,
                  beta_i=0.6, gamma_i=1/7,lookback_days=15,
-                 ML_model='Lasso(alpha=.5)',nprocs=4):
+                 ML_model='LassoCV(max_iter=100000,tol=1e-7)',nprocs=4):
         self.df=df
         self.moving_average=moving_average
         self.infection_days=infection_days
@@ -147,12 +147,13 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         self.nprocs=nprocs
         self.MLmodel=eval(ML_model)
     
-    def SIR_ode(self):
-        return self._SIR_fitter__SIR_ode()
-    def SIR_integrate(self):
-        return self._SIR_fitter__SIR_integrate()
+    def SIR_ode(self,t,x0, N, beta, gamma):
+        return self._SIR_fitter__SIR_ode(t,x0, N, beta, gamma)
+    def SIR_integrate(self,ttotp,x0,N,ti,beta,gamma):
+        return self._SIR_fitter__SIR_integrate(ttotp,x0,N,ti,beta,gamma)
     def fit(self,X,y):
         check_X_y(X,y)
+        
         self.SFmodel=SIR_fitter(self.moving_average, 
                  self.infection_days, self.semi_fit,
                  self.beta_i, self.gamma_i,self.nprocs)
@@ -180,14 +181,41 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         
         self.MLmodel.fit(self.X_pars,self.y_pars)
         self.TMAE=mae(self.MLmodel.predict(self.X_pars),self.y_pars)
-        print('Training MAE for params:', self.TMAE)
+        #print('Training MAE for params:', self.TMAE)
         return self
     
     def predict_pars(self,X):
         return self.MLmodel.predict(X[:,self.lookback_days:-1])
     
-    def predict(X):
-        pass
+    def predict_chunk(self,X_chunk):
+        y_chunk=[]
+        for i in range(X_chunk.shape[0]):
+            N=X_chunk[i,self.lookback_days+1]
+            I0=X_chunk[i,self.lookback_days-self.infection_days:self.lookback_days].sum()
+            Ic0=X_chunk[i,self.lookback_days]
+            R0=Ic0-I0
+            S0=N-I0-R0
+            x0=(S0,I0,Ic0,R0)
+            pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
+            beta=pars[0][0]
+            gamma=pars[0][1]
+            time_integ=[0,1]
+            I=self.SIR_integrate(time_integ,x0,N,time_integ,beta,gamma)[0]
+            y_chunk.append(I)
+        return y_chunk
+    
+    def predict(self,X):
+        if X.shape[0]>1:
+            nchunks=self.nprocs*10
+            X_chunks=np.array_split(X,nchunks)
+            pool=mp.Pool(self.nprocs)
+            y_chunks=pool.map(self.predict_chunk,X_chunks)
+            pool.close()
+            pool.join()
+            y=[item for sublist in y_chunks for item in sublist]
+            return y
+        else:
+            return np.nan
 
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
