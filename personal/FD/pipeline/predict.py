@@ -298,6 +298,9 @@ def my_predict_df(countries: list,
                                 X_adj_fixed.flatten(),
                                 X_adj_time.flatten(),
                                 X_npis.flatten(),np.array([1])])
+                #Sum all previous cases to fill column ConfirmedCases
+                X[NB_LOOKBACK_DAYS]=sum(X_cases)
+                #print(sum(X_cases))
 
             else:
                 X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
