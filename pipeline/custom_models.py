@@ -193,17 +193,17 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         #print(self.X_pars.shape)
         # remove last column (df.index)
         # remove first lookback_days columns: not using cases to predict parameters
-        self.X_pars=self.X_pars[:,self.lookback_days:-1]
+        self.X_pars=self.X_pars[:,self.lookback_days+1:-1]
         
         self.MLmodel=eval(str(self.MLmodel))
         #print('\n ML model: ',type(self.MLmodel))
         self.MLmodel.fit(self.X_pars,self.y_pars)
         self.TMAE=mae(self.MLmodel.predict(self.X_pars),self.y_pars)
-        #print('Training MAE for params:', self.TMAE)
+        print('Training MAE on SIR params:', self.TMAE)
         return self
     
     def predict_pars(self,X):
-        return self.MLmodel.predict(X[:,self.lookback_days:-1])
+        return self.MLmodel.predict(X[:,self.lookback_days+1:-1])
     
     def predict_chunk(self,X_chunk):
         y_chunk=[]
@@ -211,7 +211,12 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             N=X_chunk[i,self.lookback_days+1]
             I0=X_chunk[i,self.lookback_days-1].sum()
             Ic0=X_chunk[i,self.lookback_days]
-            R0=Ic0
+            R0=Ic0-I0
+            
+            #I0=X_chunk[i,self.lookback_days-1-self.infection_days:self.lookback_days-1].sum()
+            #Ic0=X_chunk[i,self.lookback_days]
+            #R0=Ic0-I0
+            
             S0=N-I0-R0
             x0=(S0,I0,Ic0,R0)
             pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
@@ -220,6 +225,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             time_integ=[0,1]
             I=solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
                         x0,args=(N,beta,gamma),t_eval=time_integ).y[1][1]
+            #I=np.diff(solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
+            #            x0,args=(N,beta,gamma),t_eval=time_integ).y[2])[0]
             y_chunk.append(I)
         return y_chunk
     
@@ -241,7 +248,9 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         check_X_y(X_test,y_test)
         y_pred=self.predict(X_test)
         # Take negative to mean "score"
-        return -mae(y_pred,y_test)
+        cases_mae=mae(y_pred,y_test)
+        print('Training MAE on cases:',cases_mae)
+        return -cases_mae
 
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
