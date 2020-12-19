@@ -7,6 +7,8 @@ import pickle
 import logging
 import argparse
 from time import time
+from itertools import product
+
 
 import numpy as np
 import pandas as pd
@@ -75,6 +77,8 @@ if __name__ == '__main__':
     models = train_config['models']
     countries = train_config['countries']
     drop_columns_with_Nan = eval(config_data['drop_columns_with_Nan'])
+    pre_fit_params=eval(config_data['pre_fit_params'])
+    keep_df_index=eval(config_data['keep_df_index'])
     # Additional Columns adder
     adj_cols_fixed = config_data['adj_cols_fixed']
     adj_cols_time = config_data['adj_cols_time']
@@ -109,12 +113,18 @@ if __name__ == '__main__':
                                       lookback_days=lookback_days,
                                       adj_cols_fixed=adj_cols_fixed,
                                       adj_cols_time=adj_cols_time,
-                                      keep_df_index=True)
+                                      keep_df_index=keep_df_index)
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
                                                         test_size=0.2,
                                                         random_state=301)
+    if pre_fit_params: 
+        precomp_df_pars= SIR_predictor(new_df,moving_average=True, lookback_days=lookback_days, 
+                                       infection_days=7, semi_fit=7, nprocs=26 
+                                      ).fit(X_train,y_train).SFmodel.df_pars
+    else:
+        precomp_df_pars=None
 
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():
@@ -124,14 +134,45 @@ if __name__ == '__main__':
 
         for param in models[model_name]:
             param_grid[param] = eval(param_grid[param])
-
-        gcv = GridSearchCV(estimator=model,
+        if 'xgb_gamma' in param_grid.keys():
+            gammas=param_grid['xgb_gamma']
+        else:
+            gammas=[0.2]
+        if 'xgb_learning_rate' in param_grid.keys():
+            larates=param_grid['xgb_learning_rate']
+        else:
+            lrates=[0.2]
+        if 'xgb_max_depth' in param_grid.keys():
+            mdeps=param_grid['xgb_max_depth']
+        else:
+            mdeps=[2]
+        if 'xgb_n_estimators' in param_grid.keys():
+            nestims=param_grid['xgb_n_estimators']
+        else:
+            nestims=[10]
+        if 'xgb_subsample' in param_grid.keys():
+            ssamples=param_grid['xgb_subsample']
+        else:
+            ssamples=[1]
+        
+        mcombs=[]
+        for comb in product(gammas,lrates,mdeps,nestims,ssamples):
+            mcombs.append('MultiOutputRegressor(xgb.XGBRegressor(gamma={},learning_rate={},max_depth={},n_estimators={},subsample={}))'.format(*comb))
+    
+        param_grid={'semi_fit':[7],
+           'infection_days':[7],
+           'MLmodel':mcombs}
+        gcv=GridSearchCV(estimator=SIR_predictor(df, moving_average=True, lookback_days=lookback_days, 
+                                             infection_days=7, semi_fit=7, nprocs=26, 
+                                             pre_computed=precomp_df_pars),
                            param_grid=param_grid,
                            scoring=None,  # TODO
                            n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
                            cv=2,          # None is K=5 fold CV
                            refit=True,
+                   verbose=1
                            )
+
 
         # Fit the GridSearch
         gcv.fit(X_train, y_train)

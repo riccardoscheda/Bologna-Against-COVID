@@ -9,9 +9,13 @@ from time import time
 
 import pandas as pd
 
+import sys
+sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-3]))
+from pipeline.utils import mae, create_dataset, skl_format
+from pipeline.utils import add_temp, add_population_data, add_HDI
+
 import plot
 from predict import my_predict_df
-from utils import mae, create_dataset, skl_format, add_temp
 
 # Keep only columns of interest
 id_cols = ['CountryName',
@@ -66,6 +70,7 @@ if __name__ == '__main__':
 
     moving_average = eval(test_config['moving_average'])  # it's a string in json, we want bool
     drop_columns_with_Nan = eval(config_data['drop_columns_with_Nan'])
+    keep_df_index=eval(config_data['keep_df_index'])
     models_input_files = test_config['models_input_files']
     countries = test_config['countries']
 
@@ -89,7 +94,8 @@ if __name__ == '__main__':
                                  adj_cols_fixed=adj_cols_fixed,
                                  path_to_ips_file=input_dataset,
                                  model_input_file=model,
-                                 verbose=False
+                                 verbose=False,
+                                 keep_df_index=keep_df_index,
                                  )
 
         preds_df['Model'] = model.split(os.sep)[-1].split('.')[0]

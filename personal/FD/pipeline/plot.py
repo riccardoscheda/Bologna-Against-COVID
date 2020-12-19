@@ -4,7 +4,10 @@ from bokeh.models import ColumnDataSource, CustomJS, CDSView, Select, IndexFilte
 from bokeh.io import save
 from bokeh.layouts import column
 from datetime import timedelta
-from utils import create_dataset
+
+import sys, os
+sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-3]))
+from pipeline.utils import create_dataset
 
 
 def covid_plot(cases_file, preds_file):

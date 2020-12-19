@@ -1,26 +1,28 @@
 {
 	"train": {
-			"input_file" : "data/data.csv",
+			"input_file" : "./data/data.csv",
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : ["Italy", "Spain", "France", "Germany"],
+			"countries" : "",
 		  "start_date" : "2020-01-01",
 		  "end_date" : "2020-10-15",
 
 			"models" : {
 
 					"SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=26)":
-                {"semi_fit":"[3,7]"}
+                {"semi_fit":"[7]",
+                "xgb_learning_rates":"[0.2]",
+                 "xgb_n_estimators":"[10,150]"}
 
 		}
 	},
 
 	"test" : {
-			"input_file" : "data/data.csv",
-			"output_file" : "data/predictions.csv",
+			"input_file" : "./data/data.csv",
+			"output_file" : "./data/predictions.csv",
 
-			"models_input_files": ["models/Lasso.pkl","models/LinearRegression.pkl"],
+			"models_input_files": ["models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=2.pkl"],
 
 			"moving_average" : "True",
 			"countries" : ["Italy", "Spain", "France", "Germany"],
@@ -30,6 +32,8 @@
 
 	"drop_columns_with_Nan" : "False",
 	"lookback_days" : 30,
+    "pre_fit_params":"True",
+    "keep_df_index":"True",
 	"adj_cols_fixed" : ["ConfirmedCases","Population"],
 	"adj_cols_time" : ["TemperatureC"]
 }

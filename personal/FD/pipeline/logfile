@@ -10936,3 +10936,392 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 2020-12-18 17:34:22,119 INFO     NumExpr defaulting to 8 threads.
 2020-12-18 17:35:38,982 INFO     Saving model in models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=2.pkl
 2020-12-18 17:35:39,036 INFO     Elapsed time: 77.2506697177887
+2020-12-19 13:54:24,673 INFO     ################### TRAINING ##################
+2020-12-19 13:54:24,673 INFO     Loading config.json...
+2020-12-19 13:54:53,261 INFO     ################### TRAINING ##################
+2020-12-19 13:54:53,262 INFO     Loading config.json...
+2020-12-19 13:54:53,552 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 13:54:53,552 INFO     NumExpr defaulting to 8 threads.
+2020-12-19 13:55:59,956 INFO     ################### TRAINING ##################
+2020-12-19 13:55:59,957 INFO     Loading config.json...
+2020-12-19 13:56:00,242 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 13:56:00,242 INFO     NumExpr defaulting to 8 threads.
+2020-12-19 13:56:45,014 INFO     ################### TRAINING ##################
+2020-12-19 13:56:45,015 INFO     Loading config.json...
+2020-12-19 13:56:45,296 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 13:56:45,296 INFO     NumExpr defaulting to 8 threads.
+2020-12-19 13:57:34,783 INFO     ################### TRAINING ##################
+2020-12-19 13:57:34,784 INFO     Loading config.json...
+2020-12-19 13:57:35,079 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 13:57:35,079 INFO     NumExpr defaulting to 8 threads.
+2020-12-19 13:58:02,806 INFO     Saving model in models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=3,nprocs=2.pkl
+2020-12-19 13:58:02,982 INFO     Elapsed time: 28.19798493385315
+2020-12-19 14:18:23,116 INFO     ################ TESTING ###################
+2020-12-19 14:18:23,117 INFO     Loading config.json...
+2020-12-19 14:18:23,957 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-19 14:18:24,002 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 14:18:24,002 INFO     NumExpr defaulting to 8 threads.
+2020-12-19 14:18:26,462 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,475 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,487 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,499 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,511 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,522 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,534 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,545 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,557 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,569 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,580 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,592 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,603 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,614 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,625 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,635 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,646 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,656 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,667 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,677 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,688 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,698 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,709 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,719 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,730 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,740 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,751 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,762 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:26,772 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,084 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,095 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,106 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,116 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,127 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,151 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,162 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,172 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,183 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,193 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,204 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,214 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,225 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,235 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,246 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,256 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,267 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,277 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,288 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,298 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,309 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,319 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,329 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,340 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,350 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,361 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,589 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,601 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,611 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,936 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,947 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,957 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,967 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,978 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,988 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:27,998 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,009 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,019 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,029 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,039 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,050 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,060 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,070 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,081 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,091 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,101 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,111 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,137 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,162 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,175 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,196 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,206 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,216 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,229 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,240 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,250 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,261 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,271 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,583 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,593 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,603 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,614 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,624 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,634 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,645 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,656 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,671 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,684 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,695 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,705 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,715 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,726 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,736 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,746 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,756 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,767 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,777 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,787 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,797 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,808 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,818 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,828 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,839 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,849 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,859 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,870 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:28,880 WARNING  /home/PERSONALE/francesco.durazzi2/projects/unibocovid/Bologna-Against-COVID/personal/FD/pipeline/predict.py:297: VisibleDeprecationWarning: Creating an ndarray from ragged nested sequences (which is a list-or-tuple of lists-or-tuples-or ndarrays with different lengths or shapes) is deprecated. If you meant to do this, you must specify 'dtype=object' when creating the ndarray
+  X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+
+2020-12-19 14:18:29,227 INFO     Saved to ./data/predictions.csv
+2020-12-19 14:18:29,227 INFO     Plotting in plot.html
+2020-12-19 14:18:34,625 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/lib/python3.7/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-19 14:18:34,626 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/lib/python3.7/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-19 14:18:36,023 INFO     Elapsed time:12.905846357345581
+2020-12-19 14:22:40,798 INFO     ################### TRAINING ##################
+2020-12-19 14:22:40,799 INFO     Loading config.json...
+2020-12-19 14:23:01,863 INFO     ################### TRAINING ##################
+2020-12-19 14:23:01,864 INFO     Loading config.json...
+2020-12-19 14:23:02,153 INFO     Note: NumExpr detected 32 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+2020-12-19 14:23:02,153 INFO     NumExpr defaulting to 8 threads.

@@ -10,6 +10,7 @@ import time
 import sys, os
 from sklearn.model_selection import GridSearchCV
 from itertools import product
+import json
 #from os.path import pardir, sep 
 sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-2]))
 from pipeline.custom_models import SIR_fitter, SIR_predictor
@@ -87,10 +88,10 @@ X_train, X_test, y_train, y_test = train_test_split(X_samples,
 precomp_df_pars=SIR_predictor(df,moving_average=True,lookback_days=lookback_days,infection_days=7,
                  semi_fit=7,nprocs=26).fit(X_train,y_train).SFmodel.df_pars
 
-gammas=[0,0.1]#,0.2,0.5]
-lrates=[0.05]#,0.1,0.2]
+gammas=[0,0.1,0.2,0.5]
+lrates=[0.05,0.1,0.2]
 mdeps=[2,3]
-nestims=[10]#,50,100]
+nestims=[10,50,100]
 ssamples=[.25,.5,1]
 mcombs=[]
 for comb in product(gammas,lrates,mdeps,nestims,ssamples):
@@ -104,7 +105,7 @@ gcv = GridSearchCV(estimator=SIR_predictor(df,moving_average=True,lookback_days=
                            param_grid=param_grid,
                            scoring=None,  # TODO
                            n_jobs=14,      # -1 is ALL PROCESSOR AVAILABLE
-                           cv=3,          # None is K=5 fold CV
+                           cv=2,          # None is K=5 fold CV
                            refit=False,
                    verbose=3
                            )
@@ -112,5 +113,15 @@ gcv = GridSearchCV(estimator=SIR_predictor(df,moving_average=True,lookback_days=
         # Fit the GridSearch
 gcv.fit(X_train, y_train);
 
+print(gcv.cv_results_)
+df_results=pd.DataFrame.from_dict(dict(gcv.cv_results_))
+try:
+    with open('models/df_gcv.pkl','wb') as f:
+        pickle.dump(df_results,f)
+except Exception as e:
+    print('Exception: {}'.format(e))
+    pass
+#with open('models/gcv.txt', 'w') as fp:
+#    fp.write(str(gcv.cv_results_))
 with open('models/gcv.pkl','wb') as f:
     pickle.dump(gcv.cv_results_,f)

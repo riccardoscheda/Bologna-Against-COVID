@@ -7,7 +7,9 @@ import pickle
 import numpy as np
 import pandas as pd
 
-from utils import mov_avg, create_dataset
+import sys
+sys.path.insert(1,'/'+os.path.join(*os.getcwd().split('/')[:-3]))
+from pipeline.utils import mov_avg, create_dataset
 
 
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -220,7 +222,7 @@ def my_predict_df(countries: list,
                   path_to_ips_file: str, model_input_file: str,
                   adj_cols_time=[],
                   adj_cols_fixed=[],
-                  verbose=True):
+                  verbose=True,keep_df_index=False):
 
     if moving_average:
         CASES_COL = ['MA']
@@ -290,8 +292,15 @@ def my_predict_df(countries: list,
             X_adj_fixed = np.array(geo_adj_fixed[date_mask_fixed][adj_cols_fixed].values)
 
             dates.append(current_date)
+            if keep_df_index:
+                #Add one trivial value to match the shape of SIR_predictor
+                X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+                                X_adj_fixed.flatten(),
+                                X_adj_time.flatten(),
+                                X_npis.flatten(),np.array([1])])
 
-            X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
+            else:
+                X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
                                 X_adj_fixed.flatten(),
                                 X_adj_time.flatten(),
                                 X_npis.flatten()])
