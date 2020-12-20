@@ -6,17 +6,35 @@
 			"moving_average" : "True",
 			"countries" : ["Italy"],
 		  "start_date" : "2020-01-01",
-		  "end_date" : "2020-12-15",
+		  "end_date" : "2020-11-01",
 
 			"models" : {
 					"LSTM()" : {
-										  "epochs" : "[500]",
-											"units" : "[100]",
-											"batch_size" : "[8]",
+										  "epochs" : "[1000]",
+											"units" : "[10,20,50,100,200]",
+											"batch_size" : "[8,16,32]",
 											"activation" : "['tanh']",
-											"loss" : "['mean_absolute_error']",
+											"loss" : "['mean_squared_error','mean_absolute_error']",
 											"verbose" : "[0]",
-											"learning_rate" : "[1.]"
+											"learning_rate" : "[0.1,0.01,0.001]"
+					},
+					"RandomForestRegressor()" : {
+																			"n_estimators" : "[200, 400, 600, 800, 1000, 1200, 1400, 1600, 1800, 2000]",
+																			"criterion" : "mae","mse",
+																			"bootstrap": "[True, False]",
+	 																		"max_depth": "[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, None]",
+	 																		"max_features": "['auto', 'sqrt']",
+	 																		"min_samples_leaf": "[1, 2, 4]",
+	 																		"min_samples_split": "[2, 5, 10]"
+					},
+					"XGBRegressor()" : {
+															"min_child_weight": "[1, 5, 10]",
+        											"gamma": "[0.5, 1, 1.5, 2, 5]",
+        											"subsample": "[0.6, 0.8, 1.0]",
+        											"colsample_bytree": "[0.6, 0.8, 1.0]",
+        											"max_depth": "[3, 4, 5]",
+															"alpha" : "[0.,0.1,0.2,0.5,1.]"
+
 					}
 
 		}
@@ -31,7 +49,7 @@
 			"moving_average" : "True",
 			"countries" : ["Italy"],
 			"start_date" : "2020-03-01",
-			"end_date" : "2020-12-08"
+			"end_date" : "2020-05-01"
 	},
 
 	"lookback_days" : 30,

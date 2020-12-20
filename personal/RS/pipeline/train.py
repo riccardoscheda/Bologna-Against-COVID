@@ -10,7 +10,8 @@ from time import time
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression, Lasso
+from sklearn.linear_model import LinearRegression, Lasso,RandomForestRegressor
+from xgboost import XGBCRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
@@ -140,9 +141,9 @@ if __name__ == '__main__':
             models[model_name]['features'] = f'[{n_features}]'
 
             # Reshape to make Keras Happy
-            X_samples = X_samples.reshape(-1, lookback_days, n_features)
-            X_test = X_test.reshape(-1, lookback_days, n_features)
-            X_train = X_train.reshape(-1, lookback_days, n_features)
+            X_samples = X_samples.reshape(-1,n_features,lookback_days).transpose(0,2,1)
+            X_test = X_test.reshape(-1,n_features,lookback_days).transpose(0,2,1)
+            X_train = X_train.reshape(-1,n_features,lookback_days).transpose(0,2,1)
 
         else:
             model = eval(model_name)
@@ -154,9 +155,9 @@ if __name__ == '__main__':
 
         gcv = GridSearchCV(estimator=model,
                            param_grid=param_grid,
-                           scoring='neg_mean_absolute_error',     # Added scorers on the top of the file, see: https://stackoverflow.com/questions/60643832/if-no-scoring-is-specified-the-estimator-passed-should-have-a-score-method
+                           scoring='neg_mean_absolute_error',     
                            n_jobs=1,         # -1 is ALL PROCESSOR AVAILABLE
-                           cv=5,             # None is K=5 fold CV
+                           cv=2,             # None is K=5 fold CV
                            refit=True,
                            )
 

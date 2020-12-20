@@ -6,8 +6,8 @@ import os
 import numpy as np
 import pandas as pd
 from tensorflow.keras.models import Model
-from tensorflow.keras.layers import Dense, LSTM, Input
-from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.layers import Dense, LSTM, Input, Flatten
+from tensorflow.keras.optimizers import Adam,RMSprop
 
 # Keep only columns of interest
 id_cols = ['CountryName',
@@ -189,19 +189,30 @@ def create_model(lookback_days,
                  learning_rate=0.1
                  ):
 
+
     inp = Input(shape=(lookback_days, features))
     lstm1 = LSTM(units=units,
                  activation=activation,
                  return_sequences=False,
                  return_state=False
                  )(inp)
-    dense = Dense(units=1, activation='relu')(lstm1)
+    flat = Flatten()(lstm1)
+    dense1 = Dense(units=8,activation='relu')(lstm1)
+    dense = Dense(units=1, activation='relu')(dense1)
 
-    opt = Adam(learning_rate=learning_rate,
-               beta_1=.9,
-               beta_2=.999,
+    #
+    # opt = Adam(learning_rate=learning_rate,
+    #            beta_1=.9,
+    #            beta_2=.999,
+    #            epsilon=1e-7,
+    #            amsgrad=False,
+    #            )
+    opt = RMSprop(learning_rate=learning_rate,
+               rho=.9,
+               #decay=0.1,
                epsilon=1e-7,
-               amsgrad=False,
+               momentum=.0,
+               centered=False,
                )
     model = Model(inputs=[inp], outputs=[dense])
     model.compile(loss=loss, optimizer=opt)

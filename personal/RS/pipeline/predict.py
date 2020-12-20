@@ -310,7 +310,8 @@ def my_predict_df(countries: list,
             # Make the prediction (reshape so that sklearn is happy)
             if 'LSTM' in model_input_file:
                 features = len(CASES_COL + adj_cols_time + adj_cols_fixed + NPI_COLS)
-                X_tf = X.reshape(-1, NB_LOOKBACK_DAYS, features).astype('float32')
+                X_tf = X.reshape(-1, features, NB_LOOKBACK_DAYS).transpose(0, 2, 1).astype('float32')
+                
                 pred = model.predict(X_tf)[0, 0]
 
             else:
