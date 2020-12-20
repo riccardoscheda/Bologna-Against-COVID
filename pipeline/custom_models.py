@@ -194,6 +194,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         # remove last column (df.index)
         # remove first lookback_days columns: not using cases to predict parameters
         self.X_pars=self.X_pars[:,self.lookback_days+1:-1]
+        #self.X_pars=self.X_pars[:,:-1]
         
         self.MLmodel=eval(str(self.MLmodel))
         #print('\n ML model: ',type(self.MLmodel))
@@ -204,6 +205,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     
     def predict_pars(self,X):
         return self.MLmodel.predict(X[:,self.lookback_days+1:-1])
+        #return self.MLmodel.predict(X[:,:-1])
     
     def predict_chunk(self,X_chunk):
         y_chunk=[]
@@ -213,12 +215,13 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             Ic0=X_chunk[i,self.lookback_days]
             R0=Ic0-I0
             
-            #I0=X_chunk[i,self.lookback_days-1-self.infection_days:self.lookback_days-1].sum()
+            #I0=X_chunk[i,self.lookback_days-self.infection_days:self.lookback_days].sum()
             #Ic0=X_chunk[i,self.lookback_days]
             #R0=Ic0-I0
             
             S0=N-I0-R0
             x0=(S0,I0,Ic0,R0)
+            #print(x0)
             pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
             beta=pars[0][0]
             gamma=pars[0][1]

@@ -119,13 +119,7 @@ if __name__ == '__main__':
                                                         y_samples,
                                                         test_size=0.2,
                                                         random_state=301)
-    if pre_fit_params: 
-        precomp_df_pars= SIR_predictor(new_df,moving_average=True, lookback_days=lookback_days, 
-                                       infection_days=7, semi_fit=7, nprocs=26 
-                                      ).fit(X_train,y_train).SFmodel.df_pars
-    else:
-        precomp_df_pars=None
-
+    
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():
 
@@ -159,18 +153,28 @@ if __name__ == '__main__':
         for comb in product(gammas,lrates,mdeps,nestims,ssamples):
             mcombs.append('MultiOutputRegressor(xgb.XGBRegressor(gamma={},learning_rate={},max_depth={},n_estimators={},subsample={}))'.format(*comb))
     
-        param_grid={'semi_fit':[7],
-           'infection_days':[7],
+        param_grid={'semi_fit':param_grid['semi_fit'],
+           'infection_days':param_grid['infection_days'],
            'MLmodel':mcombs}
-        gcv=GridSearchCV(estimator=SIR_predictor(df, moving_average=True, lookback_days=lookback_days, 
+        
+        if pre_fit_params: 
+            precomp_df_pars= SIR_predictor(new_df,moving_average=True, lookback_days=lookback_days, 
+                                       infection_days=param_grid['infection_days'][0],
+                                       semi_fit=param_grid['semi_fit'][0], nprocs=26 
+                                      ).fit(X_train,y_train).SFmodel.df_pars
+        else:
+            precomp_df_pars=None
+
+        gcv=GridSearchCV(estimator=SIR_predictor(new_df, moving_average=True, 
+                                                 lookback_days=lookback_days, 
                                              infection_days=7, semi_fit=7, nprocs=26, 
                                              pre_computed=precomp_df_pars),
                            param_grid=param_grid,
                            scoring=None,  # TODO
-                           n_jobs=1,      # -1 is ALL PROCESSOR AVAILABLE
+                           n_jobs=8,      # -1 is ALL PROCESSOR AVAILABLE
                            cv=2,          # None is K=5 fold CV
                            refit=True,
-                   verbose=1
+                   verbose=2
                            )
 
 

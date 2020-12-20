@@ -231,6 +231,8 @@ def my_predict_df(countries: list,
 
     with open(model_input_file, 'rb') as model_file:
         model = pickle.load(model_file)
+        
+    print('Model: ',model.best_params_)
 
     start_date = pd.to_datetime(start_date_str, format='%Y-%m-%d')
     end_date = pd.to_datetime(end_date_str, format='%Y-%m-%d')
@@ -299,7 +301,7 @@ def my_predict_df(countries: list,
                                 X_adj_time.flatten(),
                                 X_npis.flatten(),np.array([1])])
                 #Sum all previous cases to fill column ConfirmedCases
-                X[NB_LOOKBACK_DAYS]=sum(X_cases)
+                X[NB_LOOKBACK_DAYS]=sum(X_cases)[0]
                 #print(sum(X_cases))
 
             else:
