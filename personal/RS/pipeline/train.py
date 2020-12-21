@@ -10,8 +10,11 @@ from time import time
 
 import numpy as np
 import pandas as pd
-from sklearn.linear_model import LinearRegression, Lasso,RandomForestRegressor
-from xgboost import XGBCRegressor
+from sklearn.linear_model import LinearRegression, Lasso, SGDRegressor
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR, LinearSVR
+from sklearn.preprocessing import StandardScaler
+from xgboost import XGBRegressor
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import GridSearchCV
 
@@ -122,6 +125,9 @@ if __name__ == '__main__':
                                       adj_cols_time=adj_cols_time,
                                       )
 
+    scaler = StandardScaler(copy=True)
+    X_samples = scaler.fit_transform(X_samples)
+
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
@@ -155,8 +161,8 @@ if __name__ == '__main__':
 
         gcv = GridSearchCV(estimator=model,
                            param_grid=param_grid,
-                           scoring='neg_mean_absolute_error',     
-                           n_jobs=1,         # -1 is ALL PROCESSOR AVAILABLE
+                           scoring='neg_mean_absolute_error',
+                           n_jobs=-1,        # -1 is ALL PROCESSOR AVAILABLE
                            cv=2,             # None is K=5 fold CV
                            refit=True,
                            )
@@ -192,6 +198,9 @@ if __name__ == '__main__':
         else:
             with open(model_path, 'wb') as model_file:
                 pickle.dump(gcv, model_file)
+
+        with open(os.path.join(models_output_dir, 'scaler.pkl'), 'wb') as f:
+            pickle.dump(scaler, f)
 
         print('Elapsed time: {:.5} s'.format(time() - start))
         logging.info('Elapsed time: ' + str(time() - start))

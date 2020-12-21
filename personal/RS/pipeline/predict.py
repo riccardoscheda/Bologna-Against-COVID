@@ -228,6 +228,8 @@ def my_predict_df(countries: list,
     else:
         CASES_COL = ['NewCases']
 
+    features = len(CASES_COL + adj_cols_time + adj_cols_fixed + NPI_COLS)
+
     print(model_input_file)
     if 'LSTM' in model_input_file:
         model = load_model(model_input_file)
@@ -235,6 +237,9 @@ def my_predict_df(countries: list,
     else:
         with open(model_input_file, 'rb') as model_file:
             model = pickle.load(model_file)
+
+    with open(os.path.join('models', 'scaler.pkl'), 'rb') as f:
+        scaler = pickle.load(f)
 
     start_date = pd.to_datetime(start_date_str, format='%Y-%m-%d')
     end_date = pd.to_datetime(end_date_str, format='%Y-%m-%d')
@@ -307,11 +312,12 @@ def my_predict_df(countries: list,
                                 X_adj_fixed.flatten(),
                                 X_npis.flatten()])
 
+            X = scaler.transform(np.expand_dims(X, axis=0))[0]
+
             # Make the prediction (reshape so that sklearn is happy)
             if 'LSTM' in model_input_file:
-                features = len(CASES_COL + adj_cols_time + adj_cols_fixed + NPI_COLS)
                 X_tf = X.reshape(-1, features, NB_LOOKBACK_DAYS).transpose(0, 2, 1).astype('float32')
-                
+
                 pred = model.predict(X_tf)[0, 0]
 
             else:
