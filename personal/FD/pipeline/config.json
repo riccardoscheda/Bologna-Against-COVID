@@ -4,15 +4,15 @@
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : "",
+			"countries" : ["Italy","France","Netherlands","Austria"],
 		  "start_date" : "2020-01-01",
 		  "end_date" : "2020-10-31",
 
 			"models" : {
 
-					"SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=7,nprocs=26)":
-                {"semi_fit":"[7]",
-                 "infection_days":"[5]",
+					"SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=10,semi_fit=3,nprocs=26)":
+                {"semi_fit":"[3]",
+                 "infection_days":"[10]",
                 "xgb_learning_rates":"[0.2,0.4]",
                  "xgb_n_estimators":"[5,10]",
                 "xgb_max_depth":"[2]",

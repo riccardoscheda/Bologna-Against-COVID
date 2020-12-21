@@ -30,42 +30,52 @@ class SIR_fitter():
         self.semi_fit=semi_fit_days
         self.fit_days=semi_fit_days*2+1
         self.time_integ=np.linspace(-self.semi_fit,self.semi_fit,self.fit_days)
+        #self.time_integ=np.linspace(0,1,2)  # questa
         self.beta_i=beta_i
         self.gamma_i=gamma_i
         self.nprocs=nprocs
         self.moving_average=moving_average
+        self.tempone=np.linspace(0,10000,10001)
         
     def fit_country(self,df_country):
         COL = ['NewCases'] if not self.moving_average else ['MA']
-        X_cols = df_country.columns
-        y_col = COL
         gdf = df_country
         gdf['beta']=np.nan
         gdf['gamma']=np.nan
+        gdf['predicted_cases']=gdf[COL].copy()
         all_case_data = np.array(gdf[COL])
+        target_cases = all_case_data.copy()
         nb_total_days = len(gdf)
         for d,(idx,row) in enumerate(gdf.iterrows()):
             if d>self.semi_fit and d<(nb_total_days-self.semi_fit):
                 N=row.Population
-                X_cases = all_case_data[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
+                # X_cases = all_case_data[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
+                X_true_cases = target_cases[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
                 I0=all_case_data[d-self.semi_fit- self.infection_days: 
-                                                       d-self.semi_fit+1].sum()
-                R0=all_case_data[0:(d-self.semi_fit- self.infection_days)].sum()
-                Ic0=all_case_data[0:(d-self.semi_fit)].sum()
+                                  d-self.semi_fit+1].sum()
+                R0=all_case_data[0:(d-self.semi_fit-self.infection_days)].sum()
+                Ic0=all_case_data[0:(d-self.semi_fit)+1].sum()
                 S0=N-I0-R0
                 x0=(S0,I0,Ic0,R0)
+                time_integ=self.tempone[d-self.semi_fit:d+self.semi_fit+1].reshape(-1)
                 if I0<0:
                     raise ValueError('Infected was {} for population {}'.format(x0[1],N))
                 elif I0<1:
                     popt=np.array([np.nan,np.nan])
                 else:
-                    fintegranda=partial(self.__SIR_integrate,self.time_integ,x0,N)
-                    popt, pcov = curve_fit(fintegranda, self.time_integ, 
-                           X_cases[1:],
-                           p0=[self.beta_i,self.gamma_i],maxfev=5000,bounds=([0.,0.],
-                                                           [np.inf,1.]))
+                    fintegranda=partial(self.__SIR_integrate,time_integ,x0,N)
+                    popt, pcov = curve_fit(fintegranda, time_integ, 
+                            X_true_cases[1:],
+                            p0=[self.beta_i,self.gamma_i],maxfev=5000,bounds=([0.,0.],
+                                                            [np.inf,1.]))
                     gdf.loc[idx,'beta']=popt[0]
-                    gdf.loc[idx,'gamma']=popt[1]                
+                    gdf.loc[idx,'gamma']=popt[1]
+                
+                    if d < nb_total_days-self.semi_fit-1:
+                        fut_integ=self.tempone[d-self.semi_fit:d+self.semi_fit+2]
+                        all_case_data[d+self.semi_fit+1]=fintegranda(fut_integ,
+                                                                     popt[0],popt[1])[-1]
+                        gdf.loc[idx,'predicted_cases']=all_case_data[d+self.semi_fit]
         return gdf
         
         
@@ -150,6 +160,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         self.paral_predict=paral_predict
         self.MLmodel=MLmodel
         self.pre_computed=pre_computed
+        
     
     def SIR_ode(self,t,x0, N, beta, gamma):
         return self._SIR_fitter__SIR_ode(t,x0, N, beta, gamma)
@@ -211,13 +222,13 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         y_chunk=[]
         for i in range(X_chunk.shape[0]):
             N=X_chunk[i,self.lookback_days+1]
-            I0=X_chunk[i,self.lookback_days-1].sum()
-            Ic0=X_chunk[i,self.lookback_days]
-            R0=Ic0-I0
-            
-            #I0=X_chunk[i,self.lookback_days-self.infection_days:self.lookback_days].sum()
+            #I0=X_chunk[i,self.lookback_days-1].sum()
             #Ic0=X_chunk[i,self.lookback_days]
             #R0=Ic0-I0
+            
+            I0=X_chunk[i,self.lookback_days-self.infection_days:self.lookback_days].sum()
+            Ic0=X_chunk[i,self.lookback_days]
+            R0=Ic0-I0
             
             S0=N-I0-R0
             x0=(S0,I0,Ic0,R0)
@@ -226,10 +237,10 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             beta=pars[0][0]
             gamma=pars[0][1]
             time_integ=[0,1]
-            I=solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
-                        x0,args=(N,beta,gamma),t_eval=time_integ).y[1][1]
-            #I=np.diff(solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
-            #            x0,args=(N,beta,gamma),t_eval=time_integ).y[2])[0]
+            #I=solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
+            #            x0,args=(N,beta,gamma),t_eval=time_integ).y[1][1]
+            I=np.diff(solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
+                        x0,args=(N,beta,gamma),t_eval=time_integ).y[2])[-1]
             y_chunk.append(I)
         return y_chunk
     

@@ -119,6 +119,8 @@ if __name__ == '__main__':
                                                         y_samples,
                                                         test_size=0.2,
                                                         random_state=301)
+    #print(X_train.shape)
+    #exit()
     
     # Start looping on models keys, every model cointains: name and param_grid
     for model_name in models.keys():

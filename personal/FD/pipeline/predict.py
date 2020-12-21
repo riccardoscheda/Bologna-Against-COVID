@@ -278,7 +278,7 @@ def my_predict_df(countries: list,
                      (geo_ips.Date >= (start_date - np.timedelta64(NB_LOOKBACK_DAYS, 'D'))))
 
         X_cases = list(geo_cases[date_mask][CASES_COL].values)
-
+        
         while current_date <= end_date:
 
             date_mask_npi = ((geo_ips.Date < current_date) &
@@ -300,10 +300,11 @@ def my_predict_df(countries: list,
                                 X_adj_fixed.flatten(),
                                 X_adj_time.flatten(),
                                 X_npis.flatten(),np.array([1])])
-                #Sum all previous cases to fill column ConfirmedCases
+                #Sum all previous cases to fill column ConfirmedCases (append the new cases at the end)
                 X[NB_LOOKBACK_DAYS]=sum(X_cases)[0]
                 #print(sum(X_cases))
-
+                #print(X.shape)
+                #exit()
             else:
                 X = np.concatenate([np.array(X_cases[-NB_LOOKBACK_DAYS:]).flatten(),
                                 X_adj_fixed.flatten(),
