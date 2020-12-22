@@ -255,9 +255,15 @@ def my_predict_df(countries: list,
 
     country_selection = pd.DataFrame()
 
-    for country in countries:
-        country_mask = df.CountryName == country
-        country_selection = country_selection.append(df[country_mask])
+    if countries:
+        for country in countries:
+            country_mask = df.CountryName == country
+            country_selection = country_selection.append(df[country_mask])
+
+    else:
+        for country in df.CountryName.unique():
+            country_mask = df.CountryName == country
+            country_selection = country_selection.append(df[country_mask])
 
     ips = country_selection[ID_COLS + NPI_COLS]
     cases = country_selection[ID_COLS + CASES_COL]

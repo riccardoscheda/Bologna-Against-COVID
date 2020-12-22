@@ -160,7 +160,7 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
 
             # Take only 1 value per country for fixed feature
             if adj_cols_fixed:
-                X_adj_fixed = all_adj_fixed_data[d - 1]
+                X_adj_fixed = all_adj_fixed_data[d - lookback_days:d]
 
             if adj_cols_time:
                 X_adj_time = all_adj_time_data[d - lookback_days:d]
@@ -197,7 +197,7 @@ def create_model(lookback_days,
                  return_state=False
                  )(inp)
     flat = Flatten()(lstm1)
-    dense1 = Dense(units=8,activation='relu')(lstm1)
+    dense1 = Dense(units=8, activation='relu')(lstm1)
     dense = Dense(units=1, activation='relu')(dense1)
 
     #
@@ -208,12 +208,12 @@ def create_model(lookback_days,
     #            amsgrad=False,
     #            )
     opt = RMSprop(learning_rate=learning_rate,
-               rho=.9,
-               #decay=0.1,
-               epsilon=1e-7,
-               momentum=.0,
-               centered=False,
-               )
+                  rho=.9,
+                  # decay=0.1,
+                  epsilon=1e-7,
+                  momentum=.0,
+                  centered=False,
+                  )
     model = Model(inputs=[inp], outputs=[dense])
     model.compile(loss=loss, optimizer=opt)
 

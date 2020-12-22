@@ -131,7 +131,7 @@ if __name__ == '__main__':
     # Split data into train and test sets
     X_train, X_test, y_train, y_test = train_test_split(X_samples,
                                                         y_samples,
-                                                        test_size=0.2,
+                                                        test_size=0.1,
                                                         random_state=301)
 
     # Start looping on models keys, every model cointains: name and param_grid
@@ -147,9 +147,9 @@ if __name__ == '__main__':
             models[model_name]['features'] = f'[{n_features}]'
 
             # Reshape to make Keras Happy
-            X_samples = X_samples.reshape(-1,n_features,lookback_days).transpose(0,2,1)
-            X_test = X_test.reshape(-1,n_features,lookback_days).transpose(0,2,1)
-            X_train = X_train.reshape(-1,n_features,lookback_days).transpose(0,2,1)
+            X_samples = X_samples.reshape(-1, n_features, lookback_days).transpose(0, 2, 1)
+            X_test = X_test.reshape(-1, n_features, lookback_days).transpose(0, 2, 1)
+            X_train = X_train.reshape(-1, n_features, lookback_days).transpose(0, 2, 1)
 
         else:
             model = eval(model_name)
@@ -162,13 +162,14 @@ if __name__ == '__main__':
         gcv = GridSearchCV(estimator=model,
                            param_grid=param_grid,
                            scoring='neg_mean_absolute_error',
-                           n_jobs=-1,        # -1 is ALL PROCESSOR AVAILABLE
+                           n_jobs=4,         # -1 is ALL PROCESSOR AVAILABLE
                            cv=2,             # None is K=5 fold CV
                            refit=True,
+                           verbose=2
                            )
 
         # Fit the GridSearch
-        gcv.fit(X_samples, y_samples)
+        gcv.fit(X_train, y_train)
 
         # Evaluate model
         # train_preds = gcv.predict(X_test)
