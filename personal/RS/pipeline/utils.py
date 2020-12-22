@@ -167,8 +167,8 @@ def skl_format(df, moving_average=False, lookback_days=30, adj_cols_fixed=[], ad
 
             # Flatten all input data so it fits scikit input format.
             X_sample = np.concatenate([X_cases.flatten(),
-                                       X_adj_fixed.flatten(),
                                        X_adj_time.flatten(),
+                                       X_adj_fixed.flatten(),
                                        X_npis.flatten()])
 
             y_sample = all_case_data[d]

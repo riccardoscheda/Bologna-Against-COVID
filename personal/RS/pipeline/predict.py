@@ -283,7 +283,7 @@ def my_predict_df(countries: list,
         geo_cases = cases[cases['GeoID'] == geo]
 
         # Additional columns
-        geo_adj_time = adj_time_df[adj_fixed_df['GeoID'] == geo]
+        geo_adj_time = adj_time_df[adj_time_df['GeoID'] == geo]
         geo_adj_fixed = adj_fixed_df[adj_fixed_df['GeoID'] == geo]
 
         current_date = start_date

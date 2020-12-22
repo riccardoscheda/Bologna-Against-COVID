@@ -12,9 +12,12 @@
 
 					"XGBRegressor()" : {
 							"booster" : "['gbtree']",
-							"max_depth" : "[7]",
+							"max_depth" : "[13]",
 							"tree_method" : "['hist']",
-							"nthread" : "[4]"
+							"nthread" : "[4]",
+							"gamma": "[0.2]",
+							"eta": "[0.1]",
+							"num_parallel_tree" : "[1]"
 						}
 
 			}
@@ -27,12 +30,12 @@
 			"models_input_files": ["models/XGBRegressor.pkl"],
 
 			"moving_average" : "True",
-			"countries" : ["United States", "Italy", "France", "United Kingdom", "Germany"],
+			"countries" : [],
 			"start_date" : "2020-11-01",
 			"end_date" : "2020-12-20"
 	},
 
 	"lookback_days" : 30,
-	"adj_cols_fixed" : ["Population Density (# per km2)"],
+	"adj_cols_fixed" : ["HDI"],
 	"adj_cols_time" : ["TemperatureC"]
 }
