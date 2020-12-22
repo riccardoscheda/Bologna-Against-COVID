@@ -7,6 +7,7 @@ from scipy.optimize import curve_fit
 from functools import partial
 import multiprocessing as mp
 import pandas as pd
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.linear_model import MultiTaskLassoCV , Lasso
 from sklearn.multioutput import MultiOutputRegressor
 import xgboost as xgb
@@ -53,8 +54,8 @@ class SIR_fitter():
                 X_true_cases = target_cases[d - self.semi_fit:d+self.semi_fit+1].reshape(-1)
                 I0=all_case_data[d-self.semi_fit- self.infection_days: 
                                   d-self.semi_fit+1].sum()
-                R0=all_case_data[0:(d-self.semi_fit-self.infection_days)].sum()
                 Ic0=all_case_data[0:(d-self.semi_fit)+1].sum()
+                R0=Ic0-I0
                 S0=N-I0-R0
                 x0=(S0,I0,Ic0,R0)
                 time_integ=self.tempone[d-self.semi_fit:d+self.semi_fit+1].reshape(-1)
@@ -144,9 +145,9 @@ class SIR_fitter():
         return self
 
 class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
-    def __init__(self, df=None,moving_average=False, 
+    def __init__(self, df=None,moving_average=True, 
                  infection_days=7, semi_fit=3,
-                 beta_i=0.6, gamma_i=1/7,lookback_days=15,
+                 beta_i=0.6, gamma_i=1/7,lookback_days=30,
                  MLmodel= 'MultiOutputRegressor(xgb.XGBRegressor())', 
                  paral_predict=False,pre_computed=None,nprocs=4):
         self.df=df
@@ -205,6 +206,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         # remove last column (df.index)
         # remove first lookback_days columns: not using cases to predict parameters
         self.X_pars=self.X_pars[:,self.lookback_days+1:-1]
+        #print('ML training:',self.X_pars.shape)
+        #exit()
         #self.X_pars=self.X_pars[:,:-1]
         
         self.MLmodel=eval(str(self.MLmodel))
@@ -216,11 +219,21 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
     
     def predict_pars(self,X):
         return self.MLmodel.predict(X[:,self.lookback_days+1:-1])
+        #except Exception as e:
+        #    print(e)
+        #    print(X[:,self.lookback_days+1],X[:,-1])
+        #    print(X[:,self.lookback_days+1:-1].shape)
+        #    exit()
         #return self.MLmodel.predict(X[:,:-1])
     
     def predict_chunk(self,X_chunk):
         y_chunk=[]
         for i in range(X_chunk.shape[0]):
+            pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
+            beta=pars[0][0]
+            gamma=pars[0][1]
+            time_integ=[0,1]
+            
             N=X_chunk[i,self.lookback_days+1]
             #I0=X_chunk[i,self.lookback_days-1].sum()
             #Ic0=X_chunk[i,self.lookback_days]
@@ -233,10 +246,7 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             S0=N-I0-R0
             x0=(S0,I0,Ic0,R0)
             #print(x0)
-            pars=self.predict_pars(X_chunk[i,:].reshape(1,-1))
-            beta=pars[0][0]
-            gamma=pars[0][1]
-            time_integ=[0,1]
+            
             #I=solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
             #            x0,args=(N,beta,gamma),t_eval=time_integ).y[1][1]
             I=np.diff(solve_ivp(self.SIR_ode,[time_integ[0],time_integ[-1]],
@@ -265,7 +275,8 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
         cases_mae=mae(y_pred,y_test)
         print('Training MAE on cases:',cases_mae)
         return -cases_mae
-
+        #return -self.TMAE
+        
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
     ''' Model that use the features to extract SIR parameters and compute predictions. 

@@ -4,7 +4,7 @@
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : ["Italy","France","Netherlands","Austria"],
+			"countries" :"",
 		  "start_date" : "2020-01-01",
 		  "end_date" : "2020-10-31",
 
@@ -13,11 +13,11 @@
 					"SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=10,semi_fit=3,nprocs=26)":
                 {"semi_fit":"[3]",
                  "infection_days":"[10]",
-                "xgb_learning_rates":"[0.2,0.4]",
-                 "xgb_n_estimators":"[5,10]",
+                "xgb_learning_rates":"[0.05,0.2]",
+                 "xgb_n_estimators":"[5,10,50]",
                 "xgb_max_depth":"[2]",
-                 "xgb_gamma":"[0.,.05,0.1]",
-                "xbg_subsample":"[.5,.75,1]"}
+                 "xgb_gamma":"[0.,0.1]",
+                "xbg_subsample":"[.5,1]"}
 
 		}
 	},
@@ -26,12 +26,12 @@
 			"input_file" : "./data/data.csv",
 			"output_file" : "./data/predictions.csv",
 
-			"models_input_files": ["models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=7,semi_fit=7,nprocs=2.pkl"],
+			"models_input_files": ["models/SIR_predictor(df=new_df,moving_average=True,lookback_days=lookback_days,infection_days=10,semi_fit=3,nprocs=2.pkl"],
 
 			"moving_average" : "True",
 			"countries" : ["Italy","France","Germany","Spain","United Kingdom","Brazil"],
-			"start_date" : "2020-10-31",
-			"end_date" : "2020-12-10"
+			"start_date" : "2020-10-20",
+			"end_date" : "2020-11-30"
 	},
 
 	"drop_columns_with_Nan" : "False",
