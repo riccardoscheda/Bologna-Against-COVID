@@ -28961,3 +28961,76 @@ See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stab
 2020-12-22 21:49:12,011 INFO     Elapsed time:17.542876482009888
 2020-12-22 21:52:05,943 INFO     ################### TRAINING ##################
 2020-12-22 21:52:05,944 INFO     Loading config.json...
+2020-12-22 22:26:58,845 INFO     Saving model in models/SIR_predictor(df=new_df,infection_days=5,semi_fit=3,nprocs=2.pkl
+2020-12-22 22:26:58,905 INFO     Elapsed time: 2092.9603934288025
+2020-12-22 22:28:39,894 INFO     ################ TESTING ###################
+2020-12-22 22:28:39,895 INFO     Loading config.json...
+2020-12-22 22:28:40,548 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-22 22:28:49,719 INFO     Saved to ./data/predictions.csv
+2020-12-22 22:28:49,719 INFO     Plotting in plot.html
+2020-12-22 22:28:55,296 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-22 22:28:55,296 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-22 22:28:56,519 INFO     Elapsed time:16.623422384262085
+2020-12-22 22:32:57,279 INFO     ################### TRAINING ##################
+2020-12-22 22:32:57,280 INFO     Loading config.json...
+2020-12-22 22:41:14,684 INFO     Saving model in models/SIR_predictor(df=new_df,infection_days=4,semi_fit=3,nprocs=2.pkl
+2020-12-22 22:41:17,993 INFO     Elapsed time: 500.71282958984375
+2020-12-23 09:40:59,801 INFO     ################ TESTING ###################
+2020-12-23 09:40:59,801 INFO     Loading config.json...
+2020-12-23 09:41:03,433 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:42:06,796 INFO     ################ TESTING ###################
+2020-12-23 09:42:06,797 INFO     Loading config.json...
+2020-12-23 09:42:10,497 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:43:18,816 INFO     ################ TESTING ###################
+2020-12-23 09:43:18,817 INFO     Loading config.json...
+2020-12-23 09:43:22,431 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:44:22,898 INFO     ################ TESTING ###################
+2020-12-23 09:44:22,899 INFO     Loading config.json...
+2020-12-23 09:44:26,500 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:45:33,605 INFO     ################ TESTING ###################
+2020-12-23 09:45:33,605 INFO     Loading config.json...
+2020-12-23 09:45:37,220 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:46:03,241 INFO     ################ TESTING ###################
+2020-12-23 09:46:03,242 INFO     Loading config.json...
+2020-12-23 09:46:06,873 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:46:28,305 INFO     ################ TESTING ###################
+2020-12-23 09:46:28,306 INFO     Loading config.json...
+2020-12-23 09:46:31,940 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:48:51,155 INFO     ################ TESTING ###################
+2020-12-23 09:48:51,156 INFO     Loading config.json...
+2020-12-23 09:48:54,789 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 09:54:15,330 INFO     Saved to ./data/predictions.csv
+2020-12-23 09:54:15,330 INFO     Plotting in plot.html
+2020-12-23 09:54:20,830 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-23 09:54:20,830 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-23 09:54:22,203 INFO     Elapsed time:331.04706501960754
+2020-12-23 10:00:19,748 INFO     ################ TESTING ###################
+2020-12-23 10:00:19,749 INFO     Loading config.json...
+2020-12-23 10:00:23,360 WARNING  sys:1: DtypeWarning: Columns (3) have mixed types.Specify dtype option on import or set low_memory=False.
+
+2020-12-23 10:00:59,435 INFO     Saved to ./data/predictions.csv
+2020-12-23 10:00:59,436 INFO     Plotting in plot.html
+2020-12-23 10:01:04,996 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:126: UserWarning: save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN
+  warn("save() called but no resources were supplied and output_file(...) was never called, defaulting to resources.CDN")
+
+2020-12-23 10:01:04,997 WARNING  /home/PERSONALE/francesco.durazzi2/anaconda3/envs/xprize/lib/python3.7/site-packages/bokeh/io/saving.py:139: UserWarning: save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'
+  warn("save() called but no title was supplied and output_file(...) was never called, using default title 'Bokeh Plot'")
+
+2020-12-23 10:01:06,350 INFO     Elapsed time:46.60041379928589

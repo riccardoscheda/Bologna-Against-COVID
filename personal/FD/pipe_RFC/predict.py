@@ -275,6 +275,10 @@ def my_predict_df(countries: list,
         current_date = start_date
         preds = []
         dates = []
+        beta_preds=[]
+        gamma_preds=[]
+        beta_trues=[]
+        gamma_trues=[]
 
         # Date are between start_date - lookback_days and start_date (prediction)
         date_mask = ((geo_ips.Date < start_date) &
@@ -324,11 +328,28 @@ def my_predict_df(countries: list,
             # Make the prediction (reshape so that sklearn is happy)
             #print('Test shape:',X.shape)
             #exit()
+            par_pred=model.best_estimator_.MLmodel.predict(X.reshape(1,-1)[:,NB_LOOKBACK_DAYS+1:-1])
+            beta_pred=par_pred[0][0]
+            gamma_pred=par_pred[0][1]
+            par_true=model.best_estimator_.df.loc[(model.best_estimator_.df.GeoID==geo) & 
+                                                  (model.best_estimator_.df.Date==current_date),
+                                                  ['beta','gamma']]
+            try:
+                beta_true=par_true.iloc[0,0]
+                gamma_true=par_true.iloc[0,1]
+            except IndexError:
+                #There's no true for test set rows: take the previous day/iteration
+                pass
             pred = model.predict(X.reshape(1, -1))[-1]
             #print('Pred:',pred)
             pred = np.maximum(pred, 0)
             preds.append(pred)
             X_cases.append(pred)
+            beta_preds.append(beta_pred)
+            gamma_preds.append(gamma_pred)
+            beta_trues.append(beta_true)
+            gamma_trues.append(gamma_true)
+            
             current_date = current_date + np.timedelta64(1, 'D')
 
         geo_pred_df["PredictedDailyNewCases"] = preds
@@ -336,7 +357,11 @@ def my_predict_df(countries: list,
         geo_pred_df["RegionName"] = region
         geo_pred_df["Date"] = dates
         geo_pred_df["GeoID"] = geo
-
+        geo_pred_df["beta_pred"]=beta_preds
+        geo_pred_df["gamma_pred"]=gamma_preds
+        geo_pred_df["beta_true"]=beta_trues
+        geo_pred_df["gamma_true"]=gamma_trues
+        
         tot = tot.append(geo_pred_df)
 
     # Drop GeoID column to match expected output format

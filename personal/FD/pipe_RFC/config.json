@@ -4,17 +4,17 @@
 		  "models_output_dir" : "models",
 
 			"moving_average" : "True",
-			"countries" : ["Italy","France","Netherlands"],
+			"countries" : "",
 		  "start_date" : "2020-01-01",
 		  "end_date" : "2020-11-15",
 
 			"models" : {
 
-					"SIR_predictor(df=new_df,infection_days=5,semi_fit=3,nprocs=26)":
+					"SIR_predictor(df=new_df,infection_days=4,semi_fit=3,nprocs=26)":
                 {"semi_fit":"[3]",
-                 "infection_days":"[4,5,6,7,8,9,10]",
+                 "infection_days":"[4]",
                "rf_n_estimators":"[200,300,400]",
-                "rf_max_depth":"[25,30,35]",
+                "rf_max_depth":"[30,35,40]",
                  "rf_min_samples_split":"[2,3]",
                 "rf_min_samples_leaf":"[1,2]"}
 
@@ -25,17 +25,17 @@
 			"input_file" : "./data/data.csv",
            "output_file" : "./data/predictions.csv",
 
-			"models_input_files": ["models/SIR_predictor(df=new_df,infection_days=5,semi_fit=3,nprocs=2.pkl"],
+			"models_input_files": ["models/SIR_predictor(df=new_df,infection_days=4,semi_fit=3,nprocs=2.pkl"],
 
 			"moving_average" : "True",
-			"countries" : ["Italy","France","Netherlands"],
-			"start_date" : "2020-11-01",
+			"countries" : ["Italy"],
+			"start_date" : "2020-03-01",
 			"end_date" : "2020-12-20"
 	},
 
 	"drop_columns_with_Nan" : "False",
 	"lookback_days" : 30,
-    "pre_fit_params":"False",
+    "pre_fit_params":"True",
     "keep_df_index":"True",
 	"adj_cols_fixed" : ["ConfirmedCases","Population"],
 	"adj_cols_time" : ["TemperatureC"]

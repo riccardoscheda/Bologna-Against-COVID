@@ -269,13 +269,13 @@ class SIR_predictor(BaseEstimator, RegressorMixin, SIR_fitter):
             return y
     
     def score(self,X_test,y_test):
-        check_X_y(X_test,y_test)
-        y_pred=self.predict(X_test)
+        #check_X_y(X_test,y_test)
+        #y_pred=self.predict(X_test)
         # Take negative to mean "score"
-        cases_mae=mae(y_pred,y_test)
-        print('Training MAE on cases:',cases_mae)
-        return -cases_mae
-        #return -self.TMAE
+        #cases_mae=mae(y_pred,y_test)
+        #print('Training MAE on cases:',cases_mae)
+        #return -cases_mae
+        return -self.TMAE
         
 #Questa non ha il fit, non è usabile
 class SIRRegressor(BaseEstimator, RegressorMixin):
